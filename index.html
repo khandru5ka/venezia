@@ -21,7 +21,6 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e2a32;line-height
 }
 .container{max-width:1280px;margin:0 auto;padding:0 24px;}
 
-/* ─── NAV (упрощённая, без бургера но с ссылками) ─── */
 .site-header{background:rgba(255,253,248,0.97);backdrop-filter:blur(10px);box-shadow:0 2px 20px rgba(0,0,0,0.03);position:sticky;top:0;z-index:1000;border-bottom:1px solid rgba(198,161,91,0.18);}
 .navbar{display:flex;align-items:center;justify-content:space-between;padding:20px 0;gap:32px;flex-wrap:wrap;}
 .nav-links{display:flex;gap:28px;flex-wrap:wrap;}
@@ -29,18 +28,19 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e2a32;line-height
 .nav-links a:hover{color:var(--gold-dark);}
 .logo{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;letter-spacing:0.12em;color:var(--deep-blue);text-decoration:none;white-space:nowrap;}
 
-/* hero mini */
 .hero-mini{background:linear-gradient(105deg, #f5efe7 0%, #fef9f0 100%);padding:72px 0 56px;text-align:center;border-bottom:1px solid rgba(198,161,91,0.2);}
 .hero-mini h1{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,58px);font-weight:600;color:var(--deep-blue);line-height:1.1;margin-bottom:16px;}
 .hero-mini p{font-size:16px;color:#6a7c84;max-width:620px;margin:0 auto;font-weight:300;}
 
-/* страницы – сетка карточек */
 .pages-section{padding:72px 0 88px;background:#fff;}
 .section-title{font-size:clamp(28px,3.5vw,44px);font-family:'Playfair Display',serif;margin-bottom:12px;color:var(--deep-blue);text-align:center;}
 .section-sub{text-align:center;color:#6a7c84;max-width:640px;margin:0 auto 48px;font-size:15px;line-height:1.75;}
 .pages-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
 .page-card{background:#fff;border:1px solid rgba(198,161,91,0.2);border-radius:0px;transition:var(--transition);position:relative;overflow:hidden;}
 .page-card:hover{transform:translateY(-6px);box-shadow:0 20px 35px rgba(0,0,0,0.05);border-color:rgba(198,161,91,0.5);}
+/* выделение главной страницы */
+.page-card.featured{border:2px solid var(--gold);background:linear-gradient(135deg, #fffdf9, #fff9f0);}
+.page-card.featured .page-icon{color:var(--gold-dark);}
 .page-card-inner{display:block;text-decoration:none;padding:32px 28px 28px;}
 .page-icon{font-size:32px;margin-bottom:20px;display:inline-block;}
 .page-card h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--deep-blue);margin-bottom:10px;}
@@ -49,7 +49,6 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e2a32;line-height
 .page-link::after{content:"→";transition:transform 0.2s;}
 .page-card:hover .page-link::after{transform:translateX(4px);}
 
-/* футер (адаптирован) */
 .footer{background:#0f1a1f;color:#cfdde3;padding:56px 0 24px;margin-top:0;}
 .footer-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:48px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.06);}
 .footer-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:600;color:var(--gold);letter-spacing:0.14em;margin-bottom:12px;}
@@ -69,7 +68,6 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e2a32;line-height
 </head>
 <body>
 
-<!-- HEADER с навигацией по главным страницам -->
 <header class="site-header">
   <div class="container">
     <div class="navbar">
@@ -86,7 +84,6 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e2a32;line-height
   </div>
 </header>
 
-<!-- МИНИ-HERO -->
 <section class="hero-mini">
   <div class="container">
     <h1>Многофункциональный центр «Венеция»</h1>
@@ -94,12 +91,21 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e2a32;line-height
   </div>
 </section>
 
-<!-- СЕТКА СТРАНИЦ -->
 <section class="pages-section">
   <div class="container">
     <h2 class="section-title">Все страницы проекта</h2>
     <div class="section-sub">Универмаг, рестораны с панорамой, велнес-клуб, события и полезная информация</div>
     <div class="pages-grid">
+      
+      <!-- ГЛАВНАЯ СТРАНИЦА (выделена) -->
+      <div class="page-card featured">
+        <a href="venecia_v3%20%284%29.html" class="page-card-inner">
+          <div class="page-icon">🏠</div>
+          <h3>Главная страница</h3>
+          <p>Полноценный лендинг МФК «Венеция»: карусель, схема этажей, рестораны и велнес-зона.</p>
+          <span class="page-link">Открыть</span>
+        </a>
+      </div>
       
       <div class="page-card">
         <a href="venecia_brand.html" class="page-card-inner">
@@ -200,20 +206,10 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e2a32;line-height
         </a>
       </div>
       
-      <div class="page-card">
-        <a href="venecia_v3%20%284%29.html" class="page-card-inner">
-          <div class="page-icon">🌟</div>
-          <h3>Венеция (основная)</h3>
-          <p>Главная страница проекта — полный обзор МФК.</p>
-          <span class="page-link">Подробнее</span>
-        </a>
-      </div>
-      
     </div>
   </div>
 </section>
 
-<!-- ФУТЕР -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
@@ -243,7 +239,7 @@ body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e2a32;line-height
         <ul>
           <li><a href="venecia_universam.html">Универмаг</a></li>
           <li><a href="venecia_partners%20%281%29.html">Партнёры</a></li>
-          <li><a href="venecia_v3%20%284%29.html">Основная версия</a></li>
+          <li><a href="venecia_v3%20%284%29.html">Главная страница</a></li>
         </ul>
       </div>
     </div>
