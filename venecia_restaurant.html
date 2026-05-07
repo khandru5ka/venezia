@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Панорамный ресторан — Венеция</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#0f0d0a;
+  --muted:#7a6e62;
+  --cream:#faf8f3;
+  --sand:#f0e9dc;
+  --gold:#c6a15b;
+  --gold-d:#a47c3e;
+  --gold-p:#fdf6eb;
+  --bordo:#4A0B18;
+  --bordo-m:#6B1024;
+  --deep:#1f3e48;
+  --rule:rgba(198,161,91,0.18);
+  --tr:.25s ease;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;}
+.ctr{max-width:1300px;margin:0 auto;padding:0 32px;}
+
+/* ── NAV ── */
+.nav{background:rgba(250,248,243,.97);backdrop-filter:blur(12px);position:sticky;top:0;z-index:200;border-bottom:1px solid var(--rule);}
+.navbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:66px;}
+.nav-l a,.nav-r-links a{font-size:13px;font-weight:500;letter-spacing:.05em;color:var(--muted);text-decoration:none;padding:0 18px;transition:var(--tr);}
+.nav-l a.active,.nav-r-links a.active{color:var(--bordo);}
+.nav-l a:hover,.nav-r-links a:hover{color:var(--bordo);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;letter-spacing:.18em;color:var(--bordo);text-decoration:none;text-align:center;}
+.nav-r{display:flex;justify-content:flex-end;align-items:center;}
+.burger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;width:28px;padding:0;margin-left:8px;}
+.burger span{display:block;height:1.5px;background:var(--ink);border-radius:2px;}
+.side{position:fixed;top:0;right:-320px;width:290px;height:100%;background:#fffdf9;z-index:400;transition:right .35s cubic-bezier(.77,0,.18,1);padding:70px 0 32px;box-shadow:-4px 0 32px rgba(0,0,0,.08);}
+.side.open{right:0;}
+.side a{display:block;font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--bordo);text-decoration:none;padding:14px 32px;border-bottom:1px solid var(--rule);transition:var(--tr);}
+.side a:hover{padding-left:40px;color:var(--gold-d);}
+.side-close{position:absolute;top:20px;right:22px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:300;display:none;}
+.ov.open{display:block;}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{display:flex;gap:8px;align-items:center;padding:18px 0 0;}
+.breadcrumb a{font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:.04em;transition:.15s;}
+.breadcrumb a:hover{color:var(--bordo);}
+.breadcrumb span{font-size:12px;color:rgba(122,110,98,.35);}
+.breadcrumb .cur{font-size:12px;color:var(--ink);font-weight:500;}
+
+/* ── HERO ── */
+.hero{position:relative;height:80vh;min-height:500px;overflow:hidden;background:var(--ink);}
+.hero-bg{width:100%;height:100%;object-fit:cover;object-position:center 50%;display:block;opacity:.62;}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,5,2,.92) 0%,rgba(10,5,2,.45) 45%,transparent 100%);}
+.hero-body{position:absolute;bottom:0;left:0;right:0;padding-bottom:56px;}
+.back-link{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;margin-bottom:24px;transition:var(--tr);}
+.back-link:hover{color:rgba(198,161,91,.8);}
+.hero-group{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(198,161,91,.75);margin-bottom:12px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,6vw,80px);font-weight:400;color:#fff;line-height:.9;letter-spacing:-.02em;margin-bottom:20px;}
+.hero-title em{font-style:italic;color:rgba(230,205,155,.92);}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
+.h-tag{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:5px 13px;border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.7);}
+.h-tag.gold{background:var(--gold);border-color:var(--gold);color:#fff;}
+.hero-meta{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-bottom:28px;}
+.hm-item{font-size:13px;color:rgba(255,255,255,.58);font-weight:300;display:flex;align-items:center;gap:7px;}
+.hm-dot{width:3px;height:3px;background:var(--gold);border-radius:50%;}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.btn-gold{background:var(--gold);color:#fff;border:none;padding:14px 30px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:var(--tr);text-decoration:none;display:inline-block;}
+.btn-gold:hover{background:var(--gold-d);}
+.btn-ghost-w{background:transparent;color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.28);padding:13px 24px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:var(--tr);text-decoration:none;display:inline-block;}
+.btn-ghost-w:hover{border-color:var(--gold);color:var(--gold);}
+/* open indicator */
+.open-badge{position:absolute;top:28px;right:32px;display:flex;align-items:center;gap:7px;background:rgba(0,0,0,.45);backdrop-filter:blur(8px);padding:8px 16px;border:1px solid rgba(255,255,255,.15);}
+.open-dot{width:7px;height:7px;border-radius:50%;background:#3d9970;}
+.open-text{font-size:12px;color:rgba(255,255,255,.78);font-weight:500;letter-spacing:.04em;}
+
+/* ── TWO-COL LAYOUT ── */
+.layout{display:grid;grid-template-columns:1fr 360px;gap:0;align-items:start;padding:0 0 80px;}
+.main-col{padding:52px 56px 0 0;border-right:1px solid var(--rule);}
+.sidebar{padding:52px 0 0 48px;position:sticky;top:80px;}
+
+/* ── GALLERY ── */
+.gallery{margin-bottom:52px;}
+.gal-grid{display:grid;grid-template-columns:2fr 1fr;gap:3px;height:440px;}
+.gal-main{overflow:hidden;cursor:pointer;position:relative;}
+.gal-main-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s ease;}
+.gal-main:hover .gal-main-img{transform:scale(1.03);}
+.gal-thumbs{display:grid;grid-template-rows:repeat(3,1fr);gap:3px;}
+.gal-thumb{overflow:hidden;cursor:pointer;}
+.gal-thumb img{width:100%;height:100%;object-fit:cover;display:block;opacity:.82;transition:.3s;}
+.gal-thumb:hover img{opacity:1;transform:scale(1.04);}
+.gal-count{position:absolute;bottom:14px;right:14px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);font-size:11px;color:rgba(255,255,255,.8);padding:5px 12px;letter-spacing:.06em;}
+
+/* ── ABOUT ── */
+.section-eyebrow{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-d);margin-bottom:14px;}
+.about-text{font-size:15px;color:#5a6e76;font-weight:300;line-height:1.9;}
+.about-text p+p{margin-top:14px;}
+.about-rule{width:40px;height:1.5px;background:var(--gold);margin:24px 0;}
+
+/* ── MENU PREVIEW ── */
+.menu-section{margin:52px 0;}
+.menu-cats{display:flex;gap:0;border-bottom:1px solid var(--rule);margin-bottom:24px;overflow-x:auto;scrollbar-width:none;}
+.menu-cats::-webkit-scrollbar{display:none;}
+.mc-btn{background:transparent;border:none;border-bottom:2px solid transparent;padding:10px 20px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;white-space:nowrap;margin-bottom:-1px;transition:var(--tr);}
+.mc-btn:hover{color:var(--ink);}
+.mc-btn.active{color:var(--bordo);border-bottom-color:var(--gold);}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--rule);}
+.dish{background:#fff;display:flex;gap:14px;padding:16px 18px;transition:var(--tr);cursor:pointer;}
+.dish:hover{background:var(--gold-p);}
+.dish-img{width:72px;height:72px;overflow:hidden;flex-shrink:0;}
+.dish-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.dish-img-ph{width:100%;height:100%;background:var(--sand);display:flex;align-items:center;justify-content:center;font-size:24px;}
+.dish-body{flex:1;display:flex;flex-direction:column;justify-content:center;}
+.dish-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:4px;line-height:1.2;}
+.dish-desc{font-size:11px;color:var(--muted);font-weight:300;line-height:1.55;}
+.dish-price{font-size:13px;font-weight:600;color:var(--bordo);margin-top:6px;}
+.menu-footer{text-align:center;padding:20px 0;border-top:1px solid var(--rule);}
+.menu-pdf{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--bordo);text-decoration:none;border-bottom:1px solid rgba(74,11,24,.2);padding-bottom:2px;}
+
+/* ── FORMATS ── */
+.formats-section{margin:52px 0;}
+.formats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--rule);}
+.fmt{background:#fff;padding:24px 22px;border-top:2px solid transparent;transition:var(--tr);}
+.fmt:hover{background:var(--gold-p);border-top-color:var(--gold);}
+.fmt-icon{font-size:22px;margin-bottom:12px;}
+.fmt-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--bordo);margin-bottom:6px;}
+.fmt-desc{font-size:12px;color:var(--muted);line-height:1.65;font-weight:300;}
+.fmt-time{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-d);background:var(--gold-p);border:1px solid rgba(198,161,91,.35);padding:3px 10px;margin-top:10px;}
+
+/* ── NEARBY RESTOS ── */
+.nearby-section{padding:52px 0 0;border-top:1px solid var(--rule);}
+.nearby-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.nearby-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--deep);}
+.nearby-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--rule);}
+.nr{background:#fff;cursor:pointer;transition:var(--tr);text-decoration:none;color:inherit;display:block;}
+.nr:hover{background:var(--cream);}
+.nr:hover .nr-img-i{transform:scale(1.04);}
+.nr-img{height:130px;overflow:hidden;}
+.nr-img-i{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;}
+.nr-body{padding:14px 16px;}
+.nr-group{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-d);margin-bottom:4px;}
+.nr-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--bordo);margin-bottom:3px;}
+.nr-price{font-size:11px;color:var(--muted);}
+
+/* ── SIDEBAR ── */
+.sb-book{background:var(--bordo);padding:28px;margin-bottom:14px;}
+.sb-book-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#fff;margin-bottom:18px;letter-spacing:-.01em;}
+.bw-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:5px;}
+.bw-field{margin-bottom:10px;}
+.bw-sel,.bw-inp{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:10px 13px;font-family:'Raleway',sans-serif;font-size:13px;color:#fff;outline:none;transition:var(--tr);appearance:none;-webkit-appearance:none;}
+.bw-sel:focus,.bw-inp:focus{border-color:rgba(198,161,91,.55);}
+.bw-sel option{background:var(--bordo);}
+.bw-row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.bw-submit{width:100%;background:var(--gold);color:#fff;border:none;padding:13px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:var(--tr);margin-top:4px;}
+.bw-submit:hover{background:var(--gold-d);}
+.bw-slots-wrap{margin-top:14px;display:none;}
+.bw-slots-wrap.visible{display:block;}
+.bw-sl-label{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.06em;margin-bottom:8px;}
+.sl-row{display:flex;gap:5px;flex-wrap:wrap;}
+.sl{padding:6px 11px;border:1px solid rgba(255,255,255,.16);font-size:11px;color:rgba(255,255,255,.65);cursor:pointer;transition:var(--tr);}
+.sl:hover{border-color:var(--gold);color:var(--gold);}
+.sl.busy{opacity:.3;cursor:not-allowed;text-decoration:line-through;}
+.sl.sel{background:var(--gold);border-color:var(--gold);color:#fff;}
+/* meta card */
+.sb-card{background:var(--sand);padding:24px;margin-bottom:14px;}
+.sc-title{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.ml{display:flex;flex-direction:column;}
+.ml-row{display:flex;padding:9px 0;border-bottom:1px solid var(--rule);}
+.ml-row:last-child{border-bottom:none;}
+.ml-k{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);min-width:88px;padding-top:1px;}
+.ml-v{font-size:13px;color:var(--ink);line-height:1.5;}
+.ml-badge{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;background:var(--gold-p);color:var(--gold-d);border:1px solid rgba(198,161,91,.35);}
+/* actions */
+.sb-actions{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.btn-outline-d{background:transparent;color:var(--ink);border:1px solid var(--rule);padding:11px 18px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:var(--tr);width:100%;text-align:center;}
+.btn-outline-d:hover{border-color:var(--gold);background:var(--gold-p);}
+/* mini map */
+.sb-map{background:var(--sand);padding:24px;}
+.sm-title{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.sm-floors{display:flex;flex-direction:column;gap:2px;}
+.sm-f{display:flex;align-items:center;gap:10px;padding:7px 10px;font-size:12px;color:var(--muted);}
+.sm-f.active{background:#fff;border-left:2px solid var(--gold);color:var(--ink);font-weight:500;}
+.sm-num{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:rgba(198,161,91,.35);min-width:20px;}
+.sm-f.active .sm-num{color:var(--gold);}
+
+/* ── REVIEW BAND ── */
+.review-band{background:var(--deep);padding:56px 0;}
+.rv-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(255,255,255,.06);}
+.rv-item{background:var(--deep);padding:36px 32px;text-align:center;}
+.rv-score{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:600;color:var(--gold);line-height:1;margin-bottom:4px;}
+.rv-source{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px;}
+.rv-stars{font-size:16px;color:var(--gold);margin-bottom:14px;letter-spacing:2px;}
+.rv-text{font-family:'Cormorant Garamond',serif;font-size:15px;font-style:italic;color:rgba(255,255,255,.55);line-height:1.6;font-weight:300;}
+
+/* ── EVENTS ── */
+.events-section{padding:72px 0;background:var(--cream);}
+.sec-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px;flex-wrap:wrap;gap:16px;}
+.sec-ttl{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3vw,38px);font-weight:600;color:var(--deep);line-height:1;letter-spacing:-.01em;}
+.sec-sub{font-size:13px;color:var(--muted);font-weight:300;margin-top:6px;}
+.sec-link{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--bordo);text-decoration:none;border-bottom:1px solid rgba(74,11,24,.2);padding-bottom:2px;white-space:nowrap;}
+.ev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--rule);}
+.ev-card{background:#fff;overflow:hidden;cursor:pointer;transition:var(--tr);}
+.ev-card:hover{background:var(--cream);}
+.ev-card:hover .ev-inner{transform:scale(1.03);}
+.ev-img{height:190px;overflow:hidden;position:relative;}
+.ev-inner{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .5s ease;}
+.ev-type{position:absolute;bottom:11px;left:12px;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);color:rgba(255,255,255,.9);padding:4px 10px;}
+.ev-body{padding:20px 18px;}
+.ev-date{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-d);margin-bottom:7px;}
+.ev-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--deep);line-height:1.15;margin-bottom:6px;}
+.ev-desc{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300;}
+.ev-cta{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--bordo);text-decoration:none;}
+.events-more{text-align:center;margin-top:36px;}
+.btn-outline{border:1px solid var(--gold);color:var(--ink);background:transparent;padding:13px 36px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:var(--tr);letter-spacing:.1em;text-transform:uppercase;}
+.btn-outline:hover{background:var(--gold);color:#fff;}
+
+/* ── SOCIAL ── */
+.social{background:var(--bordo);padding:52px 0;}
+.soc-inner{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;}
+.soc-eyebrow{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(198,161,91,.6);margin-bottom:10px;}
+.soc-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,32px);font-weight:600;color:#fff;line-height:1.05;}
+.soc-title em{font-style:italic;color:rgba(230,205,155,.9);}
+.soc-sub{font-size:13px;color:rgba(255,255,255,.4);font-weight:300;margin-top:8px;max-width:340px;line-height:1.7;}
+.soc-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.sb-s{display:flex;align-items:center;gap:9px;padding:11px 18px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.03em;transition:var(--tr);}
+.sb-s:hover{border-color:var(--gold);background:rgba(198,161,91,.1);color:#fff;}
+.sb-s svg{width:16px;height:16px;flex-shrink:0;}
+.sb-s-cnt{font-size:10px;color:rgba(255,255,255,.26);margin-left:2px;}
+.sb-pri{background:var(--gold);border-color:var(--gold);color:#fff;}
+.sb-pri:hover{background:var(--gold-d);}
+.soc-div{width:1px;height:46px;background:rgba(255,255,255,.08);align-self:center;}
+
+/* ── FOOTER ── */
+.footer{background:#0c1518;padding:52px 0 24px;}
+.ft-inner{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:24px;}
+.ft-logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--gold);letter-spacing:.16em;margin-bottom:8px;}
+.ft-desc{font-size:12px;color:rgba(255,255,255,.26);font-weight:300;line-height:1.8;max-width:190px;}
+.ft-col h4{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(198,161,91,.58);font-weight:600;margin-bottom:14px;}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.ft-col a{color:rgba(255,255,255,.33);font-size:13px;text-decoration:none;font-weight:300;transition:.15s;}
+.ft-col a:hover{color:var(--gold);}
+.ft-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.ft-bottom p{font-size:11px;color:rgba(255,255,255,.16);}
+
+/* mobile sticky CTA */
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;background:var(--bordo);padding:14px 20px;z-index:150;display:none;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(198,161,91,.2);}
+.sticky-cta-text{font-size:13px;color:rgba(255,255,255,.75);font-weight:300;}
+.sticky-cta-text strong{color:#fff;font-weight:600;}
+.sticky-cta-btn{background:var(--gold);color:#fff;border:none;padding:11px 22px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;}
+
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:600;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
+.lb.open{opacity:1;pointer-events:all;}
+.lb-img{max-width:90vw;max-height:88vh;object-fit:contain;display:block;}
+.lb-close{position:absolute;top:20px;right:24px;background:none;border:none;color:rgba(255,255,255,.6);font-size:24px;cursor:pointer;transition:.2s;}
+.lb-close:hover{color:#fff;}
+.lb-prev,.lb-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);font-size:18px;width:44px;height:44px;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;}
+.lb-prev{left:20px;} .lb-next{right:20px;}
+.lb-prev:hover,.lb-next:hover{background:rgba(198,161,91,.3);color:#fff;}
+
+@media(max-width:1100px){.layout{grid-template-columns:1fr;}.sidebar{position:static;padding:0;border-top:1px solid var(--rule);}.main-col{padding:48px 0 0;border-right:none;}.sticky-cta{display:flex;} body{padding-bottom:70px;}}
+@media(max-width:768px){.gal-grid{grid-template-columns:1fr;height:auto;}.gal-thumbs{display:none;}.rv-inner{grid-template-columns:1fr;}.ev-grid{grid-template-columns:1fr;}.nearby-grid{grid-template-columns:1fr 1fr;}.formats-grid{grid-template-columns:1fr;}.menu-grid{grid-template-columns:1fr;}.soc-inner{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="ctr">
+    <div class="navbar">
+      <div class="nav-l">
+        <a href="venecia_restaurants.html" class="active">Рестораны</a>
+      </div>
+      <a href="/" class="logo">В Е Н Е Ц И Я</a>
+      <div class="nav-r">
+        <div class="nav-r-links">
+          <a href="#">Велнес и СПА</a>
+        </div>
+        <button class="burger" id="bb"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="ov" id="ov"></div>
+<div class="side" id="side">
+  <button class="side-close" id="sc">✕</button>
+  <a href="venecia_shops_v3.html">Магазины и бренды</a>
+  <a href="venecia_restaurants.html">Рестораны и кафе</a>
+  <a href="#">Велнес и СПА</a>
+  <a href="#">Парк</a>
+  <a href="#">События</a>
+  <a href="#">Схема центра</a>
+  <a href="#">Как добраться</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="ctr"><div class="breadcrumb">
+  <a href="/">Главная</a><span>›</span>
+  <a href="venecia_restaurants.html">Рестораны</a><span>›</span>
+  <span class="cur" id="bcCur">Загрузка...</span>
+</div></div>
+
+<!-- HERO -->
+<div class="hero" id="mainHero">
+  <img class="hero-bg" id="heroBg" src="" alt="">
+  <div class="hero-grad"></div>
+  <div class="open-badge"><div class="open-dot" id="openDot"></div><span class="open-text" id="openText"></span></div>
+  <div class="hero-body"><div class="ctr">
+    <a href="venecia_restaurants.html" class="back-link">← Все рестораны</a>
+    <div class="hero-group" id="heroGroup"></div>
+    <h1 class="hero-title" id="heroTitle"></h1>
+    <div class="hero-tags" id="heroTags"></div>
+    <div class="hero-meta" id="heroMeta"></div>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-gold">Забронировать стол</a>
+      <a href="#menu" class="btn-ghost-w">Смотреть меню ↓</a>
+    </div>
+  </div></div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="ctr">
+  <div class="layout">
+
+    <!-- MAIN -->
+    <div class="main-col">
+
+      <!-- GALLERY -->
+      <div class="gallery">
+        <div class="gal-grid">
+          <div class="gal-main" onclick="openLb(0)">
+            <img class="gal-main-img" id="galMain" src="" alt="">
+            <div class="gal-count" id="galCount"></div>
+          </div>
+          <div class="gal-thumbs" id="galThumbs"></div>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="section-eyebrow">О ресторане</div>
+      <div class="about-text" id="aboutText"></div>
+      <div class="about-rule"></div>
+
+      <!-- MENU PREVIEW -->
+      <div class="menu-section" id="menu">
+        <div class="section-eyebrow">Меню</div>
+        <div class="menu-cats" id="menuCats"></div>
+        <div class="menu-grid" id="menuGrid"></div>
+        <div class="menu-footer"><a href="#" class="menu-pdf">Полное меню PDF ↓</a></div>
+      </div>
+
+      <!-- FORMATS -->
+      <div class="formats-section">
+        <div class="section-eyebrow">Форматы и события</div>
+        <div class="formats-grid" id="fmtGrid"></div>
+      </div>
+
+      <!-- NEARBY -->
+      <div class="nearby-section">
+        <div class="nearby-hd">
+          <div class="nearby-title">Другие рестораны на 4 этаже</div>
+          <a href="venecia_restaurants.html" style="font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--bordo);text-decoration:none;border-bottom:1px solid rgba(74,11,24,.2);">Все рестораны →</a>
+        </div>
+        <div class="nearby-grid" id="nearbyGrid"></div>
+      </div>
+
+    </div><!-- /main-col -->
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- BOOKING FORM -->
+      <div class="sb-book" id="booking">
+        <div class="sb-book-title">Забронировать стол</div>
+        <div class="bw-field">
+          <div class="bw-label">Дата</div>
+          <input class="bw-inp" type="date" id="sbDate">
+        </div>
+        <div class="bw-row2">
+          <div class="bw-field">
+            <div class="bw-label">Время</div>
+            <select class="bw-sel" id="sbTime">
+              <option>12:00</option><option>13:00</option><option>14:00</option>
+              <option>18:00</option><option>19:00</option><option selected>19:30</option>
+              <option>20:00</option><option>20:30</option><option>21:00</option>
+            </select>
+          </div>
+          <div class="bw-field">
+            <div class="bw-label">Гостей</div>
+            <select class="bw-sel" id="sbGuests">
+              <option>1</option><option selected>2</option><option>3</option>
+              <option>4</option><option>5–6</option><option>7+</option>
+            </select>
+          </div>
+        </div>
+        <div class="bw-field">
+          <div class="bw-label">Имя</div>
+          <input class="bw-inp" type="text" placeholder="Ваше имя">
+        </div>
+        <div class="bw-field">
+          <div class="bw-label">Телефон</div>
+          <input class="bw-inp" type="tel" placeholder="+7 (___) ___-__-__">
+        </div>
+        <div class="bw-field" id="commentField" style="display:none;">
+          <div class="bw-label">Пожелания</div>
+          <input class="bw-inp" type="text" placeholder="Столик у окна, повод...">
+        </div>
+        <div style="margin-bottom:8px;"><a href="#" onclick="document.getElementById('commentField').style.display='block';this.style.display='none';return false;" style="font-size:11px;color:rgba(255,255,255,.4);text-decoration:none;letter-spacing:.04em;">+ Добавить пожелания</a></div>
+        <button class="bw-submit" onclick="showSbSlots()">Проверить наличие →</button>
+        <div class="bw-slots-wrap" id="sbSlots">
+          <div class="bw-sl-label">Свободные столики</div>
+          <div class="sl-row" id="sbSlotRow"></div>
+          <button class="bw-submit" style="margin-top:10px;" id="confirmBtn" onclick="confirmBook()">Подтвердить бронь</button>
+        </div>
+      </div>
+
+      <!-- META INFO -->
+      <div class="sb-card">
+        <div class="sc-title">Информация</div>
+        <div class="ml" id="metaList"></div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="sb-actions">
+        <button class="btn-outline-d">Банкет / мероприятие</button>
+        <button class="btn-outline-d" onclick="navigator.share&&navigator.share({title:document.title,url:location.href})">Поделиться</button>
+      </div>
+
+      <!-- FLOOR MAP -->
+      <div class="sb-map">
+        <div class="sm-title">Схема центра</div>
+        <div class="sm-floors">
+          <div class="sm-f" data-f="5"><span class="sm-num">5</span>Велнес клуб & СПА</div>
+          <div class="sm-f active" data-f="4"><span class="sm-num">4</span>Рестораны · Панорама</div>
+          <div class="sm-f" data-f="3"><span class="sm-num">3</span>Универмаг — премиум</div>
+          <div class="sm-f" data-f="2"><span class="sm-num">2</span>Универмаг — средний+</div>
+          <div class="sm-f" data-f="1"><span class="sm-num">1</span>Торговая галерея</div>
+          <div class="sm-f" data-f="0"><span class="sm-num">0</span>Продукты и сервисы</div>
+        </div>
+      </div>
+
+    </div><!-- /sidebar -->
+  </div>
+</div>
+
+<!-- REVIEW BAND -->
+<div class="review-band">
+  <div class="ctr">
+    <div class="rv-inner" id="rvInner"></div>
+  </div>
+</div>
+
+<!-- EVENTS -->
+<section class="events-section">
+  <div class="ctr">
+    <div class="sec-header">
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-d);margin-bottom:10px;">Гастрономические события</div>
+        <div class="sec-ttl">Ближайшие события</div>
+        <p class="sec-sub">Специальные меню, дегустации, живая музыка</p>
+      </div>
+      <a href="#" class="sec-link">Все события →</a>
+    </div>
+    <div class="ev-grid">
+      <div class="ev-card">
+        <div class="ev-img"><div class="ev-inner" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=85');"></div><span class="ev-type">Гастроужин</span></div>
+        <div class="ev-body"><div class="ev-date">2 мая 2026</div><div class="ev-name">Гастроужин «Сезоны года»</div><div class="ev-desc">7 авторских сетов с видом на Москву-реку. Лимитированные места.</div><a href="#" class="ev-cta">Забронировать →</a></div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-img"><div class="ev-inner" style="background-image:url('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=700&q=85');"></div><span class="ev-type">Живая музыка</span></div>
+        <div class="ev-body"><div class="ev-date">Каждую пятницу</div><div class="ev-name">Jazz Fridays</div><div class="ev-desc">Живой джаз, закат и авторские коктейли с видом на Москву-реку.</div><a href="#" class="ev-cta">Подробнее →</a></div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-img"><div class="ev-inner" style="background-image:url('https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=700&q=85');"></div><span class="ev-type">Бизнес-ланч</span></div>
+        <div class="ev-body"><div class="ev-date">Пн–Пт, 12:00–15:00</div><div class="ev-name">Бизнес-ланч от Alba Group</div><div class="ev-desc">3 блюда от шефа с видом на реку. От 890 руб./чел. Без бронирования.</div><a href="#" class="ev-cta">Подробнее →</a></div>
+      </div>
+    </div>
+    <div class="events-more"><button class="btn-outline">Все события</button></div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section class="social">
+  <div class="ctr">
+    <div class="soc-inner">
+      <div>
+        <div class="soc-eyebrow">Подпишитесь на нас</div>
+        <div class="soc-title">Гастрономические<br><em>события первыми</em></div>
+        <p class="soc-sub">Анонсы ужинов, спецменю и закрытых дегустаций — раньше, чем на сайте</p>
+      </div>
+      <div class="soc-btns">
+        <a href="#" class="sb-s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram<span class="sb-s-cnt">12K</span></a>
+        <a href="#" class="sb-s"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Telegram<span class="sb-s-cnt">8.4K</span></a>
+        <div class="soc-div"></div>
+        <a href="#" class="sb-s sb-pri">Подписаться →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="ctr">
+    <div class="ft-inner">
+      <div><div class="ft-logo">ВЕНЕЦИЯ</div><div class="ft-desc">МФК на Краснопресненской набережной, рядом с Москва-Сити. III кв. 2026.</div></div>
+      <div class="ft-col"><h4>Рестораны</h4><ul>
+        <li><a href="venecia_restaurant.html?resto=alba">Панорамный (Alba Group)</a></li>
+        <li><a href="venecia_restaurant.html?resto=ribambelle">Семейный (Ribambelle)</a></li>
+        <li><a href="venecia_restaurant.html?resto=rappoport">Классический (Раппопорта)</a></li>
+        <li><a href="venecia_restaurant.html?resto=wrf">Гастробар (WRF)</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Навигация</h4><ul>
+        <li><a href="venecia_shops_v3.html">Магазины</a></li>
+        <li><a href="#">Велнес и СПА</a></li>
+        <li><a href="#">События</a></li>
+        <li><a href="#">Как добраться</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-bottom"><p>© 2026 МФК «Венеция». Все права защищены.</p><p>venecia-mfc.ru</p></div>
+  </div>
+</footer>
+
+<!-- MOBILE STICKY CTA -->
+<div class="sticky-cta">
+  <div class="sticky-cta-text"><strong id="stickyName"></strong> · 4 этаж</div>
+  <button class="sticky-cta-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Забронировать стол</button>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <button class="lb-close" onclick="closeLb()">✕</button>
+  <button class="lb-prev" onclick="lbNav(-1)">←</button>
+  <img class="lb-img" id="lbImg" src="" alt="">
+  <button class="lb-next" onclick="lbNav(1)">→</button>
+</div>
+
+<script>
+const DATA={
+  alba:{
+    group:'Alba Group',name:'Панорамный ресторан',
+    hero:'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1920&q=85',
+    imgs:[
+      'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=85',
+      'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=85',
+      'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=800&q=85',
+      'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&q=85',
+    ],
+    tags:[{t:'Вид на реку',gold:true},{t:'Авторская кухня'},{t:'Бизнес-ланч'},{t:'Живая музыка'}],
+    meta:[
+      ['Кухня','Авторская европейская'],
+      ['Часы','12:00–23:00 ежедневно'],
+      ['Средний чек','от 2 500 руб./чел.'],
+      ['Этаж','4 этаж · Вид на реку'],
+      ['Телефон','+7 (495) 100-02-01'],
+    ],
+    open:true,hours:'12:00–23:00',
+    about:`<p>Панорамный ресторан Alba Group — флагман гастрономического уровня МФК «Венеция». Расположен на четвёртом этаже с панорамными окнами от пола до потолка, открывающими вид на Москву-реку, Москва-Сити и парк «Красная Пресня».</p><p>Авторское меню шеф-повара основано на сезонных продуктах от российских фермеров с акцентом на техниках современной европейской кухни. Каждый сезон — обновлённый дегустационный сет из пяти или семи позиций.</p><p>По пятницам — живой джаз. Каждое воскресенье — расширенный бранч с открытым баром.</p>`,
+    menuCats:['Завтраки','Обеды','Ужины','Бар'],
+    menu:{
+      'Завтраки':[
+        {n:'Яйца Бенедикт с лососем',d:'Яйца пашот, голландский соус, каперсы',p:'680 ₽',img:'https://images.unsplash.com/photo-1608039829572-78524f79c4c7?w=200&q=80'},
+        {n:'Круассан с трюфельным маслом',d:'Свежая выпечка, масло из чёрного трюфеля',p:'480 ₽',img:'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=200&q=80'},
+        {n:'Авокадо тост',d:'Чиабатта, авокадо, редис, микрозелень',p:'620 ₽',img:'https://images.unsplash.com/photo-1603046891744-756a12c1bcfd?w=200&q=80'},
+        {n:'Сырники с ягодным соусом',d:'Творог 18%, малиновый кулис',p:'560 ₽',img:'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&q=80'},
+      ],
+      'Обеды':[
+        {n:'Стейк рибай 300г',d:'Мраморная говядина, соус демиглас, картофель',p:'3 200 ₽',img:'https://images.unsplash.com/photo-1558030006-450675393462?w=200&q=80'},
+        {n:'Тар-тар из тунца',d:'Авокадо, кунжутное масло, соус понзу',p:'980 ₽',img:'https://images.unsplash.com/photo-1546069901-5ec6a79120b0?w=200&q=80'},
+        {n:'Паста карбонара',d:'Паста ручной работы, гуанчале, пармезан',p:'760 ₽',img:'https://images.unsplash.com/photo-1612874742237-6526221588e3?w=200&q=80'},
+        {n:'Суп-пюре из белых грибов',d:'Сливки, трюфельное масло, хлебные чипсы',p:'640 ₽',img:'https://images.unsplash.com/photo-1547592180-85f173990554?w=200&q=80'},
+      ],
+      'Ужины':[
+        {n:'Утиная грудка с вишней',d:'Конфи из утки, вишнёвый гастрик, пюре из пастернака',p:'1 680 ₽',img:'https://images.unsplash.com/photo-1544025162-d76538b2a681?w=200&q=80'},
+        {n:'Лосось на кедровой доске',d:'Норвежский лосось, укропный соус, овощи гриль',p:'1 480 ₽',img:'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=200&q=80'},
+        {n:'Корзинка с морепродуктами',d:'Тигровые креветки, мидии, кальмар',p:'2 100 ₽',img:'https://images.unsplash.com/photo-1534080564583-6be75777b70a?w=200&q=80'},
+        {n:'Томлёная говяжья щека',d:'72 часа, трюфельный картофель, соус из красного вина',p:'1 920 ₽',img:'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=200&q=80'},
+      ],
+      'Бар':[
+        {n:'Moscow Mule',d:'Водка, имбирный эль, лайм, лёд',p:'680 ₽',img:'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=200&q=80'},
+        {n:'Aperol Spritz',d:'Аперол, просекко, сода, апельсин',p:'620 ₽',img:'https://images.unsplash.com/photo-1560512823-829485b8bf24?w=200&q=80'},
+        {n:'Шампанское Dom Pérignon',d:'Миллезим 2015, бокал',p:'3 400 ₽',img:'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=200&q=80'},
+        {n:'Авторский нон-алко сет',d:'3 коктейля: Pear Ginger, Berry Garden, Citrus Cloud',p:'1 200 ₽',img:'https://images.unsplash.com/photo-1548778052-311f4bc2b502?w=200&q=80'},
+      ],
+    },
+    formats:[
+      {icon:'🌅',name:'Завтрак',desc:'Пн–Вс, 08:00–11:30. Расширенное меню завтраков с видом на утреннюю Москву.',time:'08:00–11:30'},
+      {icon:'💼',name:'Бизнес-ланч',desc:'Пн–Пт, 12:00–15:00. Три блюда от шефа. От 890 руб./чел., без бронирования.',time:'Пн–Пт 12:00–15:00'},
+      {icon:'🎵',name:'Jazz Friday',desc:'Каждую пятницу с 20:00 — живой джаз-квартет. Обязательна бронь.',time:'Пт от 20:00'},
+      {icon:'☀️',name:'Sunday Brunch',desc:'Вс, 11:00–15:00. Шведский стол + открытый бар. 2 800 руб./чел.',time:'Вс 11:00–15:00'},
+    ],
+    reviews:[
+      {score:'4.8',source:'Яндекс.Карты',stars:'★★★★★',text:'Лучший вид на Москву-реку из всех ресторанов, где я был. Кухня на уровне.'},
+      {score:'9.2',source:'Afisha',stars:'★★★★★',text:'Дегустационный сет — просто шедевр. Сервис безупречный, виды невероятные.'},
+      {score:'4.7',source:'2GIS',stars:'★★★★½',text:'Бизнес-ланч — лучшее соотношение цены и качества в районе Сити.'},
+    ],
+    nearby:[
+      {id:'ribambelle',group:'Ribambelle',name:'Семейный ресторан',price:'от 1 500 ₽',img:'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=600&q=85'},
+      {id:'rappoport',group:'Рестораны Раппопорта',name:'Классический ресторан',price:'от 2 000 ₽',img:'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&q=85'},
+      {id:'wrf',group:'WRF Restaurant Alliance',name:'Гастробар',price:'от 1 200 ₽',img:'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=600&q=85'},
+    ],
+  },
+};
+
+// fallbacks for other restos
+['ribambelle','rappoport','wrf'].forEach(id=>{
+  DATA[id]={...DATA.alba,
+    name:id==='ribambelle'?'Семейный ресторан':id==='rappoport'?'Классический ресторан':'Гастробар',
+    group:id==='ribambelle'?'Ribambelle':id==='rappoport'?'Рестораны Раппопорта':'WRF Restaurant Alliance',
+    hero:id==='ribambelle'?'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=1920&q=85':id==='rappoport'?'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1920&q=85':'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=1920&q=85',
+    tags:id==='ribambelle'?[{t:'Вид на парк',gold:true},{t:'Семейный'},{t:'Детское меню'},{t:'Воскресный бранч'}]:id==='rappoport'?[{t:'Панорама',gold:true},{t:'Европейская'},{t:'Приватные кабинеты'}]:[{t:'Вид на ночной город',gold:true},{t:'Коктейли'},{t:'Late Night'},{t:'Малые блюда'}],
+    nearby:DATA.alba.nearby.filter(n=>n.id!==id),
+  };
+});
+
+let lbImgs=[], lbIdx=0;
+
+function getParam(){return new URLSearchParams(location.search).get('resto')||'alba';}
+
+function init(){
+  const id=getParam();
+  const d=DATA[id]||DATA.alba;
+  lbImgs=d.imgs;
+
+  document.title=d.name+' — Венеция';
+  document.getElementById('bcCur').textContent=d.name;
+  document.getElementById('stickyName').textContent=d.name;
+
+  // hero
+  document.getElementById('heroBg').src=d.hero;
+  document.getElementById('heroGroup').textContent=d.group;
+  document.getElementById('heroTitle').innerHTML=d.name;
+  document.getElementById('heroTags').innerHTML=d.tags.map(t=>`<span class="h-tag${t.gold?' gold':''}">${t.t}</span>`).join('');
+  document.getElementById('heroMeta').innerHTML=`
+    <span class="hm-item">4 этаж · Панорамный уровень</span>
+    <span class="hm-dot"></span>
+    <span class="hm-item">${d.meta.find(m=>m[0]==='Часы')?.[1]||''}</span>
+    <span class="hm-dot"></span>
+    <span class="hm-item">${d.meta.find(m=>m[0]==='Средний чек')?.[1]||''}</span>`;
+
+  const now=new Date().getHours();
+  const isOpen=now>=12&&now<23;
+  document.getElementById('openDot').className=isOpen?'open-dot':'open-dot';
+  document.getElementById('openDot').style.background=isOpen?'#3d9970':'#c0392b';
+  document.getElementById('openText').textContent=isOpen?`Открыто · ${d.hours}`:'Закрыто · Открываемся в 12:00';
+
+  // gallery
+  document.getElementById('galMain').src=d.imgs[0];
+  document.getElementById('galCount').textContent=`1 / ${d.imgs.length}`;
+  document.getElementById('galThumbs').innerHTML=d.imgs.slice(1).map((s,i)=>`<div class="gal-thumb" onclick="openLb(${i+1})"><img src="${s}" alt="Фото ${i+2}" loading="lazy"></div>`).join('');
+
+  // about
+  document.getElementById('aboutText').innerHTML=d.about;
+
+  // menu
+  const cats=d.menuCats;
+  document.getElementById('menuCats').innerHTML=cats.map((c,i)=>`<button class="mc-btn${i===0?' active':''}" data-cat="${c}">${c}</button>`).join('');
+  renderMenu(id,cats[0]);
+  document.getElementById('menuCats').addEventListener('click',e=>{
+    const btn=e.target.closest('.mc-btn');if(!btn)return;
+    document.querySelectorAll('.mc-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');renderMenu(id,btn.dataset.cat);
+  });
+
+  // formats
+  document.getElementById('fmtGrid').innerHTML=d.formats.map(f=>`
+    <div class="fmt">
+      <div class="fmt-icon">${f.icon}</div>
+      <div class="fmt-name">${f.name}</div>
+      <div class="fmt-desc">${f.desc}</div>
+      <span class="fmt-time">${f.time}</span>
+    </div>`).join('');
+
+  // meta
+  document.getElementById('metaList').innerHTML=d.meta.map(([k,v])=>`
+    <div class="ml-row"><span class="ml-k">${k}</span><span class="ml-v">${v}</span></div>`).join('');
+
+  // reviews
+  document.getElementById('rvInner').innerHTML=d.reviews.map(r=>`
+    <div class="rv-item">
+      <div class="rv-score">${r.score}</div>
+      <div class="rv-source">${r.source}</div>
+      <div class="rv-stars">${r.stars}</div>
+      <div class="rv-text">«${r.text}»</div>
+    </div>`).join('');
+
+  // nearby
+  document.getElementById('nearbyGrid').innerHTML=d.nearby.map(n=>`
+    <a class="nr" href="venecia_restaurant.html?resto=${n.id}">
+      <div class="nr-img"><img class="nr-img-i" src="${n.img}" alt="${n.name}" loading="lazy"></div>
+      <div class="nr-body"><div class="nr-group">${n.group}</div><div class="nr-name">${n.name}</div><div class="nr-price">${n.price}</div></div>
+    </a>`).join('');
+
+  // date
+  document.getElementById('sbDate').valueAsDate=new Date();
+}
+
+function renderMenu(restoId,cat){
+  const d=DATA[restoId]||DATA.alba;
+  const items=(d.menu&&d.menu[cat])||[];
+  document.getElementById('menuGrid').innerHTML=items.map(m=>`
+    <div class="dish">
+      <div class="dish-img">${m.img?`<img src="${m.img}" alt="${m.n}" loading="lazy">`:`<div class="dish-img-ph">🍽</div>`}</div>
+      <div class="dish-body">
+        <div class="dish-name">${m.n}</div>
+        <div class="dish-desc">${m.d}</div>
+        <div class="dish-price">${m.p}</div>
+      </div>
+    </div>`).join('');
+}
+
+function showSbSlots(){
+  const slots=['12:00','13:00','18:30','19:00','19:30','20:00','20:30','21:00'];
+  const busy=['19:00','20:30'];
+  document.getElementById('sbSlotRow').innerHTML=slots.map(s=>`<div class="sl${busy.includes(s)?' busy':''}" onclick="selSlot(this)">${s}</div>`).join('');
+  document.getElementById('sbSlots').classList.add('visible');
+}
+function selSlot(el){
+  if(el.classList.contains('busy'))return;
+  document.querySelectorAll('.sl').forEach(s=>s.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function confirmBook(){
+  alert('Бронь подтверждена! SMS придёт на указанный номер.');
+  document.getElementById('sbSlots').classList.remove('visible');
+}
+
+// lightbox
+function openLb(i){lbIdx=i;document.getElementById('lbImg').src=lbImgs[i];document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden';}
+function closeLb(){document.getElementById('lb').classList.remove('open');document.body.style.overflow='';}
+function lbNav(d){lbIdx=(lbIdx+d+lbImgs.length)%lbImgs.length;document.getElementById('lbImg').src=lbImgs[lbIdx];}
+document.getElementById('lb').addEventListener('click',e=>{if(e.target===document.getElementById('lb'))closeLb();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='ArrowRight')lbNav(1);});
+
+// burger
+const bb=document.getElementById('bb'),ov=document.getElementById('ov'),sd=document.getElementById('side'),sc=document.getElementById('sc');
+bb.addEventListener('click',()=>{sd.classList.add('open');ov.classList.add('open');document.body.style.overflow='hidden';});
+[sc,ov].forEach(el=>el.addEventListener('click',()=>{sd.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}));
+document.querySelectorAll('.side a').forEach(a=>a.addEventListener('click',()=>{sd.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}));
+
+init();
+</script>
+</body>
+</html>

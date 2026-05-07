@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Венеция | Многофункциональный центр</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e2a32;line-height:1.5;scroll-behavior:smooth;}
+:root{
+  --sand:#f5efe7;
+  --gold:#c6a15b;
+  --gold-dark:#a47c3e;
+  --deep-blue:#1f3e48;
+  --cream:#fef9f0;
+  --shadow-sm:0 12px 30px rgba(0,0,0,0.05);
+  --transition:all 0.3s ease;
+  --bordo:#6B1024;
+  --bordo-deep:#4A0B18;
+}
+.container{max-width:1280px;margin:0 auto;padding:0 24px;}
+
+/* ─── NAV ─── */
+.site-header{background:rgba(255,253,248,0.97);backdrop-filter:blur(10px);box-shadow:0 2px 20px rgba(0,0,0,0.03);position:sticky;top:0;z-index:1000;border-bottom:1px solid rgba(198,161,91,0.18);}
+.navbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:20px 0;gap:16px;}
+.nav-left{display:flex;justify-content:flex-start;gap:32px;}
+.nav-left a{text-decoration:none;font-weight:500;font-size:15px;color:#4a5c62;transition:var(--transition);white-space:nowrap;letter-spacing:0.01em;}
+.nav-left a:hover{color:var(--gold-dark);}
+.logo-center{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;letter-spacing:0.12em;color:var(--deep-blue);text-decoration:none;white-space:nowrap;text-align:center;}
+.nav-right{display:flex;justify-content:flex-end;align-items:center;gap:28px;}
+.nav-right .highlight-link{color:#4a5c62;font-weight:500;font-size:15px;text-decoration:none;white-space:nowrap;letter-spacing:0.01em;transition:var(--transition);}
+.nav-right .highlight-link:hover{color:var(--gold-dark);}
+.burger-btn{background:transparent;border:none;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:5px;width:28px;height:28px;}
+.burger-btn span{display:block;height:1.5px;background:var(--deep-blue);border-radius:2px;transition:.2s;}
+
+/* ─── BURGER SIDE PANEL ─── */
+.burger-menu{position:fixed;top:0;right:-340px;width:300px;height:100%;background:#fffdf9;box-shadow:-5px 0 40px rgba(0,0,0,0.08);z-index:1100;transition:right 0.35s cubic-bezier(.77,0,.18,1);padding:72px 0 32px;display:flex;flex-direction:column;}
+.burger-menu.active{right:0;}
+.burger-menu a{text-decoration:none;font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:var(--deep-blue);padding:16px 32px;border-bottom:1px solid rgba(198,161,91,0.15);transition:var(--transition);display:block;}
+.burger-menu a:hover{color:var(--gold-dark);padding-left:40px;}
+.close-burger{position:absolute;top:22px;right:24px;font-size:22px;background:none;border:none;cursor:pointer;color:#8a9aa0;line-height:1;}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.25);z-index:1050;display:none;}
+.overlay.active{display:block;}
+
+/* ─── HERO ─── */
+.hero{position:relative;background:#1f2e33;}
+.carousel-container{position:relative;width:100%;overflow:hidden;}
+.carousel-slides{display:flex;transition:transform 0.55s ease;}
+.carousel-slide{min-width:100%;height:78vh;background-size:cover;background-position:center;position:relative;}
+.slide-content{position:absolute;bottom:0;left:0;right:0;padding:60px 64px;background:linear-gradient(to top,rgba(15,8,4,0.85) 0%,rgba(15,8,4,0.3) 55%,transparent 100%);}
+.slide-eyebrow{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:14px;}
+.slide-title{font-family:'Playfair Display',serif;font-size:clamp(40px,5.5vw,74px);font-weight:600;color:#fff;line-height:0.95;letter-spacing:-0.02em;margin-bottom:20px;}
+.slide-title em{font-style:italic;color:rgba(230,205,155,0.92);}
+.slide-desc{font-size:16px;color:rgba(255,255,255,0.72);font-weight:300;max-width:460px;line-height:1.7;margin-bottom:28px;}
+.slide-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-gold{display:inline-block;background:var(--gold);color:#fff;border:none;padding:13px 28px;border-radius:3px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:var(--transition);letter-spacing:0.04em;}
+.btn-gold:hover{background:var(--gold-dark);}
+.btn-outline-w{display:inline-block;background:transparent;color:rgba(255,255,255,0.82);border:1px solid rgba(255,255,255,0.38);padding:13px 24px;border-radius:3px;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;cursor:pointer;text-decoration:none;transition:var(--transition);letter-spacing:0.04em;}
+.btn-outline-w:hover{border-color:var(--gold);color:var(--gold);}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);backdrop-filter:blur(6px);color:white;border:1px solid rgba(255,255,255,0.25);font-size:1.2rem;cursor:pointer;width:44px;height:44px;border-radius:50%;z-index:10;transition:var(--transition);display:flex;align-items:center;justify-content:center;}
+.carousel-btn:hover{background:rgba(198,161,91,0.5);border-color:var(--gold);}
+.carousel-btn.prev{left:28px;}
+.carousel-btn.next{right:28px;}
+.dots{position:absolute;bottom:24px;right:64px;display:flex;gap:6px;align-items:center;}
+.dot{width:6px;height:6px;background:rgba(255,255,255,0.35);border-radius:50%;cursor:pointer;border:none;transition:var(--transition);}
+.dot.active{background:var(--gold);width:20px;border-radius:3px;}
+
+/* ─── TICKER ─── */
+.ticker-wrap{overflow:hidden;background:var(--bordo);padding:10px 0;}
+.ticker-inner{display:flex;width:max-content;animation:ticker 24s linear infinite;}
+.ticker-item{font-size:11px;color:rgba(255,255,255,0.78);letter-spacing:0.16em;text-transform:uppercase;padding:0 32px;white-space:nowrap;font-weight:500;}
+.ticker-item::after{content:'·';margin-left:32px;color:var(--gold);opacity:0.9;}
+@keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ─── COMMON ─── */
+.section{padding:88px 0;border-bottom:1px solid #f0e7dc;}
+.section-title{font-size:clamp(28px,3.5vw,44px);font-family:'Playfair Display',serif;margin-bottom:12px;color:var(--deep-blue);text-align:center;}
+.section-sub{text-align:center;color:#6a7c84;max-width:640px;margin:0 auto 52px;font-size:15px;line-height:1.75;}
+.eyebrow-tag{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-dark);font-weight:600;text-align:center;margin-bottom:12px;}
+
+/* ─── CATEGORIES — "ЧТО ВАС ЖДЁТ" ─── */
+.categories-section{padding:80px 0;background:var(--cream);border-bottom:1px solid #f0e7dc;}
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-top:48px;}
+.cat-card{position:relative;overflow:hidden;height:420px;cursor:pointer;}
+.cat-card-bg{width:100%;height:100%;object-fit:cover;transition:transform 0.55s ease;display:block;}
+.cat-card:hover .cat-card-bg{transform:scale(1.05);}
+.cat-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,6,3,0.82) 0%,rgba(15,6,3,0.2) 50%,transparent 100%);transition:.3s;}
+.cat-card-body{position:absolute;bottom:0;left:0;right:0;padding:0 28px 32px;}
+/* title + desc in the middle, floor tag at the very bottom */
+.cat-card-main{}
+.cat-tag{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;}
+.cat-name{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:#fff;line-height:1.05;margin-bottom:8px;}
+.cat-desc{font-size:13px;color:rgba(255,255,255,0.68);line-height:1.55;font-weight:300;margin-bottom:16px;}
+.cat-floor-tag{display:inline-block;padding:5px 14px;background:rgba(198,161,91,0.25);border:1px solid rgba(198,161,91,0.5);backdrop-filter:blur(4px);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.85);font-weight:600;}
+@media(max-width:768px){.cat-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ─── UNIVERSAM ─── */
+.universam-section{background:var(--sand);}
+.uni-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:560px;}
+.uni-img-side{overflow:hidden;position:relative;}
+.uni-img-side img{width:100%;height:100%;object-fit:cover;display:block;}
+.uni-content-side{padding:80px 72px;display:flex;flex-direction:column;justify-content:center;gap:32px;}
+.uni-title{font-family:'Playfair Display',serif;font-size:clamp(30px,3.5vw,50px);font-weight:600;color:var(--deep-blue);line-height:1.0;letter-spacing:-0.01em;}
+.uni-title em{font-style:italic;color:var(--gold-dark);}
+.uni-desc{font-size:15px;color:#5a6e76;line-height:1.85;font-weight:300;}
+/* Brands — thin separator list */
+.uni-brands-label{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-dark);font-weight:600;margin-bottom:14px;}
+.uni-brands-list{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(198,161,91,0.25);}
+.uni-brand-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(198,161,91,0.18);}
+.uni-brand-name{font-size:14px;font-weight:500;color:var(--deep-blue);}
+.uni-brand-cat{font-size:11px;color:#8a9aa0;letter-spacing:0.06em;}
+.uni-brand-more{font-size:13px;font-weight:300;color:var(--gold-dark);font-style:italic;margin-top:10px;}
+/* Services — elegant horizontal rules */
+.uni-services-label{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-dark);font-weight:600;margin-bottom:14px;}
+.uni-services-list{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(198,161,91,0.25);}
+.uni-svc-row{display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid rgba(198,161,91,0.12);}
+.uni-svc-num{font-family:'Playfair Display',serif;font-size:13px;color:rgba(198,161,91,0.5);min-width:20px;}
+.uni-svc-text{font-size:13px;color:var(--deep-blue);font-weight:400;letter-spacing:0.01em;}
+@media(max-width:768px){.uni-layout{grid-template-columns:1fr;}.uni-img-side{height:300px;}.uni-content-side{padding:48px 24px;}}
+
+/* ─── TENANTS — PREMIUM CARDS ─── */
+.tenants-section{background:#fff;}
+.filter-buttons{display:flex;justify-content:center;gap:0;margin-bottom:52px;border-bottom:1px solid rgba(198,161,91,0.2);}
+.filter-btn{background:transparent;border:none;border-bottom:2px solid transparent;padding:12px 24px;font-weight:500;cursor:pointer;transition:var(--transition);color:#8a9aa0;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:-1px;}
+.filter-btn.active,.filter-btn:hover{color:var(--deep-blue);border-bottom-color:var(--gold);}
+.tenants-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(198,161,91,0.15);}
+.tenant-card{background:#fff;transition:var(--transition);padding:40px 28px 32px;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.tenant-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:.3s;}
+.tenant-card:hover{background:var(--cream);}
+.tenant-card:hover::before{opacity:1;}
+.tenant-card-num{font-family:'Playfair Display',serif;font-size:11px;color:rgba(198,161,91,0.4);letter-spacing:0.1em;margin-bottom:20px;}
+.tenant-icon-line{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.tenant-icon-sq{width:40px;height:40px;border:1px solid rgba(198,161,91,0.35);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.tenant-card h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--deep-blue);line-height:1.2;}
+.tenant-card p{font-size:13px;color:#6a7c84;line-height:1.7;flex:1;margin-bottom:20px;}
+.tenant-floor-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold-dark);border-top:1px solid rgba(198,161,91,0.3);padding-top:14px;margin-top:auto;}
+@media(max-width:900px){.tenants-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.tenants-grid{grid-template-columns:1fr;}}
+
+/* ─── WELLNESS ─── */
+.wellness-section{}
+.wellness-layout{display:grid;grid-template-columns:1fr 1fr;min-height:600px;}
+.wellness-dark{background:var(--bordo-deep);padding:88px 72px;display:flex;flex-direction:column;justify-content:center;gap:28px;}
+.wellness-eyebrow{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(198,161,91,0.65);font-weight:600;}
+.wellness-title{font-family:'Playfair Display',serif;font-size:clamp(30px,3.5vw,50px);font-weight:600;color:#fff;line-height:1.0;}
+.wellness-title em{font-style:italic;color:rgba(230,205,155,0.9);}
+.wellness-desc{font-size:15px;color:rgba(255,255,255,0.58);font-weight:300;line-height:1.85;max-width:380px;}
+/* Premium perk list with gold rule */
+.wellness-perks{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(198,161,91,0.2);margin-top:4px;}
+.wellness-perk{display:flex;align-items:flex-start;gap:20px;padding:16px 0;border-bottom:1px solid rgba(198,161,91,0.12);}
+.wellness-perk-num{font-family:'Playfair Display',serif;font-size:11px;color:rgba(198,161,91,0.45);min-width:18px;padding-top:2px;letter-spacing:0.06em;}
+.wellness-perk-content{}
+.wellness-perk-title{font-size:13px;font-weight:600;color:rgba(255,255,255,0.9);letter-spacing:0.02em;margin-bottom:3px;}
+.wellness-perk-sub{font-size:12px;color:rgba(255,255,255,0.42);font-weight:300;line-height:1.5;}
+.wellness-img-side{overflow:hidden;position:relative;}
+.wellness-img-side img{width:100%;height:100%;object-fit:cover;display:block;}
+.wellness-img-tag{position:absolute;top:28px;left:28px;background:rgba(255,255,255,0.93);backdrop-filter:blur(10px);padding:8px 18px;font-size:12px;font-weight:600;color:var(--bordo-deep);letter-spacing:0.06em;text-transform:uppercase;}
+.wellness-cta{margin-top:8px;}
+.wellness-cta a{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(198,161,91,0.35);padding-bottom:4px;transition:.2s;}
+.wellness-cta a:hover{color:rgba(230,205,155,0.9);}
+@media(max-width:768px){.wellness-layout{grid-template-columns:1fr;}.wellness-img-side{height:320px;}.wellness-dark{padding:56px 24px;}}
+
+/* ─── GASTRO ─── */
+.gastro-section{background:var(--cream);}
+.gastro-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;flex-wrap:wrap;gap:20px;}
+.gastro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(198,161,91,0.12);}
+.resto-card{overflow:hidden;background:white;transition:var(--transition);}
+.resto-card:hover .resto-img-inner{transform:scale(1.04);}
+.resto-img-wrap{overflow:hidden;height:220px;position:relative;}
+.resto-img-inner{width:100%;height:100%;background-size:cover;background-position:center;transition:transform 0.5s ease;}
+.resto-floor-badge{position:absolute;bottom:14px;left:14px;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);padding:5px 12px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.9);letter-spacing:0.1em;text-transform:uppercase;}
+.resto-info{padding:24px 20px;}
+.resto-tag{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold-dark);font-weight:600;margin-bottom:8px;}
+.resto-info h3{font-family:'Playfair Display',serif;font-size:19px;font-weight:600;color:var(--deep-blue);margin-bottom:8px;}
+.resto-info p{font-size:13px;color:#6a7c84;line-height:1.65;}
+@media(max-width:900px){.gastro-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.gastro-grid{grid-template-columns:1fr;}}
+
+/* ─── PANORAMA GALLERY ─── */
+.panorama-section{background:var(--deep-blue);padding:0;}
+.panorama-label{text-align:center;padding:48px 0 36px;background:var(--deep-blue);}
+.panorama-label h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:400;color:rgba(255,255,255,0.88);letter-spacing:-0.01em;}
+.panorama-label p{font-size:13px;color:rgba(255,255,255,0.38);letter-spacing:0.1em;text-transform:uppercase;margin-top:8px;}
+.pano-strip{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3px;}
+.pano-cell{overflow:hidden;position:relative;}
+.pano-cell img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;}
+.pano-cell:hover img{transform:scale(1.03);}
+.pano-cell.tall{height:480px;}
+.pano-cell.short{height:237px;}
+.pano-cell-right{display:grid;grid-template-rows:1fr 1fr;gap:3px;}
+.pano-caption{position:absolute;bottom:16px;left:16px;font-size:11px;letter-spacing:0.1em;color:rgba(255,255,255,0.65);text-transform:uppercase;font-weight:500;}
+
+/* ─── FLOOR MAP ─── */
+.floors-section{background:white;}
+.floors-layout{display:grid;grid-template-columns:1fr 2fr;gap:64px;align-items:start;padding-top:16px;}
+.floor-list{display:flex;flex-direction:column;border-top:1px solid #f0e7dc;}
+.floor-item{display:grid;grid-template-columns:52px 1fr;padding:16px 0;border-bottom:1px solid #f0e7dc;cursor:pointer;transition:var(--transition);}
+.floor-item:hover,.floor-item.active{background:rgba(198,161,91,0.04);}
+.floor-num{font-family:'Playfair Display',serif;font-size:28px;font-weight:600;color:rgba(198,161,91,0.35);line-height:1;}
+.floor-item.active .floor-num{color:var(--gold);}
+.floor-label{font-size:14px;font-weight:500;color:var(--deep-blue);align-self:center;line-height:1.3;}
+.floor-sublabel{font-size:11px;color:#8a9aa0;margin-top:2px;font-weight:300;}
+.floor-detail{background:var(--cream);padding:44px;min-height:400px;display:flex;flex-direction:column;justify-content:center;}
+.floor-detail-num{font-family:'Playfair Display',serif;font-size:88px;font-weight:600;color:rgba(198,161,91,0.15);line-height:1;margin-bottom:-16px;}
+.floor-detail-title{font-family:'Playfair Display',serif;font-size:30px;font-weight:600;color:var(--deep-blue);margin-bottom:14px;}
+.floor-detail-desc{font-size:14px;color:#5a6e76;line-height:1.85;font-weight:300;margin-bottom:24px;}
+.floor-detail-items{display:flex;flex-wrap:wrap;gap:8px;}
+.floor-detail-item{background:white;border:1px solid rgba(198,161,91,0.28);padding:6px 16px;font-size:12px;font-weight:500;color:var(--deep-blue);}
+@media(max-width:768px){.floors-layout{grid-template-columns:1fr;}}
+
+/* ─── PARK ─── */
+.park-section{background:var(--sand);padding:88px 0;}
+.park-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;overflow:hidden;}
+.park-img{height:480px;overflow:hidden;}
+.park-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.park-content{background:var(--deep-blue);padding:72px;display:flex;flex-direction:column;justify-content:center;gap:20px;}
+.park-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,42px);font-weight:600;color:#fff;line-height:1.05;}
+.park-title em{font-style:italic;color:rgba(230,205,155,0.9);}
+.park-desc{font-size:15px;color:rgba(255,255,255,0.6);font-weight:300;line-height:1.85;}
+.park-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;}
+.park-feat{background:rgba(255,255,255,0.06);padding:16px;display:flex;gap:12px;align-items:flex-start;}
+.park-feat-icon{font-size:18px;}
+.park-feat-text{font-size:13px;color:rgba(255,255,255,0.7);line-height:1.55;}
+@media(max-width:768px){.park-layout{grid-template-columns:1fr;}.park-img{height:240px;}.park-content{padding:40px 24px;}}
+
+/* ─── EVENTS ─── */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(198,161,91,0.1);margin-top:0;}
+.news-card{background:white;overflow:hidden;transition:var(--transition);}
+.news-card:hover{background:var(--cream);}
+.news-img{height:200px;background-size:cover;background-position:center;}
+.news-info{padding:24px;}
+.news-date{font-size:11px;color:var(--gold-dark);margin-bottom:8px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;}
+.news-title{font-size:19px;font-family:'Playfair Display',serif;font-weight:600;margin-bottom:10px;color:var(--deep-blue);line-height:1.2;}
+.news-info p{font-size:13px;color:#6a7c84;line-height:1.7;}
+.news-link{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:12px;font-weight:600;color:var(--gold-dark);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;}
+.btn-all{text-align:center;margin-top:48px;}
+.btn-outline{border:1px solid var(--gold);color:var(--deep-blue);background:transparent;padding:13px 36px;font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);letter-spacing:0.1em;text-transform:uppercase;}
+.btn-outline:hover{background:var(--gold);color:white;}
+
+/* ─── PRACTICAL ─── */
+.practical-section{background:var(--cream);}
+.practical-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(198,161,91,0.15);margin-top:52px;}
+.practical-card{background:white;padding:40px 32px;}
+.practical-num{font-family:'Playfair Display',serif;font-size:11px;color:rgba(198,161,91,0.4);letter-spacing:0.1em;margin-bottom:20px;}
+.practical-icon{font-size:28px;margin-bottom:14px;}
+.practical-title{font-family:'Playfair Display',serif;font-size:21px;font-weight:600;color:var(--deep-blue);margin-bottom:12px;}
+.practical-text{font-size:13px;color:#6a7c84;line-height:1.8;}
+.practical-text strong{color:var(--deep-blue);font-weight:600;}
+@media(max-width:768px){.practical-grid{grid-template-columns:1fr;}}
+
+/* ─── FOOTER ─── */
+.footer{background:#0f1a1f;color:#cfdde3;padding:56px 0 24px;}
+.footer-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:48px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.footer-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:600;color:var(--gold);letter-spacing:0.14em;margin-bottom:12px;}
+.footer-desc{font-size:13px;color:rgba(255,255,255,0.35);font-weight:300;line-height:1.85;max-width:220px;}
+.footer-col h4{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(198,161,91,0.7);font-weight:600;margin-bottom:18px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul a{color:rgba(255,255,255,0.42);font-size:13px;text-decoration:none;font-weight:300;transition:.15s;}
+.footer-col ul a:hover{color:var(--gold);}
+.footer-col p{font-size:13px;color:rgba(255,255,255,0.42);font-weight:300;margin-bottom:5px;line-height:1.8;}
+.footer-sub-form{display:flex;margin-top:14px;}
+.footer-sub-form input{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-right:none;padding:10px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:13px;outline:none;}
+.footer-sub-form input::placeholder{color:rgba(255,255,255,0.25);}
+.footer-sub-form button{background:var(--gold);border:none;padding:10px 18px;cursor:pointer;color:#fff;font-weight:600;font-size:12px;letter-spacing:0.06em;}
+.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.footer-bottom p{font-size:11px;color:rgba(255,255,255,0.2);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <div class="nav-left">
+        <a href="#shops">Универмаг</a>
+        <a href="#gastro">Рестораны</a>
+      </div>
+      <a href="#" class="logo-center">В Е Н Е Ц И Я</a>
+      <div class="nav-right">
+        <a href="#wellness" class="highlight-link">Велнес и СПА</a>
+        <a href="#events" class="highlight-link">События</a>
+        <button class="burger-btn" id="burgerBtn" aria-label="Меню">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="overlay" id="overlay"></div>
+<div class="burger-menu" id="burgerMenu">
+  <button class="close-burger" id="closeBurger">✕</button>
+  <a href="#shops">Магазины и бренды</a>
+  <a href="#gastro">Рестораны и кафе</a>
+  <a href="#wellness">Велнес и СПА</a>
+  <a href="#park">Парк</a>
+  <a href="#events">События</a>
+  <a href="#floors">Схема центра</a>
+  <a href="#practical">Как добраться</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="carousel-container">
+    <div class="carousel-slides" id="carouselSlides">
+      <div class="carousel-slide" style="background-image:url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1920&q=85');">
+        <div class="slide-content">
+          <div class="slide-eyebrow">Универмаг · 2–3 этаж</div>
+          <h1 class="slide-title">Модная<br><em>резиденция</em><br>Москвы</h1>
+          <p class="slide-desc">Более 60 брендов трендовой одежды, персональный стилист и примерочные премиум-класса.</p>
+          <div class="slide-btns">
+            <a href="#shops" class="btn-gold">Смотреть бренды</a>
+            <a href="#floors" class="btn-outline-w">Схема центра</a>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-slide" style="background-image:url('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1920&q=85');">
+        <div class="slide-content">
+          <div class="slide-eyebrow">Гастрономия · 4 этаж · Панорама</div>
+          <h1 class="slide-title">Ужин<br>с видом<br>на <em>Москву</em></h1>
+          <p class="slide-desc">Панорамные рестораны на 4-м уровне с видом на Москву-реку. Вечерние сеты, бранч, деловые обеды.</p>
+          <div class="slide-btns">
+            <a href="#gastro" class="btn-gold">Рестораны и меню</a>
+            <a href="#events" class="btn-outline-w">Ближайшие события</a>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-slide" style="background-image:url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1920&q=85');">
+        <div class="slide-content">
+          <div class="slide-eyebrow">Велнес клуб & СПА · 5 этаж</div>
+          <h1 class="slide-title">Время<br>принадлежит<br><em>вам</em></h1>
+          <p class="slide-desc">Приватный фитнес-клуб и СПА с бассейном для женщин, клиника красоты для всех гостей.</p>
+          <div class="slide-btns">
+            <a href="#wellness" class="btn-gold">О велнес-клубе</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-btn prev" id="prevBtn">&#8592;</button>
+    <button class="carousel-btn next" id="nextBtn">&#8594;</button>
+    <div class="dots" id="dotsContainer"></div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="ticker-item">Универмаг «Венеция»</span>
+    <span class="ticker-item">Велнес клуб и СПА</span>
+    <span class="ticker-item">Видовые рестораны</span>
+    <span class="ticker-item">Перекрёсток Селект</span>
+    <span class="ticker-item">Золотое яблоко</span>
+    <span class="ticker-item">Парк и веранды</span>
+    <span class="ticker-item">Ежедневно 10:00–22:00</span>
+    <span class="ticker-item">Открытие — III квартал 2026</span>
+    <span class="ticker-item">Универмаг «Венеция»</span>
+    <span class="ticker-item">Велнес клуб и СПА</span>
+    <span class="ticker-item">Видовые рестораны</span>
+    <span class="ticker-item">Перекрёсток Селект</span>
+    <span class="ticker-item">Золотое яблоко</span>
+    <span class="ticker-item">Парк и веранды</span>
+    <span class="ticker-item">Ежедневно 10:00–22:00</span>
+    <span class="ticker-item">Открытие — III квартал 2026</span>
+  </div>
+</div>
+
+<!-- ЧТО ВАС ЖДЁТ -->
+<section class="categories-section" id="worlds">
+  <div class="container">
+    <div class="eyebrow-tag">Что вас ждёт</div>
+    <h2 class="section-title">Четыре мира одного места</h2>
+  </div>
+  <div class="cat-grid" style="margin-top:48px;">
+    <!-- Мода -->
+    <div class="cat-card">
+      <img class="cat-card-bg" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85" alt="Мода">
+      <div class="cat-card-overlay"></div>
+      <div class="cat-card-body">
+        <div class="cat-card-main">
+          <div class="cat-tag">Мода</div>
+          <div class="cat-name">Универмаг</div>
+          <div class="cat-desc">60+ брендов трендовой одежды, персональный стилист, примерочные премиум</div>
+        </div>
+        <div class="cat-floor-tag">2–3 этаж</div>
+      </div>
+    </div>
+    <!-- Гастрономия -->
+    <div class="cat-card">
+      <img class="cat-card-bg" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=85" alt="Гастрономия">
+      <div class="cat-card-overlay"></div>
+      <div class="cat-card-body">
+        <div class="cat-card-main">
+          <div class="cat-tag">Гастрономия</div>
+          <div class="cat-name">Рестораны<br>с видом</div>
+          <div class="cat-desc">Панорамный уровень с видом на Москву-реку, четыре ресторана</div>
+        </div>
+        <div class="cat-floor-tag">4 этаж · Панорама</div>
+      </div>
+    </div>
+    <!-- Велнес -->
+    <div class="cat-card">
+      <img class="cat-card-bg" src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=900&q=85" alt="Велнес">
+      <div class="cat-card-overlay"></div>
+      <div class="cat-card-body">
+        <div class="cat-card-main">
+          <div class="cat-tag">Велнес & СПА</div>
+          <div class="cat-name">Приватный<br>клуб</div>
+          <div class="cat-desc">Бассейн, СПА-ритуалы и клиника красоты в центре Москвы</div>
+        </div>
+        <div class="cat-floor-tag">5 этаж</div>
+      </div>
+    </div>
+    <!-- Парк -->
+    <div class="cat-card">
+      <img class="cat-card-bg" src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=900&q=85" alt="Парк">
+      <div class="cat-card-overlay"></div>
+      <div class="cat-card-body">
+        <div class="cat-card-main">
+          <div class="cat-tag">Парк</div>
+          <div class="cat-name">Набережная<br>и каналы</div>
+          <div class="cat-desc">Водные каналы, открытая сцена, веранды и прогулки у реки</div>
+        </div>
+        <div class="cat-floor-tag">Прилегающая территория</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- УНИВЕРМАГ -->
+<section class="section universam-section" id="shops">
+  <div class="uni-layout">
+    <div class="uni-img-side">
+      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85" alt="Универмаг Венеция">
+    </div>
+    <div class="uni-content-side">
+      <div>
+        <div class="eyebrow-tag" style="text-align:left;">Универмаг · 2–3 этаж</div>
+        <h2 class="uni-title">Модный<br><em>якорь</em><br>Венеции</h2>
+      </div>
+      <p class="uni-desc">Пространство, формирующее вкус и спрос. Кураторский отбор брендов — от актуальных дизайнерских марок до сильных коммерческих продуктов, собранных в одном месте.</p>
+      <div>
+        <div class="uni-brands-label">Среди брендов</div>
+        <div class="uni-brands-list">
+          <div class="uni-brand-row"><span class="uni-brand-name">12 Storeez</span><span class="uni-brand-cat">Одежда</span></div>
+          <div class="uni-brand-row"><span class="uni-brand-name">Ushatáva</span><span class="uni-brand-cat">Женская одежда</span></div>
+          <div class="uni-brand-row"><span class="uni-brand-name">Brunello Cucinelli</span><span class="uni-brand-cat">Премиум</span></div>
+          <div class="uni-brand-row"><span class="uni-brand-name">Lesyanebo</span><span class="uni-brand-cat">Аксессуары</span></div>
+          <div class="uni-brand-row"><span class="uni-brand-name">Henderson</span><span class="uni-brand-cat">Мужская одежда</span></div>
+        </div>
+        <div class="uni-brand-more">и ещё 55+ резидентов</div>
+      </div>
+      <div>
+        <div class="uni-services-label">Сервисы</div>
+        <div class="uni-services-list">
+          <div class="uni-svc-row"><span class="uni-svc-num">I</span><span class="uni-svc-text">Персональный шопинг со стилистом</span></div>
+          <div class="uni-svc-row"><span class="uni-svc-num">II</span><span class="uni-svc-text">Примерочные премиум-класса</span></div>
+          <div class="uni-svc-row"><span class="uni-svc-num">III</span><span class="uni-svc-text">Упаковка подарков и доставка по Москве</span></div>
+          <div class="uni-svc-row"><span class="uni-svc-num">IV</span><span class="uni-svc-text">Tax Free — налоговый возврат</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- МАГАЗИНЫ И СЕРВИСЫ -->
+<section class="section tenants-section" id="tenants">
+  <div class="container">
+    <h2 class="section-title">Магазины и сервисы</h2>
+    <p class="section-sub">Всё, что нужно — в одном пространстве</p>
+    <div class="filter-buttons" id="filterButtons">
+      <button class="filter-btn active" data-cat="all">Все</button>
+      <button class="filter-btn" data-cat="shops">Магазины</button>
+      <button class="filter-btn" data-cat="beauty">Красота</button>
+      <button class="filter-btn" data-cat="food">Продукты</button>
+      <button class="filter-btn" data-cat="services">Сервисы</button>
+    </div>
+    <div class="tenants-grid" id="tenantsGrid">
+      <div class="tenant-card" data-category="shops">
+        <div class="tenant-card-num">01</div>
+        <div class="tenant-icon-line">
+          <div class="tenant-icon-sq">👗</div>
+          <h3>Универмаг «Венеция»</h3>
+        </div>
+        <p>Модный якорь: 60+ брендов одежды, обуви и аксессуаров. Кураторский отбор, средний+ и премиум.</p>
+        <div class="tenant-floor-tag">2–3 этаж</div>
+      </div>
+      <div class="tenant-card" data-category="beauty">
+        <div class="tenant-card-num">02</div>
+        <div class="tenant-icon-line">
+          <div class="tenant-icon-sq">💄</div>
+          <h3>Золотое яблоко</h3>
+        </div>
+        <p>Гипермаркет парфюмерии и косметики. Эксклюзивные поп-ап коллекции, beauty-зона, мастер-классы.</p>
+        <div class="tenant-floor-tag">1 этаж</div>
+      </div>
+      <div class="tenant-card" data-category="food">
+        <div class="tenant-card-num">03</div>
+        <div class="tenant-icon-line">
+          <div class="tenant-icon-sq">🛒</div>
+          <h3>Перекрёсток Селект</h3>
+        </div>
+        <p>Продуктовый гипермаркет премиум-сегмента. Фреш-зона, авторские вина, готовая еда и кулинария.</p>
+        <div class="tenant-floor-tag">0 этаж</div>
+      </div>
+      <div class="tenant-card" data-category="beauty">
+        <div class="tenant-card-num">04</div>
+        <div class="tenant-icon-line">
+          <div class="tenant-icon-sq">🌿</div>
+          <h3>Клиника красоты</h3>
+        </div>
+        <p>Эстетическая медицина, инъекции, аппаратные процедуры, уходовые программы для всех гостей.</p>
+        <div class="tenant-floor-tag">5 этаж</div>
+      </div>
+      <div class="tenant-card" data-category="services">
+        <div class="tenant-card-num">05</div>
+        <div class="tenant-icon-line">
+          <div class="tenant-icon-sq">☕</div>
+          <h3>Кофейня с верандой</h3>
+        </div>
+        <p>Specialty coffee, завтраки и лёгкие обеды. Выход в парк, вид на водные каналы.</p>
+        <div class="tenant-floor-tag">1 этаж · Парк</div>
+      </div>
+      <div class="tenant-card" data-category="services">
+        <div class="tenant-card-num">06</div>
+        <div class="tenant-icon-line">
+          <div class="tenant-icon-sq">💐</div>
+          <h3>Цветочный бутик</h3>
+        </div>
+        <p>Авторские флористические композиции, подарочные корзины, доставка по Москве.</p>
+        <div class="tenant-floor-tag">1 этаж</div>
+      </div>
+      <div class="tenant-card" data-category="services">
+        <div class="tenant-card-num">07</div>
+        <div class="tenant-icon-line">
+          <div class="tenant-icon-sq">📚</div>
+          <h3>Книжный</h3>
+        </div>
+        <p>Редкие издания, арт-книги, дизайнерские канцтовары и атмосфера культурного клуба.</p>
+        <div class="tenant-floor-tag">1 этаж</div>
+      </div>
+      <div class="tenant-card" data-category="food">
+        <div class="tenant-card-num">08</div>
+        <div class="tenant-icon-line">
+          <div class="tenant-icon-sq">🍫</div>
+          <h3>Сыроварня и гастроном</h3>
+        </div>
+        <p>Авторские сыры, деликатесы, импортные продукты и готовая еда для домашнего стола.</p>
+        <div class="tenant-floor-tag">0 этаж</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ВЕЛНЕС -->
+<section class="section wellness-section" id="wellness">
+  <div class="wellness-layout">
+    <div class="wellness-dark">
+      <div class="wellness-eyebrow">Велнес клуб & СПА · 5 этаж</div>
+      <h2 class="wellness-title">Пространство,<br>где время<br>принадлежит<br><em>вам</em></h2>
+      <p class="wellness-desc">Приватный фитнес-клуб с бассейном только для женщин. Новый стандарт восстановления в центре мегаполиса.</p>
+      <div class="wellness-perks">
+        <div class="wellness-perk">
+          <div class="wellness-perk-num">I</div>
+          <div class="wellness-perk-content">
+            <div class="wellness-perk-title">Бассейн и зона отдыха</div>
+            <div class="wellness-perk-sub">Приватная зона только для женщин с панорамным видом</div>
+          </div>
+        </div>
+        <div class="wellness-perk">
+          <div class="wellness-perk-num">II</div>
+          <div class="wellness-perk-content">
+            <div class="wellness-perk-title">Фитнес, йога и пилатес</div>
+            <div class="wellness-perk-sub">Оборудование Technogym, персональный тренер</div>
+          </div>
+        </div>
+        <div class="wellness-perk">
+          <div class="wellness-perk-num">III</div>
+          <div class="wellness-perk-content">
+            <div class="wellness-perk-title">СПА-ритуалы и хаммам</div>
+            <div class="wellness-perk-sub">Авторские программы, массажи и бьюти-уходы</div>
+          </div>
+        </div>
+        <div class="wellness-perk">
+          <div class="wellness-perk-num">IV</div>
+          <div class="wellness-perk-content">
+            <div class="wellness-perk-title">Клиника красоты</div>
+            <div class="wellness-perk-sub">Эстетическая медицина для всех гостей МФК</div>
+          </div>
+        </div>
+        <div class="wellness-perk">
+          <div class="wellness-perk-num">V</div>
+          <div class="wellness-perk-content">
+            <div class="wellness-perk-title">Консьерж-сервис</div>
+            <div class="wellness-perk-sub">Персональный ассистент и бронирование</div>
+          </div>
+        </div>
+      </div>
+      <div class="wellness-cta">
+        <a href="#">Узнать об абонементах &rarr;</a>
+      </div>
+    </div>
+    <div class="wellness-img-side">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&q=85" alt="Велнес Венеция">
+      <div class="wellness-img-tag">Только для женщин</div>
+    </div>
+  </div>
+</section>
+
+<!-- РЕСТОРАНЫ -->
+<section class="section gastro-section" id="gastro">
+  <div class="container">
+    <div class="gastro-header">
+      <div>
+        <div class="eyebrow-tag" style="text-align:left;">4 этаж · Панорамный уровень</div>
+        <h2 class="section-title" style="text-align:left;margin-bottom:0;">Рестораны с видом<br>на Москву</h2>
+      </div>
+      <p style="max-width:300px;font-size:14px;color:#6a7c84;line-height:1.8;">Видовые рестораны на 4-м уровне. Дневные сеты, вечерние ужины, семейные воскресенья.</p>
+    </div>
+    <div class="gastro-grid">
+      <div class="resto-card">
+        <div class="resto-img-wrap">
+          <div class="resto-img-inner" style="background-image:url('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=700&q=85');"></div>
+          <div class="resto-floor-badge">Вид на реку</div>
+        </div>
+        <div class="resto-info">
+          <div class="resto-tag">Alba Group</div>
+          <h3>Панорамный ресторан</h3>
+          <p>Авторская кухня, живая музыка по пятницам, вечерние сеты</p>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-img-wrap">
+          <div class="resto-img-inner" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=85');"></div>
+          <div class="resto-floor-badge">Вид на парк</div>
+        </div>
+        <div class="resto-info">
+          <div class="resto-tag">Ribambelle</div>
+          <h3>Семейный ресторан</h3>
+          <p>Итальянская кухня, детское меню, воскресный бранч</p>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-img-wrap">
+          <div class="resto-img-inner" style="background-image:url('https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=700&q=85');"></div>
+          <div class="resto-floor-badge">4 этаж</div>
+        </div>
+        <div class="resto-info">
+          <div class="resto-tag">Рестораны Раппопорта</div>
+          <h3>Классический ресторан</h3>
+          <p>Деловые обеды, открытая кухня, авторские дегустации</p>
+        </div>
+      </div>
+      <div class="resto-card">
+        <div class="resto-img-wrap">
+          <div class="resto-img-inner" style="background-image:url('https://images.unsplash.com/photo-1582149515882-9e7b4bca71b0?w=700&q=85');"></div>
+          <div class="resto-floor-badge">Бар · Закаты</div>
+        </div>
+        <div class="resto-info">
+          <div class="resto-tag">WRF Restaurant Alliance</div>
+          <h3>Гастробар</h3>
+          <p>Коктейльная карта, wine selection, закаты над городом</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ГАЛЕРЕЯ ПАНОРАМ МОСКВЫ -->
+<div class="panorama-section">
+  <div class="panorama-label">
+    <h3>Вид, который невозможно забыть</h3>
+    <p>Краснопресненская набережная · Москва-Сити · Кремль</p>
+  </div>
+  <div class="pano-strip">
+    <div class="pano-cell tall">
+      <img src="https://images.unsplash.com/photo-1513326738677-b964603b136d?w=1200&q=85" alt="Москва-Сити панорама">
+      <div class="pano-caption">Москва-Сити</div>
+    </div>
+    <div class="pano-cell-right">
+      <div class="pano-cell short">
+        <img src="https://images.unsplash.com/photo-1603204077779-bed963ea7d0e?w=700&q=85" alt="Москва-река">
+        <div class="pano-caption">Москва-река</div>
+      </div>
+      <div class="pano-cell short">
+        <img src="https://images.unsplash.com/photo-1548679847-1d4ff48016c9?w=700&q=85" alt="Набережная">
+        <div class="pano-caption">Набережная</div>
+      </div>
+    </div>
+    <div class="pano-cell-right">
+      <div class="pano-cell short">
+        <img src="https://images.unsplash.com/photo-1520106212299-d99c443e4568?w=700&q=85" alt="Вечерняя Москва">
+        <div class="pano-caption">Вечерняя Москва</div>
+      </div>
+      <div class="pano-cell short">
+        <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=700&q=85" alt="Панорама">
+        <div class="pano-caption">Вид с 4 этажа</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- СХЕМА ЭТАЖЕЙ -->
+<section class="section floors-section" id="floors">
+  <div class="container">
+    <h2 class="section-title">Схема центра</h2>
+    <p class="section-sub">Выберите этаж — узнайте, что вас ждёт</p>
+    <div class="floors-layout">
+      <div class="floor-list" id="floorList">
+        <div class="floor-item active" data-floor="4"><div class="floor-num">4</div><div><div class="floor-label">Рестораны и бары</div><div class="floor-sublabel">Панорамный уровень</div></div></div>
+        <div class="floor-item" data-floor="5"><div class="floor-num">5</div><div><div class="floor-label">Велнес клуб & СПА</div><div class="floor-sublabel">Для членов клуба</div></div></div>
+        <div class="floor-item" data-floor="3"><div class="floor-num">3</div><div><div class="floor-label">Универмаг «Венеция»</div><div class="floor-sublabel">Премиум бренды</div></div></div>
+        <div class="floor-item" data-floor="2"><div class="floor-num">2</div><div><div class="floor-label">Универмаг «Венеция»</div><div class="floor-sublabel">Средний+ сегмент</div></div></div>
+        <div class="floor-item" data-floor="1"><div class="floor-num">1</div><div><div class="floor-label">Торговая галерея</div><div class="floor-sublabel">Золотое яблоко, кафе, бутики</div></div></div>
+        <div class="floor-item" data-floor="0"><div class="floor-num">0</div><div><div class="floor-label">Продукты и сервисы</div><div class="floor-sublabel">Перекрёсток Селект</div></div></div>
+      </div>
+      <div class="floor-detail" id="floorDetail">
+        <div class="floor-detail-num">4</div>
+        <div class="floor-detail-title">Рестораны и бары</div>
+        <p class="floor-detail-desc">Панорамный уровень с видом на Москву-реку и парк «Красная Пресня». Четыре ресторана — от семейных обедов до вечерних ужинов с живой музыкой.</p>
+        <div class="floor-detail-items">
+          <span class="floor-detail-item">Alba Group</span><span class="floor-detail-item">Ribambelle</span><span class="floor-detail-item">Рестораны Раппопорта</span><span class="floor-detail-item">WRF Гастробар</span><span class="floor-detail-item">Вид на реку</span><span class="floor-detail-item">Открытые террасы</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ПАРК -->
+<section class="park-section" id="park">
+  <div class="container">
+    <div class="park-layout">
+      <div class="park-img">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85" alt="Парк Венеция">
+      </div>
+      <div class="park-content">
+        <div class="eyebrow-tag" style="text-align:left;color:rgba(198,161,91,0.6);">Прилегающая территория</div>
+        <h2 class="park-title">Амфитеатр<br>для событий<br><em>под открытым небом</em></h2>
+        <p class="park-desc">Городской парк с водными каналами прямо у МФК. Прогулки, летние открытые рестораны, концерты и маркеты — всё рядом с набережной.</p>
+        <div class="park-features">
+          <div class="park-feat"><div class="park-feat-icon">🌿</div><div class="park-feat-text">Прогулочные аллеи вдоль водных каналов</div></div>
+          <div class="park-feat"><div class="park-feat-icon">🎭</div><div class="park-feat-text">Открытая сцена и летний амфитеатр</div></div>
+          <div class="park-feat"><div class="park-feat-icon">☕</div><div class="park-feat-text">Веранды и кофейни у воды</div></div>
+          <div class="park-feat"><div class="park-feat-icon">🚶</div><div class="park-feat-text">Выход к Краснопресненской набережной</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- СОБЫТИЯ -->
+<section class="section" id="events" style="background:#fff;">
+  <div class="container">
+    <h2 class="section-title">События и новости</h2>
+    <p class="section-sub">Мастер-классы, показы, гастроужины и маркеты — каждую неделю что-то новое</p>
+  </div>
+  <div class="news-grid">
+    <div class="news-card">
+      <div class="news-img" style="background-image:url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=700&q=85');"></div>
+      <div class="news-info">
+        <div class="news-date">25 апреля 2026</div>
+        <div class="news-title">Открытие Универмага «Венеция»</div>
+        <p>Fashion-показ, шампанское и первые 60+ брендов. Персональный стилист — бесплатно в день открытия.</p>
+        <a href="#" class="news-link">Подробнее</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="news-img" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=85');"></div>
+      <div class="news-info">
+        <div class="news-date">2 мая 2026</div>
+        <div class="news-title">Гастроужин от Alba Group</div>
+        <p>Эксклюзивное меню из семи сетов с видом на Москву-реку. Лимитированные места.</p>
+        <a href="#" class="news-link">Забронировать</a>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="news-img" style="background-image:url('https://images.unsplash.com/photo-1618241155845-f90a1c66ca61?w=700&q=85');"></div>
+      <div class="news-info">
+        <div class="news-date">15 мая 2026</div>
+        <div class="news-title">Мастер-класс Золотого яблока</div>
+        <p>Создайте свой персональный аромат с экспертами. Лаборатория парфюмерии, эксклюзивные флаконы.</p>
+        <a href="#" class="news-link">Записаться</a>
+      </div>
+    </div>
+  </div>
+  <div class="btn-all"><button class="btn-outline">Все события</button></div>
+</section>
+
+<!-- ПРАКТИЧЕСКАЯ ИНФОРМАЦИЯ -->
+<section class="section practical-section" id="practical">
+  <div class="container">
+    <h2 class="section-title">Как добраться</h2>
+    <div class="practical-grid">
+      <div class="practical-card">
+        <div class="practical-num">01</div>
+        <div class="practical-icon">🚇</div>
+        <div class="practical-title">Метро и транспорт</div>
+        <p class="practical-text">Ст. <strong>Деловой центр</strong> (МЦД-3, МЦК) и <strong>Выставочная</strong> (Филёвская) — 5 минут пешком. Автобусы вдоль Краснопресненской набережной.</p>
+      </div>
+      <div class="practical-card">
+        <div class="practical-num">02</div>
+        <div class="practical-icon">🚗</div>
+        <div class="practical-title">Парковка</div>
+        <p class="practical-text"><strong>300 мест</strong> на −1 и −2 уровнях. Первые 30 минут бесплатно. Для гостей ресторанов и велнес-клуба — льготные условия по карте гостя.</p>
+      </div>
+      <div class="practical-card">
+        <div class="practical-num">03</div>
+        <div class="practical-icon">🕙</div>
+        <div class="practical-title">Режим работы</div>
+        <p class="practical-text">Центр — <strong>ежедневно 10:00–22:00</strong>. Рестораны — до 23:00. Велнес-клуб — с 07:00 до 23:00 для членов клуба.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">ВЕНЕЦИЯ</div>
+        <div class="footer-desc">Многофункциональный центр на Краснопресненской набережной, рядом с Москва-Сити. Открытие — III кв. 2026.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="#shops">Магазины и бренды</a></li>
+          <li><a href="#gastro">Рестораны и кафе</a></li>
+          <li><a href="#wellness">Велнес и СПА</a></li>
+          <li><a href="#park">Парк</a></li>
+          <li><a href="#events">События</a></li>
+          <li><a href="#practical">Как добраться</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <p>+7 (495) 000-00-00</p>
+        <p>info@venecia-mfc.ru</p>
+        <p style="margin-top:10px;">Ежедн. 10:00–22:00</p>
+        <p>venecia-mfc.ru</p>
+      </div>
+      <div class="footer-col">
+        <h4>Будьте в курсе</h4>
+        <p style="font-size:12px;line-height:1.8;color:rgba(255,255,255,0.28);">Новости об открытии и событиях</p>
+        <div class="footer-sub-form">
+          <input type="email" placeholder="Ваш email">
+          <button>OK</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 МФК «Венеция». Все права защищены.</p>
+      <p>venecia-mfc.ru</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Burger
+const burgerBtn=document.getElementById('burgerBtn'),burgerMenu=document.getElementById('burgerMenu'),overlay=document.getElementById('overlay'),closeBurger=document.getElementById('closeBurger');
+function openB(){burgerMenu.classList.add('active');overlay.classList.add('active');document.body.style.overflow='hidden';}
+function closeB(){burgerMenu.classList.remove('active');overlay.classList.remove('active');document.body.style.overflow='';}
+burgerBtn.addEventListener('click',openB);
+closeBurger.addEventListener('click',closeB);
+overlay.addEventListener('click',closeB);
+document.querySelectorAll('.burger-menu a').forEach(a=>a.addEventListener('click',closeB));
+
+// Carousel
+const slidesContainer=document.getElementById('carouselSlides'),dotsContainer=document.getElementById('dotsContainer');
+const totalSlides=document.querySelectorAll('.carousel-slide').length;
+let cur=0;
+function buildDots(){dotsContainer.innerHTML='';for(let i=0;i<totalSlides;i++){const d=document.createElement('button');d.className='dot'+(i===0?' active':'');d.addEventListener('click',()=>{cur=i;go();});dotsContainer.appendChild(d);}}
+function go(){slidesContainer.style.transform=`translateX(-${cur*100}%)`;document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));}
+document.getElementById('prevBtn').addEventListener('click',()=>{cur=(cur-1+totalSlides)%totalSlides;go();});
+document.getElementById('nextBtn').addEventListener('click',()=>{cur=(cur+1)%totalSlides;go();});
+buildDots();
+setInterval(()=>{cur=(cur+1)%totalSlides;go();},5500);
+
+// Tenants filter
+document.getElementById('filterButtons').addEventListener('click',e=>{
+  const btn=e.target.closest('.filter-btn');if(!btn)return;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+  const cat=btn.dataset.cat;
+  document.querySelectorAll('.tenant-card').forEach(c=>{c.style.display=(cat==='all'||c.dataset.category===cat)?'flex':'none';});
+});
+
+// Floor map
+const floorData={
+  '4':{num:'4',title:'Рестораны и бары',desc:'Панорамный уровень с видом на Москву-реку и парк «Красная Пресня». Четыре ресторана разного формата — от семейных обедов до вечерних ужинов с живой музыкой.',items:['Alba Group','Ribambelle','Рестораны Раппопорта','WRF Гастробар','Вид на реку','Открытые террасы']},
+  '5':{num:'5',title:'Велнес клуб & СПА',desc:'Приватный клуб с бассейном только для женщин. Фитнес-зал, СПА-зона, хаммам и клиника красоты для всех гостей.',items:['Бассейн ♀','Фитнес & йога','СПА-ритуалы','Хаммам','Клиника красоты','Консьерж']},
+  '3':{num:'3',title:'Универмаг — премиум',desc:'Верхний ярус универмага с премиальными брендами и зоной персонального шопинга. Lounge-зона и стилист.',items:['Brunello Cucinelli','Персональный стилист','Lounge-зона','Премиум примерочные']},
+  '2':{num:'2',title:'Универмаг — средний+',desc:'Нижний ярус универмага с трендовыми марками. 60+ резидентов, быстрая смена коллекций.',items:['12 Storeez','Ushatáva','Lesyanebo','Henderson','Кафе в универмаге']},
+  '1':{num:'1',title:'Торговая галерея',desc:'Главный вход и торговый уровень с якорными магазинами, кофейней и выходом в парк.',items:['Золотое яблоко','Кофейня с верандой','Цветочный бутик','Книжный','Выход в парк']},
+  '0':{num:'0',title:'Продукты и сервисы',desc:'Цокольный уровень с продуктовым гипермаркетом, бытовыми сервисами и въездом с парковки.',items:['Перекрёсток Селект','Фреш-зона','Аптека','Химчистка','Парковка']}
+};
+document.getElementById('floorList').addEventListener('click',e=>{
+  const item=e.target.closest('.floor-item');if(!item)return;
+  document.querySelectorAll('.floor-item').forEach(i=>i.classList.remove('active'));item.classList.add('active');
+  const f=floorData[item.dataset.floor];if(!f)return;
+  document.getElementById('floorDetail').innerHTML=`<div class="floor-detail-num">${f.num}</div><div class="floor-detail-title">${f.title}</div><p class="floor-detail-desc">${f.desc}</p><div class="floor-detail-items">${f.items.map(i=>`<span class="floor-detail-item">${i}</span>`).join('')}</div>`;
+});
+</script>
+</body>
+</html>

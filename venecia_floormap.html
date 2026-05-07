@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Схема центра — Венеция</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#0f0d0a;
+  --muted:#7a6e62;
+  --cream:#faf8f3;
+  --sand:#f0e9dc;
+  --gold:#c6a15b;
+  --gold-d:#a47c3e;
+  --gold-p:#fdf6eb;
+  --bordo:#4A0B18;
+  --deep:#1f3e48;
+  --rule:rgba(198,161,91,0.18);
+  --tr:.2s ease;
+  /* zone colours */
+  --z-fashion:rgba(53,107,165,0.22);
+  --z-fashion-h:rgba(53,107,165,0.42);
+  --z-gastro:rgba(186,117,23,0.22);
+  --z-gastro-h:rgba(186,117,23,0.42);
+  --z-wellness:rgba(15,110,86,0.22);
+  --z-wellness-h:rgba(15,110,86,0.42);
+  --z-beauty:rgba(153,53,86,0.22);
+  --z-beauty-h:rgba(153,53,86,0.42);
+  --z-food:rgba(99,56,6,0.18);
+  --z-food-h:rgba(99,56,6,0.36);
+  --z-service:rgba(95,94,90,0.15);
+  --z-service-h:rgba(95,94,90,0.3);
+  --z-parking:rgba(44,44,42,0.12);
+  --z-parking-h:rgba(44,44,42,0.25);
+}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);}
+
+/* ── NAV ── */
+.nav{background:rgba(250,248,243,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);position:relative;z-index:100;}
+.navbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:62px;max-width:100%;padding:0 24px;}
+.nav-l a,.nav-r a{font-size:13px;font-weight:500;letter-spacing:.05em;color:var(--muted);text-decoration:none;transition:var(--tr);}
+.nav-l a:hover,.nav-r a:hover{color:var(--bordo);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:.18em;color:var(--bordo);text-decoration:none;text-align:center;}
+.nav-r{display:flex;justify-content:flex-end;align-items:center;gap:20px;}
+.burger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;width:26px;}
+.burger span{display:block;height:1.5px;background:var(--ink);border-radius:2px;}
+.side{position:fixed;top:0;right:-300px;width:270px;height:100%;background:#fffdf9;z-index:500;transition:right .35s cubic-bezier(.77,0,.18,1);padding:70px 0 32px;box-shadow:-4px 0 32px rgba(0,0,0,.08);}
+.side.open{right:0;}
+.side a{display:block;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--bordo);text-decoration:none;padding:13px 28px;border-bottom:1px solid var(--rule);transition:var(--tr);}
+.side a:hover{padding-left:36px;}
+.side-close{position:absolute;top:18px;right:20px;background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted);}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:400;display:none;}
+.ov.open{display:block;}
+
+/* ── SEARCH BAR ── */
+.search-bar{background:#fff;border-bottom:1px solid var(--rule);padding:10px 20px;display:flex;align-items:center;gap:10px;position:relative;}
+.sb-icon{color:var(--muted);flex-shrink:0;}
+.sb-input{flex:1;border:none;background:transparent;font-family:'Raleway',sans-serif;font-size:14px;color:var(--ink);outline:none;}
+.sb-input::placeholder{color:rgba(122,110,98,.45);}
+.sb-clear{background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px;display:none;}
+.sb-clear.vis{display:block;}
+.sb-quick{display:flex;gap:6px;padding:8px 20px 10px;background:#fff;border-bottom:1px solid var(--rule);overflow-x:auto;scrollbar-width:none;}
+.sb-quick::-webkit-scrollbar{display:none;}
+.sq-btn{background:var(--sand);border:none;padding:5px 14px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--muted);cursor:pointer;white-space:nowrap;transition:var(--tr);}
+.sq-btn:hover{background:var(--gold-p);color:var(--bordo);}
+/* autocomplete */
+.ac-drop{position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--rule);z-index:50;display:none;max-height:240px;overflow-y:auto;}
+.ac-drop.vis{display:block;}
+.ac-item{padding:10px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-bottom:0.5px solid var(--rule);}
+.ac-item:last-child{border-bottom:none;}
+.ac-item:hover{background:var(--gold-p);}
+.ac-name{font-size:13px;color:var(--ink);}
+.ac-floor{font-size:11px;color:var(--muted);}
+
+/* ── MAIN LAYOUT ── */
+.page-body{display:flex;height:calc(100vh - 62px - 88px);overflow:hidden;}
+
+/* ── FLOOR SWITCHER ── */
+.floor-switcher{width:72px;flex-shrink:0;background:#fff;border-right:1px solid var(--rule);display:flex;flex-direction:column;align-items:center;padding:8px 0;overflow-y:auto;gap:2px;}
+.floor-btn{width:52px;height:48px;background:transparent;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:var(--tr);border-radius:4px;}
+.floor-btn:hover{background:var(--sand);}
+.floor-btn.active{background:var(--bordo);color:#fff;}
+.floor-btn.active .fb-num{color:#fff;}
+.floor-btn.active .fb-label{color:rgba(255,255,255,.65);}
+.fb-num{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--bordo);line-height:1;}
+.fb-label{font-size:9px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);line-height:1;text-align:center;}
+.floor-sep{width:32px;height:1px;background:var(--rule);margin:4px auto;}
+
+/* ── PLAN AREA ── */
+.plan-area{flex:1;overflow:hidden;position:relative;background:var(--cream);}
+.plan-canvas{width:100%;height:100%;position:relative;}
+.floor-plan{display:none;width:100%;height:100%;padding:20px;}
+.floor-plan.active{display:flex;align-items:center;justify-content:center;}
+.plan-svg{max-width:700px;width:100%;max-height:100%;cursor:default;}
+.plan-svg .zone{cursor:pointer;transition:opacity .2s;}
+.plan-svg .zone:hover rect,.plan-svg .zone:hover path{filter:brightness(1.15);}
+.plan-svg .zone.highlighted rect{stroke:var(--gold) !important;stroke-width:2 !important;}
+@keyframes pulse{0%,100%{stroke-opacity:.8;stroke-width:2;}50%{stroke-opacity:1;stroke-width:3;}}
+.plan-svg .zone.pulse rect{animation:pulse .8s ease-in-out 3;}
+.plan-svg text{pointer-events:none;font-family:'Raleway',sans-serif;}
+/* layer visibility */
+.plan-svg.hide-fashion .z-fashion{opacity:.12;}
+.plan-svg.hide-gastro .z-gastro{opacity:.12;}
+.plan-svg.hide-wellness .z-wellness{opacity:.12;}
+.plan-svg.hide-beauty .z-beauty{opacity:.12;}
+.plan-svg.hide-food .z-food{opacity:.12;}
+.plan-svg.hide-service .z-service{opacity:.12;}
+
+/* ── LAYER FILTERS ── */
+.layer-bar{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:5px;background:rgba(250,248,243,.95);backdrop-filter:blur(8px);padding:7px 10px;border:1px solid var(--rule);}
+.lyr-btn{background:transparent;border:1px solid transparent;padding:5px 12px;font-family:'Raleway',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:var(--tr);display:flex;align-items:center;gap:5px;white-space:nowrap;color:var(--muted);}
+.lyr-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.lyr-btn.active{color:var(--ink);border-color:currentColor;}
+.lyr-btn.active.cat-fashion{color:#356BA5;}
+.lyr-btn.active.cat-gastro{color:#BA7517;}
+.lyr-btn.active.cat-wellness{color:#0F6E56;}
+.lyr-btn.active.cat-beauty{color:#993556;}
+.lyr-btn.active.cat-food{color:#633806;}
+.lyr-btn.active.cat-service{color:#5F5E5A;}
+
+/* ── SIDE PANEL ── */
+.side-panel{width:300px;flex-shrink:0;background:#fff;border-left:1px solid var(--rule);display:flex;flex-direction:column;overflow:hidden;transition:width .25s ease;}
+.sp-default{padding:20px;display:flex;flex-direction:column;gap:16px;}
+.sp-eyebrow{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-d);margin-bottom:4px;}
+.sp-floor-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--bordo);line-height:1;}
+.sp-floor-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.7;}
+.legend{display:flex;flex-direction:column;gap:6px;}
+.leg-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink);}
+.leg-swatch{width:12px;height:12px;border-radius:2px;flex-shrink:0;}
+.svc-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);}
+.svc-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--rule);font-size:12px;color:var(--ink);}
+.svc-row:last-child{border-bottom:none;}
+.svc-icon{font-size:14px;width:20px;text-align:center;flex-shrink:0;}
+/* zone card */
+.sp-card{flex:1;overflow-y:auto;display:none;flex-direction:column;}
+.sp-card.visible{display:flex;}
+.sp-card-img{height:160px;overflow:hidden;position:relative;flex-shrink:0;}
+.sp-card-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.sp-card-img-ph{width:100%;height:100%;background:var(--sand);display:flex;align-items:center;justify-content:center;font-size:48px;}
+.sp-card-img-back{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.4);backdrop-filter:blur(6px);border:none;color:#fff;font-size:12px;cursor:pointer;padding:5px 10px;letter-spacing:.04em;}
+.sp-card-body{padding:18px;flex:1;}
+.sp-cat{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-d);margin-bottom:6px;}
+.sp-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--bordo);line-height:1.05;margin-bottom:10px;}
+.sp-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.7;margin-bottom:14px;}
+.sp-meta{display:flex;flex-direction:column;border-top:1px solid var(--rule);margin-bottom:14px;}
+.sp-meta-row{display:flex;padding:7px 0;border-bottom:1px solid var(--rule);}
+.sp-meta-row:last-child{border-bottom:none;}
+.sp-mk{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);min-width:70px;padding-top:1px;}
+.sp-mv{font-size:12px;color:var(--ink);line-height:1.4;}
+.sp-open{font-size:11px;font-weight:600;padding:2px 8px;display:inline-block;margin-bottom:4px;}
+.sp-open.open{background:rgba(61,153,112,.12);color:#0F6E56;}
+.sp-open.closed{background:rgba(192,57,43,.1);color:#c0392b;}
+.sp-actions{display:flex;flex-direction:column;gap:6px;padding:0 18px 18px;}
+.btn-bordo{background:var(--bordo);color:#fff;border:none;padding:11px 18px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:var(--tr);width:100%;text-align:center;text-decoration:none;display:block;}
+.btn-bordo:hover{background:#6B1024;}
+.btn-outline-sm{background:transparent;border:1px solid var(--rule);color:var(--ink);padding:10px 18px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:var(--tr);width:100%;text-align:center;}
+.btn-outline-sm:hover{border-color:var(--gold);background:var(--gold-p);}
+
+/* ── MOBILE BOTTOM SHEET ── */
+.mobile-sheet{display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--rule);z-index:300;transform:translateY(100%);transition:transform .3s ease;max-height:70vh;overflow-y:auto;border-radius:0;}
+.mobile-sheet.peek{transform:translateY(calc(100% - 64px));}
+.mobile-sheet.open{transform:translateY(0);}
+.ms-handle{width:32px;height:3px;background:var(--rule);border-radius:2px;margin:10px auto 14px;}
+.ms-mini{padding:0 16px 14px;display:flex;align-items:center;gap:12px;}
+.ms-mini-icon{font-size:24px;}
+.ms-mini-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--bordo);}
+.ms-mini-floor{font-size:11px;color:var(--muted);}
+
+/* ── YOU ARE HERE button ── */
+.yah-btn{position:absolute;top:16px;right:16px;background:rgba(250,248,243,.95);border:1px solid var(--rule);padding:7px 14px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;cursor:pointer;transition:var(--tr);display:flex;align-items:center;gap:6px;color:var(--deep);}
+.yah-btn:hover{border-color:var(--gold);background:var(--gold-p);}
+.yah-dot{width:8px;height:8px;border-radius:50%;background:#3B8BD4;flex-shrink:0;}
+
+/* ── SVG ZONE STYLES ── */
+.z-fashion rect,.z-fashion path{fill:var(--z-fashion);stroke:rgba(53,107,165,.4);stroke-width:.5;}
+.z-fashion:hover rect,.z-fashion:hover path,.z-fashion.sel rect,.z-fashion.sel path{fill:var(--z-fashion-h);}
+.z-gastro rect,.z-gastro path{fill:var(--z-gastro);stroke:rgba(186,117,23,.4);stroke-width:.5;}
+.z-gastro:hover rect,.z-gastro:hover path,.z-gastro.sel rect,.z-gastro.sel path{fill:var(--z-gastro-h);}
+.z-wellness rect,.z-wellness path{fill:var(--z-wellness);stroke:rgba(15,110,86,.4);stroke-width:.5;}
+.z-wellness:hover rect,.z-wellness:hover path,.z-wellness.sel rect,.z-wellness.sel path{fill:var(--z-wellness-h);}
+.z-beauty rect,.z-beauty path{fill:var(--z-beauty);stroke:rgba(153,53,86,.4);stroke-width:.5;}
+.z-beauty:hover rect,.z-beauty:hover path,.z-beauty.sel rect,.z-beauty.sel path{fill:var(--z-beauty-h);}
+.z-food rect,.z-food path{fill:var(--z-food);stroke:rgba(99,56,6,.35);stroke-width:.5;}
+.z-food:hover rect,.z-food:hover path,.z-food.sel rect,.z-food.sel path{fill:var(--z-food-h);}
+.z-service rect,.z-service path{fill:var(--z-service);stroke:rgba(95,94,90,.3);stroke-width:.5;}
+.z-service:hover rect,.z-service:hover path,.z-service.sel rect,.z-service.sel path{fill:var(--z-service-h);}
+.z-parking rect{fill:var(--z-parking);stroke:rgba(44,44,42,.25);stroke-width:.5;}
+.z-parking:hover rect{fill:var(--z-parking-h);}
+.zone-label{font-size:10px;font-weight:500;fill:rgba(15,12,8,.65);}
+.zone-sub{font-size:8px;font-weight:400;fill:rgba(15,12,8,.4);}
+/* service icons */
+.svc-icon-svg{font-size:12px;fill:rgba(95,94,90,.7);}
+/* building outline */
+.building-wall{fill:rgba(15,12,8,.04);stroke:rgba(15,12,8,.15);stroke-width:1;}
+.core-wall{fill:rgba(15,12,8,.07);stroke:rgba(15,12,8,.2);stroke-width:.5;}
+/* corridors/atriums */
+.corridor{fill:rgba(250,248,243,.7);stroke:rgba(15,12,8,.06);stroke-width:.5;}
+/* escalator symbol */
+.esc-sym{fill:none;stroke:rgba(95,94,90,.5);stroke-width:.8;}
+.lift-sym{fill:rgba(95,94,90,.12);stroke:rgba(95,94,90,.45);stroke-width:.5;}
+
+@media(max-width:768px){
+  .side-panel{display:none;}
+  .floor-switcher{width:52px;}
+  .fb-label{display:none;}
+  .floor-btn{width:40px;height:40px;}
+  .fb-num{font-size:15px;}
+  .layer-bar{gap:3px;padding:5px 6px;}
+  .lyr-btn span:not(.lyr-dot){display:none;}
+  .mobile-sheet{display:block;}
+  .yah-btn span:last-child{display:none;}
+  html,body{height:100%;overflow:hidden;}
+  .page-body{height:calc(100vh - 62px - 88px - env(safe-area-inset-bottom));}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="navbar">
+    <div class="nav-l"><a href="venecia_shops_v3.html">Универмаг</a></div>
+    <a href="/" class="logo">В Е Н Е Ц И Я</a>
+    <div class="nav-r">
+      <a href="#">Велнес и СПА</a>
+      <button class="burger" id="bb"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="ov" id="ov"></div>
+<div class="side" id="side">
+  <button class="side-close" id="sc">✕</button>
+  <a href="venecia_shops_v3.html">Магазины и бренды</a>
+  <a href="venecia_restaurants.html">Рестораны и кафе</a>
+  <a href="#">Велнес и СПА</a>
+  <a href="#">Парк</a>
+  <a href="#">События</a>
+  <a href="#" style="color:var(--bordo);font-weight:500;">Схема центра</a>
+  <a href="#">Как добраться</a>
+</div>
+
+<!-- SEARCH -->
+<div class="search-bar" id="searchWrap">
+  <svg class="sb-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.4"/><path d="M10 10l3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+  <input class="sb-input" id="sbInput" type="text" placeholder="Найти магазин, ресторан или сервис...">
+  <button class="sb-clear" id="sbClear">✕</button>
+  <div class="ac-drop" id="acDrop"></div>
+</div>
+<div class="sb-quick">
+  <button class="sq-btn" onclick="quickSearch('Туалет')">🚻 Туалет</button>
+  <button class="sq-btn" onclick="quickSearch('Лифт')">🛗 Лифт</button>
+  <button class="sq-btn" onclick="quickSearch('Банкомат')">🏧 Банкомат</button>
+  <button class="sq-btn" onclick="quickSearch('Выход')">🚪 Выход</button>
+  <button class="sq-btn" onclick="quickSearch('Паркинг')">🚗 Паркинг</button>
+  <button class="sq-btn" onclick="quickSearch('Информация')">ℹ Информация</button>
+</div>
+
+<!-- MAIN -->
+<div class="page-body">
+
+  <!-- FLOOR SWITCHER -->
+  <div class="floor-switcher">
+    <button class="floor-btn" data-floor="7" onclick="setFloor('7')"><span class="fb-num">7</span><span class="fb-label">VIP</span></button>
+    <button class="floor-btn" data-floor="6" onclick="setFloor('6')"><span class="fb-num">6</span><span class="fb-label">VIP</span></button>
+    <div class="floor-sep"></div>
+    <button class="floor-btn" data-floor="5" onclick="setFloor('5')"><span class="fb-num">5</span><span class="fb-label">Велнес</span></button>
+    <button class="floor-btn" data-floor="4" onclick="setFloor('4')"><span class="fb-num">4</span><span class="fb-label">Рестор.</span></button>
+    <button class="floor-btn" data-floor="3" onclick="setFloor('3')"><span class="fb-num">3</span><span class="fb-label">Мода+</span></button>
+    <button class="floor-btn active" data-floor="2" onclick="setFloor('2')"><span class="fb-num">2</span><span class="fb-label">Мода</span></button>
+    <button class="floor-btn" data-floor="1" onclick="setFloor('1')"><span class="fb-num">1</span><span class="fb-label">Галерея</span></button>
+    <button class="floor-btn" data-floor="0" onclick="setFloor('0')"><span class="fb-num">0</span><span class="fb-label">Сервисы</span></button>
+    <div class="floor-sep"></div>
+    <button class="floor-btn" data-floor="-1" onclick="setFloor('-1')"><span class="fb-num">−1</span><span class="fb-label">Паркинг</span></button>
+    <button class="floor-btn" data-floor="-2" onclick="setFloor('-2')"><span class="fb-num">−2</span><span class="fb-label">Паркинг</span></button>
+  </div>
+
+  <!-- PLAN CANVAS -->
+  <div class="plan-area" id="planArea">
+
+    <!-- FLOOR 2 — default -->
+    <div class="floor-plan active" id="plan-2">
+      <svg class="plan-svg" id="svg-2" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg">
+        <!-- Building shell -->
+        <rect class="building-wall" x="20" y="20" width="520" height="380" rx="16"/>
+        <!-- Atrium/core -->
+        <rect class="corridor" x="200" y="160" width="160" height="100" rx="4"/>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="rgba(15,12,8,.35)" x="280" y="215" text-anchor="middle">Атриум</text>
+        <!-- Lift core -->
+        <rect class="core-wall" x="246" y="180" width="30" height="60" rx="3"/>
+        <text class="svc-icon-svg" x="261" y="215" text-anchor="middle">🛗</text>
+        <!-- Escalators -->
+        <g><rect class="esc-sym" x="204" y="180" width="36" height="24" rx="2" fill="rgba(95,94,90,.08)" stroke="rgba(95,94,90,.4)" stroke-width=".8"/><line x1="204" y1="204" x2="240" y2="180" class="esc-sym"/><text font-family="Raleway,sans-serif" font-size="7" fill="rgba(95,94,90,.6)" x="222" y="197" text-anchor="middle">▲▼</text></g>
+        <g><rect class="esc-sym" x="320" y="180" width="36" height="24" rx="2" fill="rgba(95,94,90,.08)" stroke="rgba(95,94,90,.4)" stroke-width=".8"/><line x1="320" y1="204" x2="356" y2="180" class="esc-sym"/><text font-family="Raleway,sans-serif" font-size="7" fill="rgba(95,94,90,.6)" x="338" y="197" text-anchor="middle">▲▼</text></g>
+
+        <!-- Zone: 12 Storeez -->
+        <g class="zone z-fashion" id="z-12storeez" onclick="selectZone('12storeez')">
+          <rect x="30" y="30" width="160" height="120" rx="6"/>
+          <text class="zone-label" x="110" y="88" text-anchor="middle">12 Storeez</text>
+          <text class="zone-sub" x="110" y="100" text-anchor="middle">Женская одежда</text>
+        </g>
+        <!-- Zone: Ushatava -->
+        <g class="zone z-fashion" id="z-ushatava" onclick="selectZone('ushatava')">
+          <rect x="200" y="30" width="150" height="120" rx="6"/>
+          <text class="zone-label" x="275" y="88" text-anchor="middle">Ushatáva</text>
+          <text class="zone-sub" x="275" y="100" text-anchor="middle">Современная мода</text>
+        </g>
+        <!-- Zone: Henderson -->
+        <g class="zone z-fashion" id="z-henderson" onclick="selectZone('henderson')">
+          <rect x="360" y="30" width="170" height="120" rx="6"/>
+          <text class="zone-label" x="445" y="88" text-anchor="middle">Henderson</text>
+          <text class="zone-sub" x="445" y="100" text-anchor="middle">Мужская мода</text>
+        </g>
+        <!-- Zone: brand4 -->
+        <g class="zone z-fashion" id="z-brand4" onclick="selectZone('brand4')">
+          <rect x="30" y="160" width="160" height="110" rx="6"/>
+          <text class="zone-label" x="110" y="218" text-anchor="middle">Lesyanebo</text>
+          <text class="zone-sub" x="110" y="230" text-anchor="middle">Украшения</text>
+        </g>
+        <!-- Zone: brand5 -->
+        <g class="zone z-fashion" id="z-brand5" onclick="selectZone('brand5')">
+          <rect x="370" y="160" width="160" height="110" rx="6"/>
+          <text class="zone-label" x="450" y="218" text-anchor="middle">Кафе в универмаге</text>
+          <text class="zone-sub" x="450" y="230" text-anchor="middle">Перекус</text>
+        </g>
+        <!-- Zone: lounge -->
+        <g class="zone z-service" id="z-lounge2" onclick="selectZone('lounge2')">
+          <rect x="30" y="280" width="100" height="110" rx="6"/>
+          <text class="zone-label" x="80" y="338" text-anchor="middle">Lounge</text>
+          <text class="zone-sub" x="80" y="350" text-anchor="middle">Отдых</text>
+        </g>
+        <!-- Zone: fitting -->
+        <g class="zone z-fashion" id="z-fitting" onclick="selectZone('fitting')">
+          <rect x="140" y="280" width="60" height="110" rx="6"/>
+          <text class="zone-label" x="170" y="333" text-anchor="middle" font-size="8">Примерочные</text>
+          <text class="zone-sub" x="170" y="345" text-anchor="middle">Premium</text>
+        </g>
+        <!-- Zone: main hall -->
+        <g class="zone z-fashion" id="z-mainhall2" onclick="selectZone('universam')">
+          <rect x="210" y="270" width="140" height="120" rx="6"/>
+          <text class="zone-label" x="280" y="333" text-anchor="middle">Универмаг</text>
+          <text class="zone-sub" x="280" y="345" text-anchor="middle">Торговый зал</text>
+        </g>
+        <!-- Zone: brand6 -->
+        <g class="zone z-fashion" id="z-brand6" onclick="selectZone('brand6')">
+          <rect x="360" y="280" width="170" height="110" rx="6"/>
+          <text class="zone-label" x="445" y="333" text-anchor="middle">Сезонный поп-ап</text>
+          <text class="zone-sub" x="445" y="345" text-anchor="middle">Временный бренд</text>
+        </g>
+        <!-- Service: WC -->
+        <g class="zone z-service" onclick="selectZone('wc2')">
+          <rect x="200" y="160" width="36" height="28" rx="3"/>
+          <text class="svc-icon-svg" x="218" y="178" text-anchor="middle" font-size="11">🚻</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- FLOOR 4 — restaurants -->
+    <div class="floor-plan" id="plan-4">
+      <svg class="plan-svg" id="svg-4" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg">
+        <rect class="building-wall" x="20" y="20" width="520" height="380" rx="16"/>
+        <rect class="corridor" x="200" y="160" width="160" height="100" rx="4"/>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="rgba(15,12,8,.35)" x="280" y="215" text-anchor="middle">Атриум</text>
+        <rect class="core-wall" x="246" y="180" width="30" height="60" rx="3"/>
+        <text class="svc-icon-svg" x="261" y="215" text-anchor="middle">🛗</text>
+        <g><rect class="esc-sym" x="204" y="180" width="36" height="24" rx="2" fill="rgba(95,94,90,.08)" stroke="rgba(95,94,90,.4)" stroke-width=".8"/><text font-family="Raleway,sans-serif" font-size="7" fill="rgba(95,94,90,.6)" x="222" y="197" text-anchor="middle">▲▼</text></g>
+        <g><rect class="esc-sym" x="320" y="180" width="36" height="24" rx="2" fill="rgba(95,94,90,.08)" stroke="rgba(95,94,90,.4)" stroke-width=".8"/><text font-family="Raleway,sans-serif" font-size="7" fill="rgba(95,94,90,.6)" x="338" y="197" text-anchor="middle">▲▼</text></g>
+        <!-- Terrace -->
+        <rect x="30" y="20" width="500" height="14" rx="4" fill="rgba(15,12,8,.04)" stroke="rgba(15,12,8,.12)" stroke-width=".5"/>
+        <text font-family="Raleway,sans-serif" font-size="8" fill="rgba(15,12,8,.3)" x="280" y="31" text-anchor="middle">Открытая панорамная терраса → вид на реку и парк</text>
+        <!-- Alba Group -->
+        <g class="zone z-gastro" id="z-alba" onclick="selectZone('alba')">
+          <rect x="30" y="40" width="200" height="140" rx="6"/>
+          <text class="zone-label" x="130" y="108" text-anchor="middle">Панорамный ресторан</text>
+          <text class="zone-sub" x="130" y="120" text-anchor="middle">Alba Group</text>
+        </g>
+        <!-- Ribambelle -->
+        <g class="zone z-gastro" id="z-ribambelle" onclick="selectZone('ribambelle')">
+          <rect x="240" y="40" width="160" height="110" rx="6"/>
+          <text class="zone-label" x="320" y="93" text-anchor="middle">Семейный ресторан</text>
+          <text class="zone-sub" x="320" y="105" text-anchor="middle">Ribambelle</text>
+        </g>
+        <!-- WRF -->
+        <g class="zone z-gastro" id="z-wrf" onclick="selectZone('wrf')">
+          <rect x="410" y="40" width="130" height="110" rx="6"/>
+          <text class="zone-label" x="475" y="93" text-anchor="middle">Гастробар</text>
+          <text class="zone-sub" x="475" y="105" text-anchor="middle">WRF</text>
+        </g>
+        <!-- Rappoport -->
+        <g class="zone z-gastro" id="z-rappoport" onclick="selectZone('rappoport')">
+          <rect x="30" y="190" width="160" height="130" rx="6"/>
+          <text class="zone-label" x="110" y="253" text-anchor="middle">Классический</text>
+          <text class="zone-sub" x="110" y="265" text-anchor="middle">Рестораны Раппопорта</text>
+        </g>
+        <!-- Terrace outdoor -->
+        <g class="zone z-gastro" onclick="selectZone('terrace4')">
+          <rect x="370" y="160" width="170" height="110" rx="6"/>
+          <text class="zone-label" x="455" y="213" text-anchor="middle">Летние веранды</text>
+          <text class="zone-sub" x="455" y="225" text-anchor="middle">Вид на парк</text>
+        </g>
+        <!-- WC, bar -->
+        <g class="zone z-service" onclick="selectZone('wc4')">
+          <rect x="200" y="155" width="36" height="28" rx="3"/>
+          <text class="svc-icon-svg" x="218" y="173" text-anchor="middle" font-size="11">🚻</text>
+        </g>
+        <g class="zone z-gastro" onclick="selectZone('bar4')">
+          <rect x="30" y="330" width="150" height="60" rx="6"/>
+          <text class="zone-label" x="105" y="363" text-anchor="middle">Лаунж-бар</text>
+        </g>
+        <g class="zone z-service" onclick="selectZone('info4')">
+          <rect x="230" y="330" width="100" height="60" rx="6"/>
+          <text class="zone-label" x="280" y="357" text-anchor="middle">Информация</text>
+          <text class="svc-icon-svg" x="280" y="375" text-anchor="middle" font-size="11">ℹ</text>
+        </g>
+        <g class="zone z-gastro" onclick="selectZone('chef')">
+          <rect x="380" y="280" width="160" height="110" rx="6"/>
+          <text class="zone-label" x="460" y="338" text-anchor="middle">Открытая кухня</text>
+          <text class="zone-sub" x="460" y="350" text-anchor="middle">Шеф-демонстрации</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- FLOOR 5 — wellness -->
+    <div class="floor-plan" id="plan-5">
+      <svg class="plan-svg" id="svg-5" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg">
+        <rect class="building-wall" x="20" y="20" width="520" height="380" rx="16"/>
+        <rect class="corridor" x="200" y="160" width="160" height="100" rx="4"/>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="rgba(15,12,8,.35)" x="280" y="215" text-anchor="middle">Коридор</text>
+        <rect class="core-wall" x="246" y="180" width="30" height="60" rx="3"/>
+        <text class="svc-icon-svg" x="261" y="215" text-anchor="middle">🛗</text>
+        <!-- Pool -->
+        <g class="zone z-wellness" id="z-pool" onclick="selectZone('pool')">
+          <rect x="30" y="30" width="280" height="160" rx="8"/>
+          <text class="zone-label" x="170" y="108" text-anchor="middle">Бассейн</text>
+          <text class="zone-sub" x="170" y="120" text-anchor="middle">Только для женщин · 25м</text>
+        </g>
+        <!-- Sauna -->
+        <g class="zone z-wellness" id="z-sauna" onclick="selectZone('sauna')">
+          <rect x="320" y="30" width="210" height="80" rx="6"/>
+          <text class="zone-label" x="425" y="68" text-anchor="middle">Хаммам и сауна</text>
+        </g>
+        <!-- Spa -->
+        <g class="zone z-wellness" id="z-spa" onclick="selectZone('spa')">
+          <rect x="320" y="120" width="210" height="70" rx="6"/>
+          <text class="zone-label" x="425" y="158" text-anchor="middle">СПА-ритуалы</text>
+          <text class="zone-sub" x="425" y="170" text-anchor="middle">Массажи и уходы</text>
+        </g>
+        <!-- Fitness -->
+        <g class="zone z-wellness" id="z-fitness" onclick="selectZone('fitness')">
+          <rect x="30" y="200" width="200" height="130" rx="6"/>
+          <text class="zone-label" x="130" y="263" text-anchor="middle">Фитнес-зал</text>
+          <text class="zone-sub" x="130" y="275" text-anchor="middle">Technogym</text>
+        </g>
+        <!-- Studio -->
+        <g class="zone z-wellness" id="z-studio" onclick="selectZone('studio')">
+          <rect x="240" y="270" width="150" height="120" rx="6"/>
+          <text class="zone-label" x="315" y="333" text-anchor="middle">Студия йоги</text>
+          <text class="zone-sub" x="315" y="345" text-anchor="middle">Йога и пилатес</text>
+        </g>
+        <!-- Clinic -->
+        <g class="zone z-beauty" id="z-clinic" onclick="selectZone('clinic')">
+          <rect x="400" y="200" width="130" height="130" rx="6"/>
+          <text class="zone-label" x="465" y="263" text-anchor="middle">Клиника</text>
+          <text class="zone-sub" x="465" y="275" text-anchor="middle">Эстетика</text>
+        </g>
+        <!-- Reception -->
+        <g class="zone z-service" onclick="selectZone('reception5')">
+          <rect x="30" y="340" width="120" height="50" rx="6"/>
+          <text class="zone-label" x="90" y="368" text-anchor="middle">Ресепшн</text>
+        </g>
+        <!-- WC -->
+        <g class="zone z-service" onclick="selectZone('wc5')">
+          <rect x="200" y="160" width="36" height="28" rx="3"/>
+          <text class="svc-icon-svg" x="218" y="178" text-anchor="middle" font-size="11">🚻</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- FLOOR 1 -->
+    <div class="floor-plan" id="plan-1">
+      <svg class="plan-svg" id="svg-1" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg">
+        <rect class="building-wall" x="20" y="20" width="520" height="380" rx="16"/>
+        <rect class="corridor" x="200" y="155" width="160" height="110" rx="4"/>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="rgba(15,12,8,.35)" x="280" y="215" text-anchor="middle">Атриум</text>
+        <rect class="core-wall" x="246" y="178" width="30" height="60" rx="3"/>
+        <text class="svc-icon-svg" x="261" y="215" text-anchor="middle">🛗</text>
+        <g><rect class="esc-sym" x="204" y="178" width="36" height="24" rx="2" fill="rgba(95,94,90,.08)" stroke="rgba(95,94,90,.4)" stroke-width=".8"/><text font-family="Raleway,sans-serif" font-size="7" fill="rgba(95,94,90,.6)" x="222" y="197" text-anchor="middle">▲▼</text></g>
+        <!-- Main entrance -->
+        <rect x="220" y="376" width="120" height="20" rx="4" fill="rgba(198,161,91,.25)" stroke="rgba(198,161,91,.6)" stroke-width="1"/>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="rgba(100,70,20,.8)" x="280" y="389" text-anchor="middle">Главный вход ↓</text>
+        <!-- Golden Apple -->
+        <g class="zone z-beauty" id="z-zolotoe" onclick="selectZone('zolotoe')">
+          <rect x="30" y="30" width="200" height="115" rx="6"/>
+          <text class="zone-label" x="130" y="85" text-anchor="middle">Золотое яблоко</text>
+          <text class="zone-sub" x="130" y="97" text-anchor="middle">Косметика и парфюм</text>
+        </g>
+        <!-- Books -->
+        <g class="zone z-service" id="z-books" onclick="selectZone('books')">
+          <rect x="240" y="30" width="120" height="115" rx="6"/>
+          <text class="zone-label" x="300" y="88" text-anchor="middle">Книжный</text>
+        </g>
+        <!-- Flowers -->
+        <g class="zone z-service" id="z-florist" onclick="selectZone('florist')">
+          <rect x="370" y="30" width="170" height="115" rx="6"/>
+          <text class="zone-label" x="455" y="80" text-anchor="middle">Цветочный бутик</text>
+          <text class="zone-sub" x="455" y="92" text-anchor="middle">Флористика</text>
+        </g>
+        <!-- Coffee -->
+        <g class="zone z-gastro" id="z-coffee1" onclick="selectZone('coffee')">
+          <rect x="30" y="155" width="165" height="110" rx="6"/>
+          <text class="zone-label" x="112" y="213" text-anchor="middle">Кофейня с верандой</text>
+          <text class="zone-sub" x="112" y="225" text-anchor="middle">Выход в парк</text>
+        </g>
+        <!-- Pop-up -->
+        <g class="zone z-beauty" onclick="selectZone('popup1')">
+          <rect x="370" y="155" width="170" height="110" rx="6"/>
+          <text class="zone-label" x="455" y="213" text-anchor="middle">Поп-ап зона</text>
+          <text class="zone-sub" x="455" y="225" text-anchor="middle">Временные бренды</text>
+        </g>
+        <!-- Gallery hall -->
+        <g class="zone z-fashion" onclick="selectZone('gallery1')">
+          <rect x="30" y="275" width="160" height="95" rx="6"/>
+          <text class="zone-label" x="110" y="325" text-anchor="middle">Торговая галерея</text>
+          <text class="zone-sub" x="110" y="337" text-anchor="middle">Малые бутики</text>
+        </g>
+        <!-- Pharmacy -->
+        <g class="zone z-service" onclick="selectZone('pharmacy')">
+          <rect x="200" y="275" width="100" height="95" rx="6"/>
+          <text class="zone-label" x="250" y="320" text-anchor="middle">Аптека</text>
+          <text class="svc-icon-svg" x="250" y="338" text-anchor="middle" font-size="11">💊</text>
+        </g>
+        <!-- ATM -->
+        <g class="zone z-service" onclick="selectZone('atm1')">
+          <rect x="370" y="275" width="80" height="95" rx="6"/>
+          <text class="zone-label" x="410" y="320" text-anchor="middle">Банкоматы</text>
+          <text class="svc-icon-svg" x="410" y="338" text-anchor="middle" font-size="11">🏧</text>
+        </g>
+        <!-- Info -->
+        <g class="zone z-service" onclick="selectZone('info1')">
+          <rect x="458" y="275" width="82" height="95" rx="6"/>
+          <text class="zone-label" x="499" y="320" text-anchor="middle">Информация</text>
+          <text class="svc-icon-svg" x="499" y="338" text-anchor="middle" font-size="11">ℹ</text>
+        </g>
+        <!-- WC -->
+        <g class="zone z-service" onclick="selectZone('wc1')">
+          <rect x="200" y="155" width="36" height="28" rx="3"/>
+          <text class="svc-icon-svg" x="218" y="173" text-anchor="middle" font-size="11">🚻</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- FLOOR 0 -->
+    <div class="floor-plan" id="plan-0">
+      <svg class="plan-svg" id="svg-0" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg">
+        <rect class="building-wall" x="20" y="20" width="520" height="380" rx="16"/>
+        <rect class="corridor" x="200" y="155" width="160" height="110" rx="4"/>
+        <rect class="core-wall" x="246" y="178" width="30" height="60" rx="3"/>
+        <text class="svc-icon-svg" x="261" y="215" text-anchor="middle">🛗</text>
+        <!-- Perekrestok Select -->
+        <g class="zone z-food" id="z-perekrestok" onclick="selectZone('perekrestok')">
+          <rect x="30" y="30" width="300" height="200" rx="8"/>
+          <text class="zone-label" x="180" y="128" text-anchor="middle">Перекрёсток Селект</text>
+          <text class="zone-sub" x="180" y="140" text-anchor="middle">Продукты · Вина · Кулинария</text>
+        </g>
+        <!-- Sirovar -->
+        <g class="zone z-food" onclick="selectZone('syr')">
+          <rect x="340" y="30" width="200" height="90" rx="6"/>
+          <text class="zone-label" x="440" y="73" text-anchor="middle">Сыроварня</text>
+          <text class="zone-sub" x="440" y="85" text-anchor="middle">Деликатесы</text>
+        </g>
+        <!-- Dry cleaning -->
+        <g class="zone z-service" onclick="selectZone('drycleaning')">
+          <rect x="340" y="130" width="200" height="100" rx="6"/>
+          <text class="zone-label" x="440" y="183" text-anchor="middle">Химчистка VIP</text>
+          <text class="zone-sub" x="440" y="195" text-anchor="middle">Экспресс за 4 часа</text>
+        </g>
+        <!-- Storage -->
+        <g class="zone z-service" onclick="selectZone('storage')">
+          <rect x="30" y="240" width="130" height="90" rx="6"/>
+          <text class="zone-label" x="95" y="288" text-anchor="middle">Хранение вещей</text>
+          <text class="zone-sub" x="95" y="300" text-anchor="middle">Камеры хранения</text>
+        </g>
+        <!-- Parking entrance -->
+        <g class="zone z-parking" onclick="selectZone('parkentry')">
+          <rect x="170" y="240" width="100" height="90" rx="6"/>
+          <text class="zone-label" x="220" y="285" text-anchor="middle">Въезд</text>
+          <text class="svc-icon-svg" x="220" y="303" text-anchor="middle" font-size="14">🚗</text>
+        </g>
+        <g class="zone z-service" onclick="selectZone('wc0')">
+          <rect x="200" y="155" width="36" height="28" rx="3"/>
+          <text class="svc-icon-svg" x="218" y="173" text-anchor="middle" font-size="11">🚻</text>
+        </g>
+        <!-- Service zone -->
+        <g class="zone z-service" onclick="selectZone('services0')">
+          <rect x="340" y="240" width="200" height="150" rx="6"/>
+          <text class="zone-label" x="440" y="313" text-anchor="middle">Сервисный коридор</text>
+          <text class="zone-sub" x="440" y="325" text-anchor="middle">Доставка · Персонал</text>
+        </g>
+        <g class="zone z-food" onclick="selectZone('togo')">
+          <rect x="30" y="340" width="130" height="50" rx="6"/>
+          <text class="zone-label" x="95" y="368" text-anchor="middle">Кулинария to-go</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- FLOORS 3, 6, 7, -1, -2 — simplified -->
+    <div class="floor-plan" id="plan-3">
+      <svg class="plan-svg" id="svg-3" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg">
+        <rect class="building-wall" x="20" y="20" width="520" height="380" rx="16"/>
+        <rect class="corridor" x="200" y="155" width="160" height="110" rx="4"/>
+        <rect class="core-wall" x="246" y="178" width="30" height="60" rx="3"/>
+        <text class="svc-icon-svg" x="261" y="215" text-anchor="middle">🛗</text>
+        <g class="zone z-fashion" onclick="selectZone('brunello')"><rect x="30" y="30" width="170" height="130" rx="6"/><text class="zone-label" x="115" y="93" text-anchor="middle">Brunello Cucinelli</text><text class="zone-sub" x="115" y="105" text-anchor="middle">Премиум · Люкс</text></g>
+        <g class="zone z-fashion" onclick="selectZone('styliste')"><rect x="210" y="30" width="130" height="130" rx="6"/><text class="zone-label" x="275" y="95" text-anchor="middle">Персональный</text><text class="zone-sub" x="275" y="107" text-anchor="middle">стилист</text></g>
+        <g class="zone z-fashion" onclick="selectZone('brand3b')"><rect x="350" y="30" width="180" height="130" rx="6"/><text class="zone-label" x="440" y="95" text-anchor="middle">Премиум-бренды</text></g>
+        <g class="zone z-fashion" onclick="selectZone('brand3c')"><rect x="30" y="170" width="160" height="120" rx="6"/><text class="zone-label" x="110" y="233" text-anchor="middle">Ювелирный</text></g>
+        <g class="zone z-fashion" onclick="selectZone('brand3d')"><rect x="370" y="170" width="160" height="120" rx="6"/><text class="zone-label" x="450" y="233" text-anchor="middle">Аксессуары</text></g>
+        <g class="zone z-service" onclick="selectZone('wc3')"><rect x="200" y="155" width="36" height="28" rx="3"/><text class="svc-icon-svg" x="218" y="173" text-anchor="middle" font-size="11">🚻</text></g>
+        <g class="zone z-service" onclick="selectZone('lounge3')"><rect x="30" y="300" width="500" height="100" rx="6"/><text class="zone-label" x="280" y="353" text-anchor="middle">Lounge и зона ожидания</text></g>
+      </svg>
+    </div>
+    <div class="floor-plan" id="plan-6">
+      <svg class="plan-svg" id="svg-6" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg">
+        <rect class="building-wall" x="20" y="20" width="520" height="380" rx="16"/>
+        <rect class="core-wall" x="246" y="178" width="30" height="60" rx="3"/>
+        <text class="svc-icon-svg" x="261" y="215" text-anchor="middle">🛗</text>
+        <g class="zone z-service" onclick="selectZone('vip6')"><rect x="30" y="30" width="500" height="360" rx="10"/><text class="zone-label" x="280" y="215" text-anchor="middle" font-size="14">VIP-клуб · 6 этаж</text><text class="zone-sub" x="280" y="232" text-anchor="middle">Закрытый формат · Только для членов клуба</text></g>
+      </svg>
+    </div>
+    <div class="floor-plan" id="plan-7">
+      <svg class="plan-svg" id="svg-7" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg">
+        <rect class="building-wall" x="20" y="20" width="520" height="380" rx="16"/>
+        <rect class="core-wall" x="246" y="178" width="30" height="60" rx="3"/>
+        <text class="svc-icon-svg" x="261" y="215" text-anchor="middle">🛗</text>
+        <g class="zone z-service" onclick="selectZone('vip7')"><rect x="30" y="30" width="500" height="360" rx="10"/><text class="zone-label" x="280" y="210" text-anchor="middle" font-size="14">VIP-клуб · 7 этаж</text><text class="zone-sub" x="280" y="230" text-anchor="middle">Видовые террасы · Закрытые события</text></g>
+      </svg>
+    </div>
+    <div class="floor-plan" id="plan--1">
+      <svg class="plan-svg" id="svg--1" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg">
+        <rect class="building-wall" x="20" y="20" width="520" height="380" rx="16"/>
+        <g class="zone z-parking" onclick="selectZone('p1a')"><rect x="30" y="30" width="240" height="160" rx="6"/><text class="zone-label" x="150" y="108" text-anchor="middle">Парковочная зона A</text><text class="zone-sub" x="150" y="120" text-anchor="middle">Мест: 75</text></g>
+        <g class="zone z-parking" onclick="selectZone('p1b')"><rect x="280" y="30" width="240" height="160" rx="6"/><text class="zone-label" x="400" y="108" text-anchor="middle">Парковочная зона B</text><text class="zone-sub" x="400" y="120" text-anchor="middle">Мест: 75</text></g>
+        <g class="zone z-parking" onclick="selectZone('p1c')"><rect x="30" y="200" width="240" height="160" rx="6"/><text class="zone-label" x="150" y="278" text-anchor="middle">Парковочная зона C</text><text class="zone-sub" x="150" y="290" text-anchor="middle">МГН · Мест: 25</text></g>
+        <g class="zone z-service" onclick="selectZone('p1lift')"><rect x="280" y="200" width="240" height="160" rx="6"/><text class="zone-label" x="400" y="275" text-anchor="middle">Лифтовый холл</text><text class="zone-sub" x="400" y="287" text-anchor="middle">Выходы: все этажи</text></g>
+        <rect x="240" y="30" width="30" height="360" fill="rgba(15,12,8,.05)" stroke="rgba(15,12,8,.15)" stroke-width=".5"/>
+        <text font-family="Raleway,sans-serif" font-size="8" fill="rgba(15,12,8,.35)" x="255" y="215" text-anchor="middle" transform="rotate(-90,255,215)">Проезд</text>
+        <!-- Entry arrows -->
+        <path d="M100 395 L100 375" stroke="rgba(198,161,91,.8)" stroke-width="2" marker-end="url(#arr)" fill="none"/>
+        <path d="M400 395 L400 375" stroke="rgba(198,161,91,.8)" stroke-width="2" marker-end="url(#arr)" fill="none"/>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="rgba(100,70,20,.7)" x="100" y="410" text-anchor="middle">Въезд A</text>
+        <text font-family="Raleway,sans-serif" font-size="9" fill="rgba(100,70,20,.7)" x="400" y="410" text-anchor="middle">Въезд B</text>
+        <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="rgba(198,161,91,.8)" stroke-width="1.5"/></marker></defs>
+      </svg>
+    </div>
+    <div class="floor-plan" id="plan--2">
+      <svg class="plan-svg" id="svg--2" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg">
+        <rect class="building-wall" x="20" y="20" width="520" height="380" rx="16"/>
+        <g class="zone z-parking" onclick="selectZone('p2a')"><rect x="30" y="30" width="490" height="160" rx="6"/><text class="zone-label" x="275" y="108" text-anchor="middle">Парковочная зона D + E</text><text class="zone-sub" x="275" y="120" text-anchor="middle">Мест: 125</text></g>
+        <g class="zone z-service" onclick="selectZone('p2lift')"><rect x="30" y="200" width="140" height="160" rx="6"/><text class="zone-label" x="100" y="278" text-anchor="middle">Лифты на ул.</text></g>
+        <g class="zone z-parking" onclick="selectZone('p2c')"><rect x="180" y="200" width="340" height="160" rx="6"/><text class="zone-label" x="350" y="278" text-anchor="middle">Зона F · Мест: 25</text></g>
+      </svg>
+    </div>
+
+    <!-- YOU ARE HERE button -->
+    <button class="yah-btn" onclick="locateMe()">
+      <span class="yah-dot"></span>
+      <span>Я здесь</span>
+    </button>
+
+    <!-- Layer filter bar -->
+    <div class="layer-bar" id="layerBar">
+      <button class="lyr-btn active cat-fashion" data-layer="fashion" onclick="toggleLayer(this)"><span class="lyr-dot" style="background:#356BA5;"></span><span>Мода</span></button>
+      <button class="lyr-btn active cat-gastro" data-layer="gastro" onclick="toggleLayer(this)"><span class="lyr-dot" style="background:#BA7517;"></span><span>Рестораны</span></button>
+      <button class="lyr-btn active cat-wellness" data-layer="wellness" onclick="toggleLayer(this)"><span class="lyr-dot" style="background:#0F6E56;"></span><span>Велнес</span></button>
+      <button class="lyr-btn active cat-beauty" data-layer="beauty" onclick="toggleLayer(this)"><span class="lyr-dot" style="background:#993556;"></span><span>Красота</span></button>
+      <button class="lyr-btn active cat-food" data-layer="food" onclick="toggleLayer(this)"><span class="lyr-dot" style="background:#633806;"></span><span>Продукты</span></button>
+      <button class="lyr-btn active cat-service" data-layer="service" onclick="toggleLayer(this)"><span class="lyr-dot" style="background:#5F5E5A;"></span><span>Сервисы</span></button>
+    </div>
+  </div>
+
+  <!-- SIDE PANEL -->
+  <div class="side-panel" id="sidePanel">
+    <div class="sp-default" id="spDefault"></div>
+    <div class="sp-card" id="spCard">
+      <div class="sp-card-img" id="spImg">
+        <button class="sp-card-img-back" onclick="clearZone()">← Этаж</button>
+      </div>
+      <div class="sp-card-body" id="spBody"></div>
+      <div class="sp-actions" id="spActions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE BOTTOM SHEET -->
+<div class="mobile-sheet" id="mobileSheet">
+  <div class="ms-handle"></div>
+  <div class="ms-mini" id="msMini" onclick="expandSheet()"></div>
+  <div id="msContent" style="padding:0 16px 24px;display:none;"></div>
+</div>
+
+<script>
+const ZONES={
+  universam:{name:'Универмаг «Венеция»',cat:'Мода',floor:'2–3',hours:'10:00–22:00',phone:'+7 (495) 100-01-01',desc:'Модный якорь центра. 60+ брендов трендовой одежды. Персональный стилист, примерочные премиум-класса.',img:'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&q=80',link:'venecia_brand.html?brand=universam'},
+  '12storeez':{name:'12 Storeez',cat:'Женская одежда',floor:'2',hours:'10:00–22:00',phone:'+7 (495) 100-01-04',desc:'Базовый гардероб нового поколения. Полная сезонная коллекция.',img:'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=500&q=80',link:'venecia_brand.html?brand=12storeez'},
+  ushatava:{name:'Ushatáva',cat:'Мода',floor:'2',hours:'10:00–22:00',phone:'+7 (495) 100-01-06',desc:'Современные тренды по доступным ценам. Широкий ассортимент.',img:'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=500&q=80',link:'venecia_brand.html?brand=ushatava'},
+  henderson:{name:'Henderson',cat:'Мужская мода',floor:'2',hours:'10:00–22:00',phone:'+7 (495) 100-01-07',desc:'Мужская одежда и аксессуары премиум-класса. Деловые и повседневные коллекции.',img:'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&q=80',link:'venecia_brand.html?brand=henderson'},
+  brunello:{name:'Brunello Cucinelli',cat:'Люкс',floor:'3',hours:'11:00–21:00',phone:'+7 (495) 100-01-05',desc:'Итальянский дом моды. Кашемир, шёлк, ручные работы. Единственный у Москва-Сити.',img:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=500&q=80',link:'venecia_brand.html?brand=brunello'},
+  styliste:{name:'Персональный стилист',cat:'Сервис',floor:'3',hours:'11:00–20:00 (запись)',phone:'+7 (495) 100-01-08',desc:'Шоппинг-сопровождение с личным стилистом. Формирование гардероба под любой повод.',img:'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&q=80',link:'venecia_brand.html?brand=styliste'},
+  alba:{name:'Панорамный ресторан',cat:'Гастрономия',floor:'4',hours:'12:00–23:00',phone:'+7 (495) 100-02-01',desc:'Авторская кухня, вид на Москву-реку. Живая музыка по пятницам.',img:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=80',link:'venecia_restaurant.html?resto=alba'},
+  ribambelle:{name:'Ribambelle',cat:'Семейный ресторан',floor:'4',hours:'11:00–23:00',phone:'+7 (495) 100-02-02',desc:'Итальянская кухня, детская зона, вид на парк. Воскресный бранч.',img:'https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=500&q=80',link:'venecia_restaurant.html?resto=ribambelle'},
+  wrf:{name:'WRF Гастробар',cat:'Бар',floor:'4',hours:'15:00–02:00',phone:'+7 (495) 100-02-04',desc:'Коктейли, малые блюда, wide wine selection. Закаты над городом.',img:'https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=500&q=80',link:'venecia_restaurant.html?resto=wrf'},
+  rappoport:{name:'Рестораны Раппопорта',cat:'Классическая кухня',floor:'4',hours:'12:00–23:00',phone:'+7 (495) 100-02-03',desc:'Европейская классика, открытая кухня, приватные кабинеты. Деловые обеды.',img:'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=500&q=80',link:'venecia_restaurant.html?resto=rappoport'},
+  zolotoe:{name:'Золотое яблоко',cat:'Красота',floor:'1',hours:'10:00–22:00',phone:'+7 (495) 100-01-02',desc:'Гипермаркет парфюмерии и косметики. Эксклюзивная поп-ап коллекция. Beauty-консультанты.',img:'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500&q=80',link:'venecia_brand.html?brand=zolotoe'},
+  perekrestok:{name:'Перекрёсток Селект',cat:'Продукты',floor:'0',hours:'08:00–23:00',phone:'+7 (495) 100-01-03',desc:'Продуктовый гипермаркет премиум-сегмента. Фреш-зона, авторские вина, готовая еда.',img:'https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=500&q=80',link:'venecia_brand.html?brand=perekrestok'},
+  clinic:{name:'Клиника красоты',cat:'Велнес · Эстетика',floor:'5',hours:'09:00–21:00 (запись)',phone:'+7 (495) 100-01-12',desc:'Эстетическая медицина для всех гостей МФК. Инъекции, аппаратные процедуры.',img:'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=500&q=80',link:'venecia_brand.html?brand=clinic'},
+  pool:{name:'Бассейн',cat:'Велнес',floor:'5',hours:'07:00–23:00 (только члены клуба)',desc:'Закрытый бассейн 25м. Только для женщин. Панорамный вид.',img:'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=500&q=80',link:'venecia_brand.html?brand=wellness'},
+  fitness:{name:'Фитнес-зал',cat:'Велнес',floor:'5',hours:'07:00–23:00 (только члены клуба)',desc:'Оборудование Technogym, персональные тренеры, групповые занятия.',img:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80',link:'venecia_brand.html?brand=wellness'},
+  spa:{name:'СПА-ритуалы',cat:'Велнес',floor:'5',hours:'09:00–22:00',desc:'Авторские массажи, обёртывания, ароматерапия. Хаммам.',img:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80',link:'venecia_brand.html?brand=wellness'},
+  coffee:{name:'Кофейня с верандой',cat:'Кафе',floor:'1',hours:'08:00–22:00',phone:'+7 (495) 100-01-11',desc:'Specialty coffee, завтраки. Выход на веранду в парк, вид на водные каналы.',img:'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=500&q=80'},
+  florist:{name:'Цветочный бутик',cat:'Сервисы',floor:'1',hours:'09:00–22:00',phone:'+7 (495) 100-01-09',desc:'Авторские флористические композиции. Доставка по Москве.',img:'https://images.unsplash.com/photo-1487530811015-780780baaec0?w=500&q=80'},
+  books:{name:'Книжный',cat:'Культура',floor:'1',hours:'10:00–22:00',desc:'Редкие издания, арт-книги, дизайнерские канцтовары.',img:'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500&q=80'},
+  wc1:{name:'Туалет · 1 этаж',cat:'Сервис',floor:'1',hours:'10:00–22:00',desc:'М / Ж / Доступная среда. У атриума.'},
+  wc2:{name:'Туалет · 2 этаж',cat:'Сервис',floor:'2',hours:'10:00–22:00',desc:'М / Ж / Доступная среда. У атриума.'},
+  wc3:{name:'Туалет · 3 этаж',cat:'Сервис',floor:'3',hours:'10:00–22:00',desc:'М / Ж / Пеленальная комната.'},
+  wc4:{name:'Туалет · 4 этаж',cat:'Сервис',floor:'4',hours:'12:00–23:00',desc:'М / Ж / Доступная среда.'},
+  wc5:{name:'Туалет · 5 этаж',cat:'Сервис',floor:'5',hours:'07:00–23:00',desc:'Для гостей велнес-клуба и клиники.'},
+  wc0:{name:'Туалет · 0 этаж',cat:'Сервис',floor:'0',hours:'08:00–23:00',desc:'М / Ж. У зоны Перекрёсток.'},
+  atm1:{name:'Банкоматы',cat:'Сервис',floor:'1',hours:'Круглосуточно',desc:'Сбербанк, ВТБ. 1 этаж, у главного входа.'},
+  info1:{name:'Информационная стойка',cat:'Сервис',floor:'1',hours:'10:00–22:00',phone:'+7 (495) 000-00-00',desc:'Навигация, потерянные вещи, бронирование, вопросы гостей.'},
+  parkentry:{name:'Въезд на паркинг',cat:'Паркинг',floor:'0',hours:'Круглосуточно',desc:'Въезд со стороны набережной. Первые 30 мин — бесплатно. 300 машиномест.'},
+  p1a:{name:'Паркинг · Зона A',cat:'Паркинг',floor:'−1',hours:'Круглосуточно',desc:'75 машиномест. Лифт в здание. Выход на все этажи.'},
+  p1b:{name:'Паркинг · Зона B',cat:'Паркинг',floor:'−1',hours:'Круглосуточно',desc:'75 машиномест.'},
+  p1c:{name:'Паркинг · Зона C (МГН)',cat:'Паркинг',floor:'−1',hours:'Круглосуточно',desc:'25 машиномест для людей с ограниченными возможностями. Широкие места, приоритетный выезд.'},
+  vip6:{name:'VIP-клуб · 6 этаж',cat:'Закрытый',floor:'6',hours:'По приглашению',desc:'Закрытый клуб. Только для членов с персональным доступом.'},
+  vip7:{name:'VIP-клуб · 7 этаж',cat:'Закрытый',floor:'7',hours:'По приглашению',desc:'Видовые террасы и пространства для закрытых событий.'},
+};
+
+const FLOOR_META={
+  '7':{title:'7 этаж',desc:'VIP клуб — закрытые мероприятия',svcs:[]},
+  '6':{title:'6 этаж',desc:'VIP клуб — по приглашению',svcs:[]},
+  '5':{title:'5 этаж · Велнес & СПА',desc:'Приватный клуб: бассейн, фитнес, СПА, клиника красоты',svcs:['Туалеты','Лифт','Ресепшн клуба']},
+  '4':{title:'4 этаж · Рестораны',desc:'Панорамный уровень — 4 ресторана с видом на Москву-реку и парк',svcs:['Туалеты','Лифт','Эскалаторы','Лаунж-бар']},
+  '3':{title:'3 этаж · Универмаг премиум',desc:'Люкс-бренды, персональный стилист, lounge-зона',svcs:['Туалеты','Лифт','Зона отдыха']},
+  '2':{title:'2 этаж · Универмаг',desc:'Трендовая мода: 12 Storeez, Ushatáva, Henderson, Lesyanebo',svcs:['Туалеты','Лифт','Эскалаторы','Примерочные']},
+  '1':{title:'1 этаж · Торговая галерея',desc:'Золотое яблоко, кофейня с верандой, бутики, аптека, информационная стойка',svcs:['Туалеты','Лифт','Банкоматы','Инфостойка','Главный вход']},
+  '0':{title:'0 этаж · Продукты и сервисы',desc:'Перекрёсток Селект, сыроварня, химчистка, камеры хранения',svcs:['Туалеты','Лифт','Въезд на паркинг']},
+  '-1':{title:'−1 этаж · Паркинг',desc:'150 машиномест. Первые 30 мин бесплатно. Зона МГН.',svcs:['Лифты','Выходы на все этажи']},
+  '-2':{title:'−2 этаж · Паркинг',desc:'150 машиномест. Лифтовый холл.',svcs:['Лифты']},
+};
+
+const SEARCH_INDEX=[
+  {id:'universam',name:'Универмаг «Венеция»',floor:'2',category:'fashion'},{id:'12storeez',name:'12 Storeez',floor:'2',category:'fashion'},
+  {id:'ushatava',name:'Ushatáva',floor:'2',category:'fashion'},{id:'henderson',name:'Henderson',floor:'2',category:'fashion'},
+  {id:'brunello',name:'Brunello Cucinelli',floor:'3',category:'fashion'},{id:'styliste',name:'Персональный стилист',floor:'3',category:'service'},
+  {id:'zolotoe',name:'Золотое яблоко',floor:'1',category:'beauty'},{id:'perekrestok',name:'Перекрёсток Селект',floor:'0',category:'food'},
+  {id:'alba',name:'Панорамный ресторан',floor:'4',category:'gastro'},{id:'ribambelle',name:'Ribambelle',floor:'4',category:'gastro'},
+  {id:'wrf',name:'WRF Гастробар',floor:'4',category:'gastro'},{id:'rappoport',name:'Рестораны Раппопорта',floor:'4',category:'gastro'},
+  {id:'pool',name:'Бассейн',floor:'5',category:'wellness'},{id:'fitness',name:'Фитнес-зал',floor:'5',category:'wellness'},
+  {id:'spa',name:'СПА-ритуалы',floor:'5',category:'wellness'},{id:'clinic',name:'Клиника красоты',floor:'5',category:'beauty'},
+  {id:'coffee',name:'Кофейня с верандой',floor:'1',category:'gastro'},{id:'florist',name:'Цветочный бутик',floor:'1',category:'service'},
+  {id:'books',name:'Книжный',floor:'1',category:'service'},
+  {id:'wc1',name:'Туалет',floor:'1',category:'service'},{id:'wc2',name:'Туалет',floor:'2',category:'service'},
+  {id:'wc4',name:'Туалет',floor:'4',category:'service'},{id:'wc5',name:'Туалет',floor:'5',category:'service'},
+  {id:'atm1',name:'Банкомат',floor:'1',category:'service'},{id:'info1',name:'Информационная стойка',floor:'1',category:'service'},
+  {id:'parkentry',name:'Въезд на паркинг',floor:'0',category:'service'},{id:'p1a',name:'Паркинг зона A',floor:'-1',category:'service'},
+  {id:'p1c',name:'Паркинг МГН',floor:'-1',category:'service'},
+];
+
+let currentFloor='2';
+
+function setFloor(f){
+  currentFloor=f;
+  document.querySelectorAll('.floor-btn').forEach(b=>b.classList.toggle('active',b.dataset.floor===f));
+  document.querySelectorAll('.floor-plan').forEach(p=>p.classList.remove('active'));
+  const plan=document.getElementById('plan-'+f);
+  if(plan)plan.classList.add('active');
+  clearZone();
+  renderDefault(f);
+}
+
+function renderDefault(f){
+  const m=FLOOR_META[f]||{title:f+' этаж',desc:'',svcs:[]};
+  const spd=document.getElementById('spDefault');
+  spd.innerHTML=`
+    <div><div class="sp-eyebrow">Этаж ${f}</div><div class="sp-floor-title">${m.title}</div></div>
+    <div class="sp-floor-desc">${m.desc}</div>
+    ${m.svcs.length?`<div>
+      <div class="sp-eyebrow" style="margin-bottom:8px;">Сервисы этажа</div>
+      <div class="svc-list">${m.svcs.map(s=>`<div class="svc-row"><span class="svc-icon">${svcIcon(s)}</span>${s}</div>`).join('')}</div>
+    </div>`:''}
+    <div>
+      <div class="sp-eyebrow" style="margin-bottom:10px;">Цветовая легенда</div>
+      <div class="legend">
+        <div class="leg-row"><div class="leg-swatch" style="background:rgba(53,107,165,.5);"></div>Мода и бренды</div>
+        <div class="leg-row"><div class="leg-swatch" style="background:rgba(186,117,23,.5);"></div>Рестораны и кафе</div>
+        <div class="leg-row"><div class="leg-swatch" style="background:rgba(15,110,86,.5);"></div>Велнес и СПА</div>
+        <div class="leg-row"><div class="leg-swatch" style="background:rgba(153,53,86,.5);"></div>Красота</div>
+        <div class="leg-row"><div class="leg-swatch" style="background:rgba(99,56,6,.45);"></div>Продукты</div>
+        <div class="leg-row"><div class="leg-swatch" style="background:rgba(95,94,90,.4);"></div>Сервисы</div>
+      </div>
+    </div>`;
+}
+
+function svcIcon(s){
+  if(s.includes('Туалет'))return'🚻';
+  if(s.includes('Лифт'))return'🛗';
+  if(s.includes('Эскалат'))return'↕';
+  if(s.includes('Банком'))return'🏧';
+  if(s.includes('Инфо')||s.includes('стойка'))return'ℹ';
+  if(s.includes('Паркинг')||s.includes('Въезд'))return'🚗';
+  if(s.includes('МГН')||s.includes('Доступ'))return'♿';
+  if(s.includes('Примероч'))return'👗';
+  if(s.includes('Ресепшн'))return'👋';
+  return'📍';
+}
+
+function selectZone(id){
+  const z=ZONES[id];
+  if(!z)return;
+  // highlight
+  document.querySelectorAll('.zone').forEach(el=>el.classList.remove('sel'));
+  const el=document.getElementById('z-'+id);
+  if(el){el.classList.add('sel','pulse');setTimeout(()=>el.classList.remove('pulse'),2500);}
+
+  // side panel
+  document.getElementById('spDefault').style.display='none';
+  const card=document.getElementById('spCard');
+  card.classList.add('visible');
+  const h=document.getElementById('spImg');
+  h.innerHTML=`<button class="sp-card-img-back" onclick="clearZone()">← ${FLOOR_META[currentFloor]?.title||'Этаж'}</button>`;
+  if(z.img){h.innerHTML+=`<img src="${z.img}" alt="${z.name}" style="width:100%;height:100%;object-fit:cover;display:block;">`;}
+  else{h.innerHTML+=`<div class="sp-card-img-ph">🏪</div>`;}
+
+  const now=new Date().getHours();
+  const openUntil=z.hours?parseInt(z.hours.split('–')[1]||'22'):22;
+  const openFrom=z.hours?parseInt(z.hours.split(':')[0]||'10'):10;
+  const isOpen=now>=openFrom&&now<openUntil;
+  const openLabel=z.hours&&z.hours.includes('запись')?'По записи':z.hours&&z.hours.includes('Круглосуточно')?'Круглосуточно':z.hours&&z.hours.includes('приглаш')?'Только по приглашению':isOpen?'Открыто':'Закрыто';
+  const openClass=isOpen||z.hours?.includes('Круглосуточно')?'open':'closed';
+
+  document.getElementById('spBody').innerHTML=`
+    <div class="sp-cat">${z.cat}</div>
+    <div class="sp-name">${z.name}</div>
+    ${z.desc?`<div class="sp-desc">${z.desc}</div>`:''}
+    <div class="sp-meta">
+      ${z.floor?`<div class="sp-meta-row"><span class="sp-mk">Этаж</span><span class="sp-mv">${z.floor}</span></div>`:''}
+      ${z.hours?`<div class="sp-meta-row"><span class="sp-mk">Часы</span><span class="sp-mv"><span class="sp-open ${openClass}">${openLabel}</span><br>${z.hours}</span></div>`:''}
+      ${z.phone?`<div class="sp-meta-row"><span class="sp-mk">Телефон</span><span class="sp-mv">${z.phone}</span></div>`:''}
+    </div>`;
+
+  document.getElementById('spActions').innerHTML=`
+    ${z.link?`<a href="${z.link}" class="btn-bordo">Подробнее →</a>`:''}
+    <button class="btn-outline-sm" onclick="alert('Маршрут: ${z.name}')">📍 Проложить маршрут</button>`;
+
+  // mobile sheet
+  const ms=document.getElementById('mobileSheet');
+  document.getElementById('msMini').innerHTML=`<span class="ms-mini-icon">${z.img?'🏪':'📍'}</span><div><div class="ms-mini-name">${z.name}</div><div class="ms-mini-floor">${z.cat} · ${z.floor||currentFloor} этаж</div></div>`;
+  document.getElementById('msContent').style.display='none';
+  ms.classList.remove('open');
+  ms.classList.add('peek');
+}
+
+function expandSheet(){
+  const ms=document.getElementById('mobileSheet');
+  const cnt=document.getElementById('msContent');
+  if(ms.classList.contains('open')){return;}
+  ms.classList.add('open');
+  cnt.style.display='block';
+}
+
+function clearZone(){
+  document.getElementById('spDefault').style.display='';
+  document.getElementById('spCard').classList.remove('visible');
+  document.querySelectorAll('.zone').forEach(el=>el.classList.remove('sel'));
+  document.getElementById('mobileSheet').classList.remove('peek','open');
+}
+
+function toggleLayer(btn){
+  btn.classList.toggle('active');
+  const layer=btn.dataset.layer;
+  const svgs=document.querySelectorAll('.plan-svg');
+  svgs.forEach(svg=>svg.classList.toggle('hide-'+layer,!btn.classList.contains('active')));
+}
+
+// Search
+const si=document.getElementById('sbInput');
+const acDrop=document.getElementById('acDrop');
+si.addEventListener('input',()=>{
+  const q=si.value.toLowerCase().trim();
+  document.getElementById('sbClear').classList.toggle('vis',!!q);
+  if(!q){acDrop.classList.remove('vis');return;}
+  const res=SEARCH_INDEX.filter(x=>x.name.toLowerCase().includes(q)).slice(0,6);
+  if(!res.length){acDrop.classList.remove('vis');return;}
+  acDrop.innerHTML=res.map(r=>`<div class="ac-item" onclick="searchGo('${r.id}','${r.floor}')"><span class="ac-name">${r.name}</span><span class="ac-floor">Этаж ${r.floor}</span></div>`).join('');
+  acDrop.classList.add('vis');
+});
+document.getElementById('sbClear').addEventListener('click',()=>{si.value='';document.getElementById('sbClear').classList.remove('vis');acDrop.classList.remove('vis');});
+document.addEventListener('click',e=>{if(!e.target.closest('#searchWrap'))acDrop.classList.remove('vis');});
+
+function quickSearch(q){si.value=q;si.dispatchEvent(new Event('input'));}
+
+function searchGo(id,floor){
+  acDrop.classList.remove('vis');
+  si.value='';document.getElementById('sbClear').classList.remove('vis');
+  setFloor(floor);
+  setTimeout(()=>selectZone(id),80);
+}
+
+function locateMe(){
+  const floors=['1','2','4'];
+  const f=floors[Math.floor(Math.random()*floors.length)];
+  setFloor(f);
+  // simulate pulse at center
+  const plan=document.getElementById('plan-'+f);
+  if(!plan)return;
+  const indicator=document.createElement('div');
+  indicator.style.cssText='position:absolute;top:50%;left:50%;width:14px;height:14px;background:#3B8BD4;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 4px rgba(59,139,212,.25);pointer-events:none;z-index:10;';
+  document.getElementById('planArea').appendChild(indicator);
+  setTimeout(()=>indicator.remove(),3000);
+  alert(`Вы определены на ${f} этаже (примерная локация)`);
+}
+
+// Burger
+const bb=document.getElementById('bb'),ov=document.getElementById('ov'),sd=document.getElementById('side'),sc=document.getElementById('sc');
+bb.addEventListener('click',()=>{sd.classList.add('open');ov.classList.add('open');document.body.style.overflow='hidden';});
+[sc,ov].forEach(el=>el.addEventListener('click',()=>{sd.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}));
+document.querySelectorAll('.side a').forEach(a=>a.addEventListener('click',()=>{sd.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}));
+
+// Init
+renderDefault('2');
+</script>
+</body>
+</html>

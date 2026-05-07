@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Магазины и бренды — Венеция</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bordo:#4A0B18;
+  --bordo-mid:#6B1024;
+  --gold:#C9A96E;
+  --gold-dark:#A47C3E;
+  --gold-pale:#F5EDD8;
+  --cream:#FAF8F3;
+  --sand:#F0E9DC;
+  --ink:#1C1A17;
+  --muted:#7A6E62;
+  --rule:rgba(201,169,110,0.22);
+  --r:0px;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;min-height:100vh;}
+
+/* ── NAV ── */
+.nav{background:rgba(250,248,243,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:200;}
+.nav-inner{max-width:1320px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px;}
+.nav-left{display:flex;gap:28px;}
+.nav-left a,.nav-right-links a{font-size:13px;font-weight:500;letter-spacing:0.05em;color:var(--muted);text-decoration:none;transition:.2s;}
+.nav-left a:hover,.nav-right-links a:hover{color:var(--bordo);}
+.nav-left a.active{color:var(--bordo);border-bottom:1px solid var(--gold);padding-bottom:2px;}
+.logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;letter-spacing:0.2em;color:var(--bordo);text-decoration:none;text-align:center;}
+.nav-right{display:flex;justify-content:flex-end;align-items:center;gap:24px;}
+.nav-right-links{display:flex;gap:24px;}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{max-width:1320px;margin:0 auto;padding:16px 32px 0;display:flex;gap:8px;align-items:center;}
+.breadcrumb a{font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:0.04em;}
+.breadcrumb a:hover{color:var(--bordo);}
+.breadcrumb span{font-size:12px;color:rgba(122,110,98,0.4);}
+.breadcrumb .current{font-size:12px;color:var(--ink);font-weight:500;}
+
+/* ── PAGE HEADER ── */
+.page-header{max-width:1320px;margin:0 auto;padding:32px 32px 0;}
+.ph-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:24px;}
+.ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,52px);font-weight:600;color:var(--bordo);line-height:1;letter-spacing:-0.01em;}
+.ph-count{font-size:13px;color:var(--muted);letter-spacing:0.06em;}
+.ph-count strong{color:var(--ink);font-weight:600;}
+
+/* ── SEARCH ── */
+.search-wrap{position:relative;max-width:480px;width:100%;}
+.search-wrap svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted);pointer-events:none;}
+.search-input{width:100%;background:#fff;border:1px solid var(--rule);padding:11px 16px 11px 44px;font-family:'Raleway',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:.2s;border-radius:var(--r);}
+.search-input::placeholder{color:rgba(122,110,98,0.5);}
+.search-input:focus{border-color:rgba(201,169,110,0.6);box-shadow:0 0 0 3px rgba(201,169,110,0.08);}
+.search-clear{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;display:none;line-height:1;}
+.search-clear.visible{display:block;}
+
+/* ── FILTERS ── */
+.filters-section{max-width:1320px;margin:0 auto;padding:20px 32px 0;}
+.filter-row{display:flex;gap:0;border-bottom:1px solid var(--rule);margin-bottom:0;overflow-x:auto;scrollbar-width:none;}
+.filter-row::-webkit-scrollbar{display:none;}
+.filter-btn{background:transparent;border:none;border-bottom:2px solid transparent;padding:10px 20px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;white-space:nowrap;margin-bottom:-1px;transition:.2s;}
+.filter-btn:hover{color:var(--ink);}
+.filter-btn.active{color:var(--bordo);border-bottom-color:var(--gold);}
+
+.floor-row{display:flex;gap:6px;padding:16px 0;flex-wrap:wrap;}
+.floor-btn{background:transparent;border:1px solid var(--rule);padding:6px 14px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.1em;color:var(--muted);cursor:pointer;transition:.2s;}
+.floor-btn:hover{border-color:var(--gold);color:var(--bordo);}
+.floor-btn.active{background:var(--bordo);border-color:var(--bordo);color:#fff;}
+.floor-label{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);align-self:center;margin-right:4px;}
+
+.results-count{font-size:12px;color:var(--muted);padding-bottom:20px;border-bottom:1px solid var(--rule);letter-spacing:0.04em;}
+.results-count strong{color:var(--ink);}
+
+/* ── EXCLUSIVE STRIP ── */
+.exclusive-strip{max-width:1320px;margin:0 auto;padding:32px 32px 0;}
+.strip-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.strip-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-dark);}
+.strip-link{font-size:12px;color:var(--muted);text-decoration:none;letter-spacing:0.06em;}
+.strip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--rule);}
+.strip-card{background:#fff;padding:20px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:.15s;border-top:2px solid var(--gold);}
+.strip-card:hover{background:var(--gold-pale);}
+.strip-icon{width:44px;height:44px;background:var(--gold-pale);border:1px solid rgba(201,169,110,0.3);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.strip-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--bordo);line-height:1.1;margin-bottom:3px;}
+.strip-sub{font-size:11px;color:var(--muted);}
+.strip-badge{font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-dark);background:var(--gold-pale);border:1px solid rgba(201,169,110,0.4);padding:2px 8px;margin-top:4px;display:inline-block;}
+
+/* ── MAIN GRID ── */
+.grid-section{max-width:1320px;margin:0 auto;padding:32px 32px 80px;}
+.grid-section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.grid-section-title{font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);}
+.sort-select{background:transparent;border:none;font-family:'Raleway',sans-serif;font-size:12px;color:var(--muted);cursor:pointer;outline:none;letter-spacing:0.04em;}
+
+.brands-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--rule);}
+
+.brand-card{background:#fff;cursor:pointer;transition:.2s;position:relative;display:flex;flex-direction:column;}
+.brand-card:hover{background:var(--cream);}
+.brand-card:hover .bc-arrow{opacity:1;transform:translateX(0);}
+.bc-img{height:180px;overflow:hidden;position:relative;background:var(--sand);}
+.bc-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;display:block;}
+.brand-card:hover .bc-img img{transform:scale(1.04);}
+.bc-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;}
+.bc-badge{position:absolute;top:12px;left:0;font-size:9px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:4px 10px;}
+.badge-new{background:var(--bordo);color:#fff;}
+.badge-excl{background:var(--gold);color:#fff;}
+.badge-sale{background:#2D6A4F;color:#fff;}
+.bc-body{padding:16px 18px 18px;flex:1;display:flex;flex-direction:column;}
+.bc-cat{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:6px;}
+.bc-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.1;margin-bottom:6px;}
+.bc-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.6;flex:1;}
+.bc-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);}
+.bc-floor{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--bordo);background:var(--gold-pale);padding:3px 10px;}
+.bc-arrow{font-size:12px;color:var(--gold);opacity:0;transform:translateX(-4px);transition:.2s;}
+
+/* ── EMPTY STATE ── */
+.empty-state{grid-column:1/-1;padding:80px 20px;text-align:center;}
+.empty-icon{font-size:40px;margin-bottom:16px;opacity:.3;}
+.empty-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--muted);margin-bottom:8px;}
+.empty-sub{font-size:14px;color:var(--muted);font-weight:300;}
+
+/* ── MODAL ── */
+.modal-backdrop{position:fixed;inset:0;background:rgba(26,20,14,0.65);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s;}
+.modal-backdrop.open{opacity:1;pointer-events:all;}
+.modal{background:#fff;max-width:820px;width:100%;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(16px);transition:transform .25s;}
+.modal-backdrop.open .modal{transform:translateY(0);}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);z-index:10;line-height:1;width:32px;height:32px;display:flex;align-items:center;justify-content:center;}
+.modal-close:hover{color:var(--ink);}
+.modal-layout{display:grid;grid-template-columns:1fr 1fr;}
+.modal-img{height:100%;min-height:320px;overflow:hidden;position:relative;}
+.modal-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.modal-img-placeholder{width:100%;height:100%;min-height:320px;display:flex;align-items:center;justify-content:center;font-size:56px;background:var(--sand);}
+.modal-content{padding:40px 36px;display:flex;flex-direction:column;gap:20px;}
+.modal-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-dark);}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;color:var(--bordo);line-height:1;letter-spacing:-0.01em;}
+.modal-desc{font-size:14px;color:var(--muted);font-weight:300;line-height:1.8;}
+.modal-meta{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);}
+.meta-row{display:flex;gap:0;border-bottom:1px solid var(--rule);padding:10px 0;}
+.meta-key{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);min-width:100px;}
+.meta-val{font-size:13px;color:var(--ink);}
+.modal-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.btn-primary{background:var(--bordo);color:#fff;border:none;padding:11px 24px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:.2s;}
+.btn-primary:hover{background:var(--bordo-mid);}
+.btn-secondary{background:transparent;color:var(--bordo);border:1px solid var(--rule);padding:11px 20px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:.2s;}
+.btn-secondary:hover{border-color:var(--gold);background:var(--gold-pale);}
+.modal-nearby{padding:24px 36px;background:var(--cream);border-top:1px solid var(--rule);}
+.nearby-label{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+.nearby-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.nearby-card{background:#fff;border:1px solid var(--rule);padding:10px;cursor:pointer;transition:.15s;text-align:center;}
+.nearby-card:hover{border-color:var(--gold);}
+.nearby-icon{font-size:20px;margin-bottom:4px;}
+.nearby-name{font-size:11px;font-weight:500;color:var(--ink);}
+.nearby-floor{font-size:10px;color:var(--muted);}
+
+/* ── FLOOR INDICATOR ── */
+.floor-indicator{position:fixed;bottom:32px;right:32px;z-index:100;display:flex;flex-direction:column;gap:3px;align-items:center;}
+.fi-label{font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.fi-floors{display:flex;flex-direction:column;gap:2px;}
+.fi-floor{width:40px;height:24px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;background:#fff;border:0.5px solid var(--rule);color:var(--muted);cursor:pointer;transition:.15s;letter-spacing:0.04em;}
+.fi-floor:hover{border-color:var(--gold);color:var(--bordo);}
+.fi-floor.active{background:var(--bordo);border-color:var(--bordo);color:#fff;}
+
+/* ── LOADING SKELETON ── */
+@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+.skeleton{background:linear-gradient(90deg,var(--sand) 25%,var(--cream) 50%,var(--sand) 75%);background-size:800px 100%;animation:shimmer 1.4s infinite;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){.brands-grid{grid-template-columns:repeat(3,1fr);}.strip-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){.brands-grid{grid-template-columns:repeat(2,1fr);}.modal-layout{grid-template-columns:1fr;}.modal-img{min-height:240px;}.nav-left,.nav-right-links{display:none;}.nearby-grid{grid-template-columns:repeat(2,1fr);}.floor-indicator{display:none;}.ph-top{flex-direction:column;align-items:flex-start;}.strip-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.brands-grid{grid-template-columns:1fr;}.strip-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <a href="#" class="active">Магазины</a>
+      <a href="#">Рестораны</a>
+      <a href="#">Велнес</a>
+    </div>
+    <a href="#" class="logo">В Е Н Е Ц И Я</a>
+    <div class="nav-right">
+      <div class="nav-right-links">
+        <a href="#">События</a>
+        <a href="#">Как добраться</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">Главная</a>
+  <span>›</span>
+  <span class="current">Магазины и бренды</span>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="ph-top">
+    <div>
+      <h1 class="ph-title">Магазины<br>и бренды</h1>
+      <p class="ph-count" style="margin-top:10px;" id="countText"><strong>60+</strong> арендаторов · 6 уровней</p>
+    </div>
+    <div class="search-wrap">
+      <svg viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10 10l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <input class="search-input" id="searchInput" type="text" placeholder="Поиск по бренду или категории...">
+      <button class="search-clear" id="searchClear">✕</button>
+    </div>
+  </div>
+
+  <!-- CATEGORY FILTERS -->
+  <div class="filters-section" style="padding:0;">
+    <div class="filter-row" id="catFilters">
+      <button class="filter-btn active" data-cat="all">Все</button>
+      <button class="filter-btn" data-cat="fashion">Мода</button>
+      <button class="filter-btn" data-cat="beauty">Красота</button>
+      <button class="filter-btn" data-cat="food">Продукты</button>
+      <button class="filter-btn" data-cat="cafe">Кафе</button>
+      <button class="filter-btn" data-cat="wellness">Велнес</button>
+      <button class="filter-btn" data-cat="services">Сервисы</button>
+    </div>
+  </div>
+
+  <!-- FLOOR FILTERS -->
+  <div class="floor-row">
+    <span class="floor-label">Этаж:</span>
+    <button class="floor-btn active" data-floor="all">Все</button>
+    <button class="floor-btn" data-floor="0">0</button>
+    <button class="floor-btn" data-floor="1">1</button>
+    <button class="floor-btn" data-floor="2">2</button>
+    <button class="floor-btn" data-floor="3">3</button>
+    <button class="floor-btn" data-floor="4">4</button>
+    <button class="floor-btn" data-floor="5">5</button>
+  </div>
+
+  <p class="results-count" id="resultsCount">Найдено: <strong>24</strong> магазина</p>
+</div>
+
+<!-- EXCLUSIVE STRIP -->
+<div class="exclusive-strip" id="exclusiveStrip">
+  <div class="strip-header">
+    <span class="strip-eyebrow">Только в Венеции</span>
+    <a href="#" class="strip-link">Смотреть все →</a>
+  </div>
+  <div class="strip-grid">
+    <div class="strip-card" onclick="openModal('universam')">
+      <div class="strip-icon">👗</div>
+      <div>
+        <div class="strip-name">Универмаг «Венеция»</div>
+        <div class="strip-sub">Единственный в районе</div>
+        <span class="strip-badge">Эксклюзивно</span>
+      </div>
+    </div>
+    <div class="strip-card" onclick="openModal('zolotoe')">
+      <div class="strip-icon">💄</div>
+      <div>
+        <div class="strip-name">Золотое яблоко</div>
+        <div class="strip-sub">Поп-ап коллекция</div>
+        <span class="strip-badge">Эксклюзивно</span>
+      </div>
+    </div>
+    <div class="strip-card" onclick="openModal('styliste')">
+      <div class="strip-icon">✂️</div>
+      <div>
+        <div class="strip-name">Персональный стилист</div>
+        <div class="strip-sub">Только в Венеции</div>
+        <span class="strip-badge">Сервис</span>
+      </div>
+    </div>
+    <div class="strip-card" onclick="openModal('brunello')">
+      <div class="strip-icon">🧥</div>
+      <div>
+        <div class="strip-name">Brunello Cucinelli</div>
+        <div class="strip-sub">Один магазин у Сити</div>
+        <span class="strip-badge">Эксклюзивно</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN GRID -->
+<div class="grid-section">
+  <div class="grid-section-header">
+    <span class="grid-section-title" id="gridSectionTitle">Все магазины</span>
+    <select class="sort-select" id="sortSelect">
+      <option value="editorial">Редакционный порядок</option>
+      <option value="alpha">По алфавиту А–Я</option>
+      <option value="floor">По этажу</option>
+    </select>
+  </div>
+  <div class="brands-grid" id="brandsGrid"></div>
+</div>
+
+<!-- FLOOR INDICATOR (side) -->
+<div class="floor-indicator">
+  <div class="fi-label">Этаж</div>
+  <div class="fi-floors" id="fiFloors">
+    <div class="fi-floor" data-floor="5">5</div>
+    <div class="fi-floor" data-floor="4">4</div>
+    <div class="fi-floor" data-floor="3">3</div>
+    <div class="fi-floor" data-floor="2">2</div>
+    <div class="fi-floor" data-floor="1">1</div>
+    <div class="fi-floor active" data-floor="0">0</div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modalBackdrop" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-layout">
+      <div class="modal-img" id="modalImg"></div>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+    <div class="modal-nearby">
+      <div class="nearby-label">Рядом на этаже</div>
+      <div class="nearby-grid" id="nearbyGrid"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const BRANDS = [
+  {id:'universam', name:'Универмаг «Венеция»', cat:'fashion', floor:2, badge:'excl', emoji:'👗', catLabel:'Мода', desc:'Модный якорь центра. 60+ брендов трендовой одежды, обуви и аксессуаров. Кураторский отбор, персональный стилист, примерочные премиум-класса.', hours:'10:00–22:00', phone:'+7 (495) 100-01-01', img:'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=85', priority:1},
+  {id:'zolotoe', name:'Золотое яблоко', cat:'beauty', floor:1, badge:'new', emoji:'💄', catLabel:'Красота', desc:'Гипермаркет парфюмерии и косметики с эксклюзивной поп-ап коллекцией. Beauty-зона, мастер-классы, персональный бьюти-консультант.', hours:'10:00–22:00', phone:'+7 (495) 100-01-02', img:'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=85', priority:2},
+  {id:'perekrestok', name:'Перекрёсток Селект', cat:'food', floor:0, badge:null, emoji:'🛒', catLabel:'Продукты', desc:'Продуктовый гипермаркет премиум-сегмента. Фреш-зона, авторские вина и сыры, готовая еда, кулинария. Доставка из магазина.', hours:'08:00–23:00', phone:'+7 (495) 100-01-03', img:'https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=600&q=85', priority:3},
+  {id:'12storeez', name:'12 Storeez', cat:'fashion', floor:2, badge:'new', emoji:'🧣', catLabel:'Мода', desc:'Российский бренд базового гардероба для женщин. Строгие силуэты, качественные ткани, капсульные коллекции. Флагманский формат.', hours:'10:00–22:00', phone:'+7 (495) 100-01-04', img:'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85', priority:4},
+  {id:'brunello', name:'Brunello Cucinelli', cat:'fashion', floor:3, badge:'excl', emoji:'🧥', catLabel:'Премиум', desc:'Итальянский дом моды категории люкс. Кашемир, шёлк, ручные работы. Единственный магазин в районе Москва-Сити.', hours:'11:00–21:00', phone:'+7 (495) 100-01-05', img:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=85', priority:5},
+  {id:'ushatava', name:'Ushatáva', cat:'fashion', floor:2, badge:'new', emoji:'👔', catLabel:'Мода', desc:'Российский бренд современной одежды. Акцент на актуальных трендах и доступных ценах. Большой ассортимент для женщин и мужчин.', hours:'10:00–22:00', phone:'+7 (495) 100-01-06', img:'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&q=85', priority:6},
+  {id:'henderson', name:'Henderson', cat:'fashion', floor:2, badge:null, emoji:'👞', catLabel:'Мужская мода', desc:'Мужская одежда и аксессуары премиум-класса. Деловые и повседневные коллекции. Ателье подгонки прямо в магазине.', hours:'10:00–22:00', phone:'+7 (495) 100-01-07', img:'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=85', priority:7},
+  {id:'styliste', name:'Персональный стилист', cat:'services', floor:3, badge:'excl', emoji:'✂️', catLabel:'Сервис', desc:'Шоппинг-сопровождение с персональным стилистом. Формирование гардероба, подбор образа к событию, налоговый возврат Tax Free.', hours:'11:00–20:00 (по записи)', phone:'+7 (495) 100-01-08', img:'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=85', priority:8},
+  {id:'florist', name:'Цветочный бутик', cat:'services', floor:1, badge:null, emoji:'💐', catLabel:'Сервисы', desc:'Авторские флористические композиции, букеты и подарочные корзины. Оформление мероприятий. Доставка по Москве.', hours:'09:00–22:00', phone:'+7 (495) 100-01-09', img:'https://images.unsplash.com/photo-1487530811015-780780baaec0?w=600&q=85', priority:9},
+  {id:'books', name:'Книжный', cat:'services', floor:1, badge:'new', emoji:'📚', catLabel:'Культура', desc:'Редкие издания, арт-книги, детские и дизайнерские канцтовары. Авторские коллекции и атмосфера камерного культурного клуба.', hours:'10:00–22:00', phone:'+7 (495) 100-01-10', img:'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=85', priority:10},
+  {id:'coffee', name:'Кофейня с верандой', cat:'cafe', floor:1, badge:null, emoji:'☕', catLabel:'Кафе', desc:'Specialty coffee, авторские завтраки и лёгкие обеды. Выход на веранду в парк. Вид на водные каналы.', hours:'08:00–22:00', phone:'+7 (495) 100-01-11', img:'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=85', priority:11},
+  {id:'clinic', name:'Клиника красоты', cat:'wellness', floor:5, badge:'new', emoji:'🌿', catLabel:'Велнес', desc:'Эстетическая медицина, инъекционные и аппаратные процедуры. Комплексные уходовые программы для всех гостей МФК.', hours:'09:00–21:00 (по записи)', phone:'+7 (495) 100-01-12', img:'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=600&q=85', priority:12},
+  {id:'syr', name:'Сыроварня и гастроном', cat:'food', floor:0, badge:null, emoji:'🧀', catLabel:'Продукты', desc:'Авторские сыры собственного производства, деликатесы, импортные продукты и готовая еда для домашнего стола.', hours:'09:00–22:00', phone:'+7 (495) 100-01-13', img:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=85', priority:13},
+  {id:'lesyanebo', name:'Lesyanebo', cat:'fashion', floor:3, badge:null, emoji:'💍', catLabel:'Ювелирные', desc:'Российский ювелирный бренд. Украшения из золота и серебра с необычным дизайном. Кастомизация и гравировка.', hours:'10:00–22:00', phone:'+7 (495) 100-01-14', img:'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=85', priority:14},
+  {id:'pharmacy', name:'Аптека премиум', cat:'services', floor:0, badge:null, emoji:'💊', catLabel:'Аптека', desc:'Полный ассортимент лекарств и БАДов. Консультация фармацевта. Косметика аптечных марков, дерматологические средства.', hours:'09:00–22:00', phone:'+7 (495) 100-01-15', img:'https://images.unsplash.com/photo-1576602976047-174e57a47881?w=600&q=85', priority:15},
+  {id:'drycleaning', name:'Химчистка VIP', cat:'services', floor:0, badge:null, emoji:'👔', catLabel:'Сервисы', desc:'Профессиональная чистка деликатных тканей, кожи и замши. Реставрация и ремонт одежды. Экспресс-услуга за 4 часа.', hours:'09:00–21:00', phone:'+7 (495) 100-01-16', img:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=85', priority:16},
+];
+
+let activeCat = 'all';
+let activeFloor = 'all';
+let searchQuery = '';
+let filtered = [...BRANDS];
+
+function getFiltered() {
+  return BRANDS.filter(b => {
+    const catOk = activeCat === 'all' || b.cat === activeCat;
+    const floorOk = activeFloor === 'all' || String(b.floor) === String(activeFloor);
+    const q = searchQuery.toLowerCase();
+    const searchOk = !q || b.name.toLowerCase().includes(q) || b.catLabel.toLowerCase().includes(q) || b.desc.toLowerCase().includes(q);
+    return catOk && floorOk && searchOk;
+  }).sort((a,b) => a.priority - b.priority);
+}
+
+function renderGrid() {
+  const data = getFiltered();
+  const grid = document.getElementById('brandsGrid');
+  document.getElementById('resultsCount').innerHTML = `Найдено: <strong>${data.length}</strong> ${plural(data.length, 'магазин','магазина','магазинов')}`;
+
+  if (!data.length) {
+    grid.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">Ничего не найдено</div><div class="empty-sub">Попробуйте изменить фильтры или поисковый запрос</div></div>`;
+    return;
+  }
+
+  grid.innerHTML = data.map(b => `
+    <div class="brand-card" onclick="openModal('${b.id}')">
+      <div class="bc-img">
+        ${b.img ? `<img src="${b.img}" alt="${b.name}" loading="lazy">` : `<div class="bc-img-placeholder">${b.emoji}</div>`}
+        ${b.badge ? `<span class="bc-badge badge-${b.badge}">${b.badge==='new'?'Новый':b.badge==='excl'?'Эксклюзивно':'Акция'}</span>` : ''}
+      </div>
+      <div class="bc-body">
+        <div class="bc-cat">${b.catLabel}</div>
+        <div class="bc-name">${b.name}</div>
+        <div class="bc-desc">${b.desc.substring(0,80)}${b.desc.length>80?'…':''}</div>
+        <div class="bc-footer">
+          <span class="bc-floor">${b.floor} этаж</span>
+          <span class="bc-arrow">→</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  // Update exclusive strip visibility
+  document.getElementById('exclusiveStrip').style.display =
+    (activeCat !== 'all' || activeFloor !== 'all' || searchQuery) ? 'none' : 'block';
+}
+
+function plural(n, one, few, many) {
+  const m = n % 10, m100 = n % 100;
+  if (m===1 && m100!==11) return n+' '+one;
+  if ([2,3,4].includes(m) && ![12,13,14].includes(m100)) return n+' '+few;
+  return n+' '+many;
+}
+
+function openModal(id) {
+  const b = BRANDS.find(x => x.id === id);
+  if (!b) return;
+
+  document.getElementById('modalImg').innerHTML = b.img
+    ? `<img src="${b.img}" alt="${b.name}">`
+    : `<div class="modal-img-placeholder">${b.emoji}</div>`;
+
+  document.getElementById('modalContent').innerHTML = `
+    <div class="modal-eyebrow">${b.catLabel} · ${b.floor} этаж</div>
+    <div class="modal-title">${b.name}</div>
+    <div class="modal-desc">${b.desc}</div>
+    <div class="modal-meta">
+      <div class="meta-row"><span class="meta-key">Этаж</span><span class="meta-val">${b.floor} этаж</span></div>
+      <div class="meta-row"><span class="meta-key">Часы</span><span class="meta-val">${b.hours}</span></div>
+      <div class="meta-row"><span class="meta-key">Телефон</span><span class="meta-val">${b.phone}</span></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary">Проложить маршрут</button>
+      <button class="btn-secondary">Добавить в избранное</button>
+    </div>
+  `;
+
+  const nearby = BRANDS.filter(x => x.floor === b.floor && x.id !== b.id).slice(0,4);
+  document.getElementById('nearbyGrid').innerHTML = nearby.map(n => `
+    <div class="nearby-card" onclick="openModal('${n.id}')">
+      <div class="nearby-icon">${n.emoji}</div>
+      <div class="nearby-name">${n.name}</div>
+      <div class="nearby-floor">${n.floor} этаж</div>
+    </div>
+  `).join('') || '<p style="font-size:12px;color:var(--muted);grid-column:1/-1">Других магазинов на этом этаже пока нет</p>';
+
+  // Update floor indicator
+  document.querySelectorAll('.fi-floor').forEach(f => f.classList.toggle('active', f.dataset.floor == b.floor));
+
+  document.getElementById('modalBackdrop').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalBackdrop').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e) { if (e.target.id === 'modalBackdrop') closeModal(); }
+
+// Category filters
+document.getElementById('catFilters').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn'); if (!btn) return;
+  document.querySelectorAll('#catFilters .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCat = btn.dataset.cat;
+  document.getElementById('gridSectionTitle').textContent = activeCat === 'all' ? 'Все магазины' : btn.textContent;
+  renderGrid();
+});
+
+// Floor filters
+document.querySelectorAll('.floor-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.floor-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFloor = btn.dataset.floor;
+    // Sync floor indicator
+    document.querySelectorAll('.fi-floor').forEach(f => f.classList.toggle('active', activeFloor !== 'all' && f.dataset.floor === activeFloor));
+    renderGrid();
+  });
+});
+
+// Floor indicator
+document.getElementById('fiFloors').addEventListener('click', e => {
+  const f = e.target.closest('.fi-floor'); if (!f) return;
+  const fl = f.dataset.floor;
+  document.querySelectorAll('.floor-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.floor === fl);
+  });
+  activeFloor = fl;
+  document.querySelectorAll('.fi-floor').forEach(x => x.classList.toggle('active', x.dataset.floor === fl));
+  renderGrid();
+  document.querySelector('.floor-row').scrollIntoView({behavior:'smooth', block:'nearest'});
+});
+
+// Search
+const searchInput = document.getElementById('searchInput');
+const searchClear = document.getElementById('searchClear');
+searchInput.addEventListener('input', () => {
+  searchQuery = searchInput.value;
+  searchClear.classList.toggle('visible', !!searchQuery);
+  renderGrid();
+});
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  searchQuery = '';
+  searchClear.classList.remove('visible');
+  renderGrid();
+});
+
+// Sort
+document.getElementById('sortSelect').addEventListener('change', e => {
+  const v = e.target.value;
+  BRANDS.sort((a,b) => v === 'alpha' ? a.name.localeCompare(b.name,'ru') : v === 'floor' ? a.floor - b.floor : a.priority - b.priority);
+  renderGrid();
+});
+
+// Keyboard close
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Init
+renderGrid();
+</script>
+</body>
+</html>

@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Новости и события — Венеция</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#0f0d0a;--muted:#7a6e62;--cream:#faf8f3;--sand:#f0e9dc;
+  --gold:#c6a15b;--gold-d:#a47c3e;--gold-p:#fdf6eb;
+  --bordo:#4A0B18;--bordo-m:#6B1024;--deep:#1f3e48;
+  --rule:rgba(198,161,91,0.18);--tr:.22s ease;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;}
+.ctr{max-width:1300px;margin:0 auto;padding:0 32px;}
+
+/* ── NAV ── */
+.nav{background:rgba(250,248,243,.97);backdrop-filter:blur(12px);position:sticky;top:0;z-index:200;border-bottom:1px solid var(--rule);}
+.navbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px;}
+.nav-l a,.nav-r-l a{font-size:13px;font-weight:500;letter-spacing:.05em;color:var(--muted);text-decoration:none;transition:var(--tr);padding:0 16px;}
+.nav-l a:hover,.nav-r-l a:hover{color:var(--bordo);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:.18em;color:var(--bordo);text-decoration:none;text-align:center;}
+.nav-r{display:flex;justify-content:flex-end;align-items:center;}
+.burger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;width:26px;margin-left:8px;}
+.burger span{display:block;height:1.5px;background:var(--ink);border-radius:2px;}
+.side{position:fixed;top:0;right:-300px;width:270px;height:100%;background:#fffdf9;z-index:400;transition:right .35s cubic-bezier(.77,0,.18,1);padding:70px 0;box-shadow:-4px 0 32px rgba(0,0,0,.08);}
+.side.open{right:0;}
+.side a{display:block;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--bordo);text-decoration:none;padding:13px 28px;border-bottom:1px solid var(--rule);transition:var(--tr);}
+.side a:hover{padding-left:36px;}
+.side-close{position:absolute;top:18px;right:20px;background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted);}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:300;display:none;}
+.ov.open{display:block;}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{display:flex;gap:8px;align-items:center;padding:18px 0 0;}
+.breadcrumb a{font-size:12px;color:var(--muted);text-decoration:none;transition:.15s;}
+.breadcrumb a:hover{color:var(--bordo);}
+.breadcrumb span{font-size:12px;color:rgba(122,110,98,.35);}
+.breadcrumb .cur{font-size:12px;color:var(--ink);font-weight:500;}
+
+/* ── PAGE TABS (top-level nav) ── */
+.page-tabs{background:#fff;border-bottom:1px solid var(--rule);position:sticky;top:64px;z-index:150;}
+.tab-inner{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.tab-inner::-webkit-scrollbar{display:none;}
+.ptab{background:transparent;border:none;border-bottom:2.5px solid transparent;padding:16px 26px;font-family:'Raleway',sans-serif;font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--muted);cursor:pointer;white-space:nowrap;margin-bottom:-1px;transition:var(--tr);}
+.ptab:hover{color:var(--ink);}
+.ptab.active{color:var(--bordo);border-bottom-color:var(--gold);}
+.ptab-count{display:inline-block;font-size:10px;background:var(--sand);color:var(--muted);padding:1px 7px;border-radius:10px;margin-left:6px;font-weight:600;}
+.ptab.active .ptab-count{background:rgba(74,11,24,.1);color:var(--bordo);}
+
+/* ── SECTION CONTAINERS ── */
+.page-section{display:none;padding:52px 0 80px;}
+.page-section.active{display:block;}
+
+/* ── COMMON ── */
+.sec-eyebrow{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-d);margin-bottom:12px;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600;color:var(--bordo);line-height:.95;letter-spacing:-.01em;margin-bottom:0;}
+.sec-sub{font-size:14px;color:var(--muted);font-weight:300;line-height:1.8;max-width:540px;margin-top:12px;}
+.rule-line{width:40px;height:1.5px;background:var(--gold);margin:20px 0;}
+.btn-gold{background:var(--gold);color:#fff;border:none;padding:12px 26px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:var(--tr);text-decoration:none;display:inline-block;}
+.btn-gold:hover{background:var(--gold-d);}
+.btn-bordo{background:var(--bordo);color:#fff;border:none;padding:12px 26px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:var(--tr);text-decoration:none;display:inline-block;}
+.btn-bordo:hover{background:var(--bordo-m);}
+.btn-outline{background:transparent;border:1px solid var(--rule);color:var(--ink);padding:11px 24px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:var(--tr);}
+.btn-outline:hover{border-color:var(--gold);background:var(--gold-p);}
+
+/* ── SECTION HEADER ROW ── */
+.sec-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:40px;}
+.sec-all-link{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--bordo);text-decoration:none;border-bottom:1px solid rgba(74,11,24,.2);padding-bottom:2px;white-space:nowrap;}
+
+/* ── FILTER BAR ── */
+.filter-bar{display:flex;gap:0;border-bottom:1px solid var(--rule);margin-bottom:36px;overflow-x:auto;scrollbar-width:none;}
+.filter-bar::-webkit-scrollbar{display:none;}
+.fb{background:transparent;border:none;border-bottom:2px solid transparent;padding:10px 20px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;white-space:nowrap;margin-bottom:-1px;transition:var(--tr);}
+.fb:hover{color:var(--ink);}
+.fb.active{color:var(--bordo);border-bottom-color:var(--gold);}
+
+/* ── COUNTDOWN HERO ── */
+.countdown-hero{background:var(--bordo);margin-bottom:52px;padding:48px 0;}
+.cd-inner{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;}
+.cd-left{}
+.cd-eyebrow{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(198,161,91,.65);margin-bottom:14px;}
+.cd-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,66px);font-weight:600;color:#fff;line-height:.92;letter-spacing:-.02em;margin-bottom:16px;}
+.cd-title em{font-style:italic;color:rgba(230,205,155,.9);}
+.cd-sub{font-size:14px;color:rgba(255,255,255,.55);font-weight:300;line-height:1.8;max-width:420px;margin-bottom:28px;}
+.cd-timer{display:flex;gap:4px;margin-bottom:28px;}
+.cd-unit{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);padding:12px 16px;text-align:center;min-width:72px;}
+.cd-num{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:#fff;line-height:1;display:block;}
+.cd-label{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:4px;display:block;}
+.cd-right{min-width:320px;}
+.sub-form{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:28px;}
+.sf-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:#fff;margin-bottom:6px;}
+.sf-sub{font-size:12px;color:rgba(255,255,255,.45);font-weight:300;margin-bottom:18px;line-height:1.6;}
+.sf-row{display:flex;gap:0;margin-bottom:12px;}
+.sf-input{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-right:none;padding:11px 14px;font-family:'Raleway',sans-serif;font-size:13px;color:#fff;outline:none;}
+.sf-input::placeholder{color:rgba(255,255,255,.3);}
+.sf-btn{background:var(--gold);color:#fff;border:none;padding:11px 20px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap;}
+.sf-btn:hover{background:var(--gold-d);}
+.sf-note{font-size:11px;color:rgba(255,255,255,.3);line-height:1.5;}
+.sf-counter{font-size:12px;color:rgba(255,255,255,.5);margin-top:12px;}
+.sf-counter strong{color:rgba(255,255,255,.75);}
+
+/* ── NEWS HERO CARD ── */
+.news-hero{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--rule);margin-bottom:3px;}
+.nhc{overflow:hidden;position:relative;height:400px;cursor:pointer;text-decoration:none;color:inherit;display:block;}
+.nhc:hover .nhc-img{transform:scale(1.04);}
+.nhc-img{width:100%;height:100%;object-fit:cover;transition:transform .55s ease;display:block;}
+.nhc-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,5,2,.88) 0%,rgba(10,5,2,.3) 55%,transparent 100%);}
+.nhc-body{position:absolute;bottom:0;left:0;right:0;padding:28px;}
+.nhc-type{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:3px 10px;margin-bottom:12px;display:inline-block;}
+.type-opening{background:var(--bordo);color:#fff;}
+.type-gastro{background:rgba(186,117,23,.9);color:#fff;}
+.type-workshop{background:rgba(15,110,86,.9);color:#fff;}
+.type-culture{background:rgba(53,107,165,.9);color:#fff;}
+.type-promo{background:rgba(153,53,86,.9);color:#fff;}
+.type-news{background:rgba(95,94,90,.8);color:#fff;}
+.nhc-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,30px);font-weight:600;color:#fff;line-height:1.05;margin-bottom:6px;}
+.nhc-date{font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.06em;}
+.nhc-cta{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(198,161,91,.4);padding-bottom:2px;}
+
+/* ── NEWS GRID ── */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--rule);}
+.nc{background:#fff;overflow:hidden;cursor:pointer;transition:var(--tr);text-decoration:none;color:inherit;display:flex;flex-direction:column;}
+.nc:hover{background:var(--cream);}
+.nc:hover .nc-img-i{transform:scale(1.04);}
+.nc-img{height:200px;overflow:hidden;position:relative;}
+.nc-img-i{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .5s ease;}
+.nc-body{padding:22px 20px;flex:1;display:flex;flex-direction:column;}
+.nc-type{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;margin-bottom:10px;display:inline-block;align-self:flex-start;}
+.nc-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--deep);line-height:1.15;margin-bottom:8px;}
+.nc-desc{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300;flex:1;}
+.nc-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);}
+.nc-date{font-size:11px;color:var(--muted);letter-spacing:.04em;}
+.nc-arrow{font-size:12px;color:var(--gold);}
+.load-more{text-align:center;padding:40px 0;}
+
+/* ── EVENTS ── */
+.events-featured{display:grid;grid-template-columns:2fr 1fr;gap:3px;background:var(--rule);margin-bottom:3px;}
+.ev-feat{overflow:hidden;position:relative;height:460px;cursor:pointer;text-decoration:none;color:inherit;display:block;}
+.ev-feat:hover .ef-img{transform:scale(1.03);}
+.ef-img{width:100%;height:100%;object-fit:cover;transition:transform .55s ease;display:block;}
+.ef-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,5,2,.9) 0%,rgba(10,5,2,.35) 50%,transparent 100%);}
+.ef-body{position:absolute;bottom:0;left:0;right:0;padding:36px;}
+.ef-badge-row{display:flex;gap:8px;margin-bottom:16px;align-items:center;}
+.ef-date-badge{background:var(--gold);color:#fff;padding:5px 12px;font-size:11px;font-weight:600;letter-spacing:.06em;}
+.ef-title{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,42px);font-weight:600;color:#fff;line-height:1;margin-bottom:10px;}
+.ef-desc{font-size:13px;color:rgba(255,255,255,.65);font-weight:300;line-height:1.7;max-width:440px;margin-bottom:20px;}
+.ef-meta{display:flex;gap:16px;flex-wrap:wrap;}
+.ef-meta-item{font-size:12px;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:6px;}
+.ef-meta-icon{font-size:14px;}
+.ef-cta-row{display:flex;gap:10px;margin-top:20px;}
+
+/* side events */
+.ev-side{display:flex;flex-direction:column;gap:3px;}
+.ev-side-card{background:#fff;overflow:hidden;cursor:pointer;transition:var(--tr);display:flex;height:152px;flex:1;text-decoration:none;color:inherit;}
+.ev-side-card:hover{background:var(--cream);}
+.ev-side-card:hover .esc-img-i{transform:scale(1.05);}
+.esc-img{width:120px;flex-shrink:0;overflow:hidden;}
+.esc-img-i{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .4s ease;}
+.esc-body{padding:14px 16px;display:flex;flex-direction:column;justify-content:space-between;flex:1;}
+.esc-type{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:2px 8px;display:inline-block;margin-bottom:6px;}
+.esc-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--deep);line-height:1.15;margin-bottom:4px;}
+.esc-date{font-size:11px;color:var(--muted);}
+.esc-cta{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--bordo);}
+
+/* calendar strip */
+.calendar-strip{background:#fff;border:1px solid var(--rule);padding:20px 24px;margin-bottom:36px;}
+.cs-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.cs-month{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--bordo);}
+.cs-nav{display:flex;gap:4px;}
+.cs-nav button{background:none;border:1px solid var(--rule);width:28px;height:28px;cursor:pointer;font-size:12px;color:var(--muted);transition:var(--tr);}
+.cs-nav button:hover{border-color:var(--gold);color:var(--bordo);}
+.cs-days{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.cs-day-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:center;padding:4px 0;}
+.cs-day{font-size:12px;text-align:center;padding:6px 4px;cursor:pointer;border-radius:2px;transition:var(--tr);color:var(--muted);position:relative;}
+.cs-day.has-event{color:var(--ink);font-weight:600;}
+.cs-day.has-event::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;background:var(--gold);border-radius:50%;}
+.cs-day.today{background:var(--bordo);color:#fff;border-radius:2px;}
+.cs-day.today::after{background:rgba(255,255,255,.6);}
+.cs-day:hover:not(.today){background:var(--sand);}
+.cs-day.empty{color:rgba(122,110,98,.25);cursor:default;}
+
+/* events full list */
+.ev-list-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--rule);}
+.elc{background:#fff;overflow:hidden;cursor:pointer;transition:var(--tr);text-decoration:none;color:inherit;display:flex;flex-direction:column;}
+.elc:hover{background:var(--cream);}
+.elc:hover .elc-img-i{transform:scale(1.04);}
+.elc-img{height:190px;overflow:hidden;position:relative;}
+.elc-img-i{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .5s ease;}
+.elc-badge-wrap{position:absolute;bottom:12px;left:12px;display:flex;gap:6px;}
+.elc-date-pill{background:rgba(0,0,0,.55);backdrop-filter:blur(6px);color:rgba(255,255,255,.9);font-size:10px;font-weight:600;padding:4px 10px;letter-spacing:.06em;}
+.elc-body{padding:20px 18px;flex:1;display:flex;flex-direction:column;}
+.elc-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--deep);line-height:1.15;margin-bottom:6px;}
+.elc-desc{font-size:12px;color:var(--muted);line-height:1.7;font-weight:300;flex:1;}
+.elc-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:11px;border-top:1px solid var(--rule);}
+.elc-price{font-size:11px;color:var(--muted);font-weight:300;}
+.elc-price strong{color:var(--ink);font-weight:600;}
+.elc-cta{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--bordo);}
+.reg-badge{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:10px;}
+.reg-free{background:rgba(15,110,86,.1);color:#0F6E56;}
+.reg-paid{background:rgba(74,11,24,.08);color:var(--bordo);}
+
+/* ── PROMOTIONS ── */
+.promo-hero{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--rule);margin-bottom:3px;}
+.ph-card{overflow:hidden;position:relative;cursor:pointer;text-decoration:none;color:inherit;display:block;}
+.ph-card:hover .ph-img{transform:scale(1.03);}
+.ph-img{width:100%;height:340px;object-fit:cover;transition:transform .55s ease;display:block;}
+.ph-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(74,11,24,.82) 0%,rgba(74,11,24,.3) 60%,transparent 100%);}
+.ph-body{position:absolute;inset:0;padding:32px;display:flex;flex-direction:column;justify-content:space-between;}
+.ph-eyebrow{font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(198,161,91,.75);}
+.ph-title{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.8vw,36px);font-weight:600;color:#fff;line-height:1.0;}
+.ph-title em{font-style:italic;color:rgba(230,205,155,.9);}
+.ph-cond{font-size:12px;color:rgba(255,255,255,.55);font-weight:300;margin-top:6px;}
+.ph-expiry{font-size:11px;font-weight:600;padding:5px 12px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.18);display:inline-block;align-self:flex-start;}
+.ph-cta-btn{background:var(--gold);color:#fff;border:none;padding:10px 20px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;align-self:flex-start;}
+
+.promos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--rule);}
+.promo-card{background:#fff;padding:28px 24px;cursor:pointer;transition:var(--tr);display:flex;flex-direction:column;border-top:3px solid transparent;}
+.promo-card:hover{background:var(--gold-p);border-top-color:var(--gold);}
+.pc-tenant{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-d);margin-bottom:10px;}
+.pc-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--bordo);line-height:1.1;margin-bottom:8px;}
+.pc-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.7;flex:1;}
+.pc-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);}
+.pc-expiry{font-size:10px;color:var(--muted);letter-spacing:.04em;}
+.pc-badge{font-size:10px;font-weight:600;padding:3px 9px;border-radius:10px;}
+.pb-new{background:rgba(74,11,24,.08);color:var(--bordo);}
+.pb-expiring{background:rgba(192,57,43,.08);color:#c0392b;}
+.pb-regular{background:var(--sand);color:var(--muted);}
+
+/* promo ticker */
+.promo-ticker{background:var(--sand);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:10px 0;overflow:hidden;margin-bottom:36px;}
+.pt-inner{display:flex;width:max-content;animation:ptick 20s linear infinite;}
+.pt-item{font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;padding:0 28px;white-space:nowrap;font-weight:500;}
+.pt-item::after{content:'·';margin-left:28px;color:var(--gold);}
+@keyframes ptick{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ── PRESS CENTER ── */
+.press-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--rule);margin-bottom:36px;}
+.press-card{background:#fff;padding:32px 28px;}
+.press-icon{font-size:32px;margin-bottom:16px;}
+.press-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--bordo);margin-bottom:10px;}
+.press-desc{font-size:13px;color:var(--muted);font-weight:300;line-height:1.75;margin-bottom:18px;}
+.press-action{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--bordo);text-decoration:none;border-bottom:1px solid rgba(74,11,24,.2);padding-bottom:2px;}
+.release-list{display:flex;flex-direction:column;gap:0;margin-top:32px;}
+.release-item{display:flex;gap:20px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--rule);cursor:pointer;transition:var(--tr);}
+.release-item:first-child{border-top:1px solid var(--rule);}
+.release-item:hover{background:var(--gold-p);margin:0 -32px;padding:14px 32px;}
+.ri-date{font-size:11px;color:var(--muted);min-width:80px;padding-top:2px;letter-spacing:.04em;}
+.ri-title{font-size:13px;color:var(--ink);font-weight:500;line-height:1.4;flex:1;}
+.ri-dl{font-size:11px;color:var(--gold-d);font-weight:600;letter-spacing:.06em;flex-shrink:0;}
+
+/* press contacts */
+.press-contacts{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--rule);}
+.pc-contact-card{background:var(--deep);padding:32px;}
+.pc-contact-eyebrow{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,161,91,.6);margin-bottom:14px;}
+.pc-contact-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#fff;margin-bottom:4px;}
+.pc-contact-role{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:18px;}
+.pc-contact-links{display:flex;flex-direction:column;gap:8px;}
+.pc-contact-link{font-size:13px;color:rgba(255,255,255,.65);text-decoration:none;font-weight:300;display:flex;align-items:center;gap:8px;transition:.15s;}
+.pc-contact-link:hover{color:var(--gold);}
+.pc-contact-link span{font-size:14px;}
+.pc-response{background:rgba(255,255,255,.05);padding:32px;display:flex;flex-direction:column;justify-content:center;}
+.pcr-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#fff;margin-bottom:12px;}
+.pcr-form{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+.pcr-input{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);padding:10px 14px;font-family:'Raleway',sans-serif;font-size:13px;color:#fff;outline:none;}
+.pcr-input::placeholder{color:rgba(255,255,255,.28);}
+.pcr-textarea{height:80px;resize:none;}
+.pcr-btn{background:var(--gold);color:#fff;border:none;padding:11px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;width:100%;}
+
+/* ── SUBSCRIBE BAND ── */
+.subscribe-band{background:var(--sand);padding:52px 0;border-top:1px solid var(--rule);}
+.sb-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.sb-left{}
+.sb-eyebrow{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-d);margin-bottom:12px;}
+.sb-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3vw,38px);font-weight:600;color:var(--bordo);line-height:1.0;}
+.sb-title em{font-style:italic;}
+.sb-desc{font-size:14px;color:var(--muted);font-weight:300;line-height:1.8;margin-top:10px;max-width:400px;}
+.sb-right{}
+.sub-options{display:flex;flex-direction:column;gap:12px;}
+.sub-opt{display:flex;align-items:center;gap:16px;background:#fff;padding:16px 20px;border:1px solid var(--rule);transition:var(--tr);cursor:pointer;}
+.sub-opt:hover{border-color:var(--gold);background:var(--gold-p);}
+.sub-opt-icon{font-size:24px;flex-shrink:0;}
+.sub-opt-info{flex:1;}
+.sub-opt-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;}
+.sub-opt-desc{font-size:11px;color:var(--muted);font-weight:300;}
+.sub-opt-btn{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--bordo);white-space:nowrap;}
+.sub-email-form{margin-top:12px;display:flex;}
+.sef-input{flex:1;background:#fff;border:1px solid var(--rule);border-right:none;padding:11px 14px;font-family:'Raleway',sans-serif;font-size:13px;color:var(--ink);outline:none;}
+.sef-input::placeholder{color:rgba(122,110,98,.4);}
+.sef-input:focus{border-color:rgba(198,161,91,.5);}
+.sef-btn{background:var(--bordo);color:#fff;border:none;padding:11px 20px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;}
+
+/* ── FOOTER ── */
+.footer{background:#0c1518;padding:52px 0 24px;}
+.ft-inner{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:24px;}
+.ft-logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--gold);letter-spacing:.16em;margin-bottom:8px;}
+.ft-desc{font-size:12px;color:rgba(255,255,255,.26);font-weight:300;line-height:1.8;max-width:200px;}
+.ft-col h4{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(198,161,91,.58);font-weight:600;margin-bottom:14px;}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.ft-col a{color:rgba(255,255,255,.33);font-size:13px;text-decoration:none;font-weight:300;transition:.15s;}
+.ft-col a:hover{color:var(--gold);}
+.ft-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.ft-bottom p{font-size:11px;color:rgba(255,255,255,.16);}
+
+@media(max-width:1024px){.news-hero,.events-featured,.promo-hero,.sb-inner,.press-contacts{grid-template-columns:1fr;}.ev-feat{height:300px;}.ph-img{height:240px;}.cd-inner{grid-template-columns:1fr;gap:32px;}.cd-right{min-width:auto;}}
+@media(max-width:768px){.news-grid,.ev-list-grid,.promos-grid,.press-grid{grid-template-columns:1fr;}.promo-ticker{display:none;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="ctr">
+    <div class="navbar">
+      <div class="nav-l"><a href="venecia_shops_v3.html">Универмаг</a></div>
+      <a href="/" class="logo">В Е Н Е Ц И Я</a>
+      <div class="nav-r">
+        <div class="nav-r-l"><a href="#">Велнес и СПА</a></div>
+        <button class="burger" id="bb"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="ov" id="ov"></div>
+<div class="side" id="side">
+  <button class="side-close" id="sc">✕</button>
+  <a href="venecia_shops_v3.html">Магазины и бренды</a>
+  <a href="venecia_restaurants.html">Рестораны и кафе</a>
+  <a href="#">Велнес и СПА</a>
+  <a href="#">Парк</a>
+  <a href="#" style="color:var(--bordo);">Новости и события</a>
+  <a href="venecia_floormap.html">Схема центра</a>
+  <a href="venecia_howtoget.html">Как добраться</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="ctr"><div class="breadcrumb">
+  <a href="/">Главная</a><span>›</span><span class="cur" id="bcCur">Новости</span>
+</div></div>
+
+<!-- PAGE TABS -->
+<div class="page-tabs">
+  <div class="ctr">
+    <div class="tab-inner">
+      <button class="ptab active" data-tab="news" onclick="setTab('news')">
+        Новости <span class="ptab-count" id="cnt-news">12</span>
+      </button>
+      <button class="ptab" data-tab="events" onclick="setTab('events')">
+        События <span class="ptab-count" id="cnt-events">8</span>
+      </button>
+      <button class="ptab" data-tab="promos" onclick="setTab('promos')">
+        Акции <span class="ptab-count" id="cnt-promos">5</span>
+      </button>
+      <button class="ptab" data-tab="press" onclick="setTab('press')">
+        Пресс-центр
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ TAB: НОВОСТИ ═══════════════════════ -->
+<div class="page-section active" id="tab-news">
+
+  <!-- Countdown hero -->
+  <div class="countdown-hero">
+    <div class="ctr">
+      <div class="cd-inner">
+        <div class="cd-left">
+          <div class="cd-eyebrow">До открытия МФК «Венеция»</div>
+          <div class="cd-title">Открытие<br><em>III квартал 2026</em></div>
+          <p class="cd-sub">Театр современной жизни — мода, гастрономия и велнес в единой архитектуре. Подпишитесь и узнайте первыми.</p>
+          <div class="cd-timer" id="cdTimer"></div>
+        </div>
+        <div class="cd-right">
+          <div class="sub-form">
+            <div class="sf-title">Узнать об открытии</div>
+            <div class="sf-sub">Подписчики первыми получат доступ к специальным условиям в день запуска</div>
+            <div class="sf-row">
+              <input class="sf-input" type="email" placeholder="Ваш email" id="openingEmail">
+              <button class="sf-btn" onclick="subscribeOpening()">Подписаться</button>
+            </div>
+            <div class="sf-note">Не спамим. Только анонсы открытия и событий.</div>
+            <div class="sf-counter">Уже подписались <strong id="subCount">2 471</strong> гостей</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ctr">
+    <!-- Filter -->
+    <div class="filter-bar" id="newsFilter">
+      <button class="fb active" data-f="all">Все</button>
+      <button class="fb" data-f="opening">Открытия</button>
+      <button class="fb" data-f="gastro">Гастрономия</button>
+      <button class="fb" data-f="workshop">Мастер-классы</button>
+      <button class="fb" data-f="culture">Культура</button>
+    </div>
+
+    <!-- Hero news -->
+    <div class="news-hero" id="newsHero">
+      <a class="nhc" href="#" data-cat="opening">
+        <img class="nhc-img" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85" alt="Открытие Универмага">
+        <div class="nhc-overlay"></div>
+        <div class="nhc-body">
+          <span class="nhc-type type-opening">Открытие</span>
+          <div class="nhc-title">Универмаг «Венеция» открывает запись к персональному стилисту</div>
+          <div class="nhc-date">28 апреля 2026</div>
+          <div class="nhc-cta">Подробнее →</div>
+        </div>
+      </a>
+      <a class="nhc" href="#" data-cat="gastro">
+        <img class="nhc-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=85" alt="Ресторан">
+        <div class="nhc-overlay"></div>
+        <div class="nhc-body">
+          <span class="nhc-type type-gastro">Гастрономия</span>
+          <div class="nhc-title">Alba Group представляет летнее меню с видами на Москву-реку</div>
+          <div class="nhc-date">22 апреля 2026</div>
+          <div class="nhc-cta">Читать →</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- News grid -->
+    <div class="news-grid" id="newsGrid">
+      <a class="nc" href="#" data-cat="workshop">
+        <div class="nc-img"><div class="nc-img-i" style="background-image:url('https://images.unsplash.com/photo-1618241155845-f90a1c66ca61?w=600&q=85');"></div></div>
+        <div class="nc-body"><span class="nc-type type-workshop">Мастер-класс</span><div class="nc-title">Золотое яблоко открывает лабораторию парфюмерии</div><div class="nc-desc">Еженедельные воркшопы по созданию персональных ароматов с экспертами бренда. Запись уже открыта.</div><div class="nc-footer"><span class="nc-date">18 апреля 2026</span><span class="nc-arrow">→</span></div></div>
+      </a>
+      <a class="nc" href="#" data-cat="opening">
+        <div class="nc-img"><div class="nc-img-i" style="background-image:url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=85');"></div></div>
+        <div class="nc-body"><span class="nc-type type-opening">Открытие</span><div class="nc-title">Brunello Cucinelli — первый бутик у Москва-Сити</div><div class="nc-desc">Итальянский дом моды открывает единственный магазин в районе Пресня. Private shopping по предварительной записи.</div><div class="nc-footer"><span class="nc-date">15 апреля 2026</span><span class="nc-arrow">→</span></div></div>
+      </a>
+      <a class="nc" href="#" data-cat="culture">
+        <div class="nc-img"><div class="nc-img-i" style="background-image:url('https://images.unsplash.com/photo-1513326738677-b964603b136d?w=600&q=85');"></div></div>
+        <div class="nc-body"><span class="nc-type type-culture">Культура</span><div class="nc-title">Архитектура «Венеции»: театр современной жизни</div><div class="nc-desc">Интервью с архитектурным бюро о концепции здания, венецианских мотивах и колоннаде на набережной.</div><div class="nc-footer"><span class="nc-date">10 апреля 2026</span><span class="nc-arrow">→</span></div></div>
+      </a>
+      <a class="nc" href="#" data-cat="gastro">
+        <div class="nc-img"><div class="nc-img-i" style="background-image:url('https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=600&q=85');"></div></div>
+        <div class="nc-body"><span class="nc-type type-gastro">Гастрономия</span><div class="nc-title">Ribambelle запускает воскресный бранч с живой музыкой</div><div class="nc-desc">С 4 мая — шведский стол, живой джаз и детская зона каждое воскресенье с 11 до 15 часов.</div><div class="nc-footer"><span class="nc-date">7 апреля 2026</span><span class="nc-arrow">→</span></div></div>
+      </a>
+      <a class="nc" href="#" data-cat="opening">
+        <div class="nc-img"><div class="nc-img-i" style="background-image:url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=600&q=85');"></div></div>
+        <div class="nc-body"><span class="nc-type type-opening">Открытие</span><div class="nc-title">Велнес-клуб открывает запись в фитнес-студию</div><div class="nc-desc">Yoga, пилатес и персональные тренировки. Оборудование Technogym. Первый месяц — пробный тариф.</div><div class="nc-footer"><span class="nc-date">2 апреля 2026</span><span class="nc-arrow">→</span></div></div>
+      </a>
+      <a class="nc" href="#" data-cat="culture">
+        <div class="nc-img"><div class="nc-img-i" style="background-image:url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85');"></div></div>
+        <div class="nc-body"><span class="nc-type type-culture">Редакция</span><div class="nc-title">10 вещей, которые стоит купить в универмаге этой весной</div><div class="nc-desc">Стилисты «Венеции» выбрали ключевые позиции сезона из новых коллекций резидентов универмага.</div><div class="nc-footer"><span class="nc-date">28 марта 2026</span><span class="nc-arrow">→</span></div></div>
+      </a>
+    </div>
+    <div class="load-more"><button class="btn-outline" onclick="loadMore()">Загрузить ещё новости</button></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ TAB: СОБЫТИЯ ═══════════════════════ -->
+<div class="page-section" id="tab-events">
+  <div class="ctr">
+    <div class="sec-header">
+      <div>
+        <div class="sec-eyebrow">Мероприятия</div>
+        <h1 class="sec-title">Ближайшие<br>события</h1>
+        <div class="sec-sub">Показы, гастроужины, мастер-классы — каждую неделю что-то новое</div>
+      </div>
+    </div>
+
+    <!-- Calendar strip -->
+    <div class="calendar-strip">
+      <div class="cs-header">
+        <span class="cs-month" id="calMonth">Май 2026</span>
+        <div class="cs-nav">
+          <button onclick="calNav(-1)">←</button>
+          <button onclick="calNav(1)">→</button>
+        </div>
+      </div>
+      <div class="cs-days" id="calDays"></div>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-bar" id="evFilter">
+      <button class="fb active" data-f="all">Все события</button>
+      <button class="fb" data-f="gastro">Гастро</button>
+      <button class="fb" data-f="fashion">Мода</button>
+      <button class="fb" data-f="wellness">Велнес</button>
+      <button class="fb" data-f="kids">Детям</button>
+      <button class="fb" data-f="free">Бесплатно</button>
+    </div>
+
+    <!-- Featured event -->
+    <div class="events-featured" id="evFeatured" style="margin-bottom:3px;">
+      <a class="ev-feat" href="venecia_restaurant.html?resto=alba">
+        <img class="ef-img" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1200&q=85" alt="Гастроужин">
+        <div class="ef-overlay"></div>
+        <div class="ef-body">
+          <div>
+            <div class="ef-badge-row">
+              <span class="nhc-type type-gastro" style="display:inline-block;">Гастроужин</span>
+            </div>
+            <div class="ef-title">«Сезоны года» —<br>ужин с видом на реку</div>
+            <div class="ef-desc">Семь авторских сетов от шефа Alba Group на панорамном 4-м этаже. Закат над Москвой-рекой, живая музыка, лимитированные места.</div>
+            <div class="ef-meta">
+              <div class="ef-meta-item"><span class="ef-meta-icon">📅</span>2 мая 2026</div>
+              <div class="ef-meta-item"><span class="ef-meta-icon">🕖</span>19:00</div>
+              <div class="ef-meta-item"><span class="ef-meta-icon">📍</span>4 этаж · Alba Group</div>
+              <div class="ef-meta-item"><span class="ef-meta-icon">💳</span>от 4 500 ₽</div>
+            </div>
+          </div>
+          <div class="ef-cta-row">
+            <button class="btn-gold">Забронировать место</button>
+            <button class="btn-outline" style="border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.75);">Подробнее</button>
+          </div>
+        </div>
+      </a>
+      <div class="ev-side" id="evSide">
+        <a class="ev-side-card" href="#">
+          <div class="esc-img"><div class="esc-img-i" style="background-image:url('https://images.unsplash.com/photo-1618241155845-f90a1c66ca61?w=400&q=85');"></div></div>
+          <div class="esc-body">
+            <span class="esc-type type-workshop">Мастер-класс</span>
+            <div class="esc-title">Лаборатория ароматов Золотого яблока</div>
+            <div class="esc-date">15 мая 2026 · 14:00</div>
+            <div class="esc-cta">Записаться →</div>
+          </div>
+        </a>
+        <a class="ev-side-card" href="#">
+          <div class="esc-img"><div class="esc-img-i" style="background-image:url('https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=400&q=85');"></div></div>
+          <div class="esc-body">
+            <span class="esc-type type-culture">Регулярно</span>
+            <div class="esc-title">Sunday Brunch · Ribambelle</div>
+            <div class="esc-date">Каждое воскресенье · 11:00–15:00</div>
+            <div class="esc-cta">Забронировать →</div>
+          </div>
+        </a>
+        <a class="ev-side-card" href="#">
+          <div class="esc-img"><div class="esc-img-i" style="background-image:url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=85');"></div></div>
+          <div class="esc-body">
+            <span class="esc-type type-workshop">Велнес</span>
+            <div class="esc-title">День открытых дверей велнес-клуба</div>
+            <div class="esc-date">20 мая 2026 · Весь день</div>
+            <div class="esc-cta">Зарегистрироваться →</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Events grid -->
+    <div class="ev-list-grid" id="evGrid">
+      <a class="elc" href="#">
+        <div class="elc-img"><div class="elc-img-i" style="background-image:url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=600&q=85');"></div><div class="elc-badge-wrap"><span class="nhc-type type-culture" style="display:inline-block;">Концерт</span><span class="elc-date-pill">Пятницы · 20:00</span></div></div>
+        <div class="elc-body"><div class="elc-title">Jazz Fridays — живая музыка в баре</div><div class="elc-desc">Джаз-квартет, авторские коктейли и панорама ночного города. Каждую пятницу в WRF Гастробаре.</div><div class="elc-footer"><span class="elc-price"><strong>Вход свободный</strong></span><span class="elc-cta">Подробнее →</span></div></div>
+      </a>
+      <a class="elc" href="#">
+        <div class="elc-img"><div class="elc-img-i" style="background-image:url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=85');"></div><div class="elc-badge-wrap"><span class="nhc-type type-opening" style="display:inline-block;">Открытие</span><span class="elc-date-pill">25 апреля · 18:00</span></div></div>
+        <div class="elc-body"><div class="elc-title">Торжественное открытие Универмага</div><div class="elc-desc">Fashion-показ, шампанское и первые 60+ брендов. Персональный стилист бесплатно в день открытия для всех гостей.</div><div class="elc-footer"><span class="elc-price"><strong>Вход свободный</strong></span><span class="elc-cta">Подробнее →</span></div></div>
+      </a>
+      <a class="elc" href="#">
+        <div class="elc-img"><div class="elc-img-i" style="background-image:url('https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=600&q=85');"></div><div class="elc-badge-wrap"><span class="nhc-type type-gastro" style="display:inline-block;">Дегустация</span><span class="elc-date-pill">20 мая · 19:00</span></div></div>
+        <div class="elc-body"><div class="elc-title">Дегустация вин с сомелье WRF</div><div class="elc-desc">6 позиций Нового и Старого Света, авторские снеки от шефа. Закат над городом.</div><div class="elc-footer"><span class="elc-price"><strong>2 200 ₽</strong> / чел.</span><span class="elc-cta">Записаться →</span></div></div>
+      </a>
+    </div>
+    <div class="load-more"><button class="btn-outline">Все события</button></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ TAB: АКЦИИ ═══════════════════════ -->
+<div class="page-section" id="tab-promos">
+
+  <!-- Promo ticker -->
+  <div class="promo-ticker">
+    <div class="pt-inner">
+      <span class="pt-item">−20% на первую покупку в универмаге</span>
+      <span class="pt-item">Бесплатная парковка при чеке от 5 000 ₽</span>
+      <span class="pt-item">Велнес-клуб: первый месяц за полцены</span>
+      <span class="pt-item">Бизнес-ланч от 890 ₽ с видом на реку</span>
+      <span class="pt-item">−50% парковка для гостей ресторанов</span>
+      <span class="pt-item">−20% на первую покупку в универмаге</span>
+      <span class="pt-item">Бесплатная парковка при чеке от 5 000 ₽</span>
+      <span class="pt-item">Велнес-клуб: первый месяц за полцены</span>
+      <span class="pt-item">Бизнес-ланч от 890 ₽ с видом на реку</span>
+      <span class="pt-item">−50% парковка для гостей ресторанов</span>
+    </div>
+  </div>
+
+  <div class="ctr">
+    <div class="sec-header">
+      <div>
+        <div class="sec-eyebrow">Специальные предложения</div>
+        <h1 class="sec-title">Акции<br>и скидки</h1>
+        <div class="sec-sub">Актуальные предложения от арендаторов и МФК «Венеция»</div>
+      </div>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-bar">
+      <button class="fb active">Все акции</button>
+      <button class="fb">Мода</button>
+      <button class="fb">Рестораны</button>
+      <button class="fb">Велнес</button>
+      <button class="fb">Паркинг</button>
+    </div>
+
+    <!-- Hero promos -->
+    <div class="promo-hero">
+      <a class="ph-card" href="venecia_brand.html?brand=universam">
+        <img class="ph-img" src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=900&q=85" alt="Акция универмаг">
+        <div class="ph-overlay"></div>
+        <div class="ph-body">
+          <div class="ph-eyebrow">Универмаг · Только сейчас</div>
+          <div>
+            <div class="ph-title">−20%<br>на первую<br><em>покупку</em></div>
+            <div class="ph-cond">При покупке от 5 000 ₽ · по карте гостя «Венеции»</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div class="ph-expiry">До 31 мая 2026</div>
+            <button class="ph-cta-btn" onclick="event.preventDefault();">Получить скидку</button>
+          </div>
+        </div>
+      </a>
+      <a class="ph-card" href="#">
+        <img class="ph-img" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=700&q=85" alt="Акция велнес">
+        <div class="ph-overlay"></div>
+        <div class="ph-body">
+          <div class="ph-eyebrow">Велнес-клуб · Для новых членов</div>
+          <div>
+            <div class="ph-title">Первый<br>месяц<br><em>за полцены</em></div>
+            <div class="ph-cond">Абонемент на 1 месяц · При регистрации до открытия</div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div class="ph-expiry">До открытия центра</div>
+            <button class="ph-cta-btn" onclick="event.preventDefault();">Узнать подробнее</button>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Promos grid -->
+    <div class="promos-grid">
+      <div class="promo-card">
+        <div class="pc-tenant">Рестораны · 4 этаж</div>
+        <div class="pc-title">Бесплатная парковка при ужине</div>
+        <div class="pc-desc">Гостям ресторанов Alba Group, Ribambelle и Раппопорта — скидка 50% на парковку при чеке от 2 000 ₽. Бесплатно при чеке от 4 000 ₽.</div>
+        <div class="pc-footer">
+          <span class="pc-expiry">Постоянная акция</span>
+          <span class="pc-badge pb-regular">Парковка</span>
+        </div>
+      </div>
+      <div class="promo-card">
+        <div class="pc-tenant">Золотое яблоко · 1 этаж</div>
+        <div class="pc-title">Beauty-бокс при покупке от 3 000 ₽</div>
+        <div class="pc-desc">При любой покупке от 3 000 ₽ — эксклюзивный beauty-бокс с пробниками новинок сезона. Ограниченное количество.</div>
+        <div class="pc-footer">
+          <span class="pc-expiry">До 15 мая 2026</span>
+          <span class="pc-badge pb-expiring">Скоро заканчивается</span>
+        </div>
+      </div>
+      <div class="promo-card">
+        <div class="pc-tenant">Велнес-клуб · 5 этаж</div>
+        <div class="pc-title">Процедура в подарок при оформлении абонемента</div>
+        <div class="pc-desc">При покупке абонемента на 3 месяца — одна процедура в клинике красоты в подарок на выбор. До конца июня 2026.</div>
+        <div class="pc-footer">
+          <span class="pc-expiry">До 30 июня 2026</span>
+          <span class="pc-badge pb-new">Новинка</span>
+        </div>
+      </div>
+      <div class="promo-card">
+        <div class="pc-tenant">Все рестораны · Пн–Пт</div>
+        <div class="pc-title">Бизнес-ланч — три блюда от 890 ₽</div>
+        <div class="pc-desc">Суп + основное + напиток с видом на реку. Понедельник–пятница, 12:00–15:00. Alba Group и Рестораны Раппопорта.</div>
+        <div class="pc-footer">
+          <span class="pc-expiry">Постоянно</span>
+          <span class="pc-badge pb-regular">Ежедневно</span>
+        </div>
+      </div>
+      <div class="promo-card">
+        <div class="pc-tenant">Перекрёсток Селект · 0 этаж</div>
+        <div class="pc-title">−15% на продукцию фермерских производителей</div>
+        <div class="pc-desc">Специальная цена на молочку, мясо и зелень от локальных производителей каждые выходные.</div>
+        <div class="pc-footer">
+          <span class="pc-expiry">Сб–Вс</span>
+          <span class="pc-badge pb-regular">Еженедельно</span>
+        </div>
+      </div>
+      <div class="promo-card">
+        <div class="pc-tenant">Парковка</div>
+        <div class="pc-title">Первые 30 минут — бесплатно</div>
+        <div class="pc-desc">Для всех гостей центра без исключений. Далее — 150 ₽/час. Для держателей карты лояльности «Венеция» — первый час бесплатно.</div>
+        <div class="pc-footer">
+          <span class="pc-expiry">Постоянная политика</span>
+          <span class="pc-badge pb-regular">Паркинг</span>
+        </div>
+      </div>
+    </div>
+    <div class="load-more"><button class="btn-outline">Все акции и предложения</button></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ TAB: ПРЕСС-ЦЕНТР ═══════════════════════ -->
+<div class="page-section" id="tab-press">
+  <div class="ctr">
+    <div class="sec-header" style="margin-bottom:36px;">
+      <div>
+        <div class="sec-eyebrow">Медиа и пресс-служба</div>
+        <h1 class="sec-title">Пресс-центр</h1>
+        <div class="sec-sub">Материалы для журналистов, блогеров и медиапартнёров</div>
+      </div>
+    </div>
+
+    <!-- Media kit cards -->
+    <div class="press-grid">
+      <div class="press-card">
+        <div class="press-icon">📦</div>
+        <div class="press-title">Медиакит</div>
+        <div class="press-desc">Полное описание проекта, концепция, форматы, аудитория, статистика и визуальные материалы в одном документе.</div>
+        <a href="#" class="press-action">Скачать PDF (2.4 МБ) ↓</a>
+      </div>
+      <div class="press-card">
+        <div class="press-icon">🖼</div>
+        <div class="press-title">Фотобанк</div>
+        <div class="press-desc">Архитектура, интерьеры, рестораны, велнес и события в высоком разрешении. Доступны для публикации в СМИ.</div>
+        <a href="#" class="press-action">Открыть фотобанк →</a>
+      </div>
+      <div class="press-card">
+        <div class="press-icon">🎨</div>
+        <div class="press-title">Брендбук и логотипы</div>
+        <div class="press-desc">Логотипы в SVG и PNG на светлом и тёмном фоне, фирменные цвета, шрифты и правила использования.</div>
+        <a href="#" class="press-action">Скачать архив ZIP ↓</a>
+      </div>
+      <div class="press-card">
+        <div class="press-icon">📋</div>
+        <div class="press-title">Аккредитация</div>
+        <div class="press-desc">Заявка на посещение и съёмку. Ответим в течение 2 рабочих часов. Для изданий и блогеров.</div>
+        <a href="#" class="press-action">Подать заявку →</a>
+      </div>
+    </div>
+
+    <!-- Press releases -->
+    <div style="margin-top:40px;">
+      <div class="sec-eyebrow">Пресс-релизы</div>
+      <div class="release-list" id="releaseList">
+        <div class="release-item"><span class="ri-date">28 апр 2026</span><span class="ri-title">МФК «Венеция» объявляет состав ресторанных групп панорамного 4-го этажа</span><a href="#" class="ri-dl">PDF ↓</a></div>
+        <div class="release-item"><span class="ri-date">15 апр 2026</span><span class="ri-title">Brunello Cucinelli открывает первый бутик в районе Москва-Сити в универмаге «Венеция»</span><a href="#" class="ri-dl">PDF ↓</a></div>
+        <div class="release-item"><span class="ri-date">2 апр 2026</span><span class="ri-title">МФК «Венеция»: открытие велнес-клуба с приватным бассейном для женщин</span><a href="#" class="ri-dl">PDF ↓</a></div>
+        <div class="release-item"><span class="ri-date">18 мар 2026</span><span class="ri-title">Золотое яблоко открывает первый поп-ап у Москва-Сити с эксклюзивной коллекцией</span><a href="#" class="ri-dl">PDF ↓</a></div>
+        <div class="release-item"><span class="ri-date">5 мар 2026</span><span class="ri-title">Концепция МФК «Венеция»: театр современной жизни на Краснопресненской набережной</span><a href="#" class="ri-dl">PDF ↓</a></div>
+      </div>
+    </div>
+
+    <!-- Contacts -->
+    <div style="margin-top:40px;">
+      <div class="sec-eyebrow" style="margin-bottom:16px;">Контакты для прессы</div>
+      <div class="press-contacts">
+        <div class="pc-contact-card">
+          <div class="pc-contact-eyebrow">PR и медиа</div>
+          <div class="pc-contact-name">Анна Соколова</div>
+          <div class="pc-contact-role">Директор по коммуникациям</div>
+          <div class="pc-contact-links">
+            <a href="mailto:pr@venecia-mfc.ru" class="pc-contact-link"><span>✉</span> pr@venecia-mfc.ru</a>
+            <a href="tel:+74951000200" class="pc-contact-link"><span>📞</span> +7 (495) 100-02-00</a>
+            <a href="#" class="pc-contact-link"><span>💬</span> Telegram: @venecia_pr</a>
+          </div>
+          <div style="font-size:12px;color:rgba(255,255,255,.35);margin-top:16px;font-weight:300;">Время ответа: до 2 рабочих часов</div>
+        </div>
+        <div class="pc-response">
+          <div class="pcr-title">Запрос на интервью<br>или съёмку</div>
+          <div class="pcr-form">
+            <input class="pcr-input" type="text" placeholder="Ваше имя и издание">
+            <input class="pcr-input" type="email" placeholder="Email">
+            <textarea class="pcr-input pcr-textarea" placeholder="Тема материала и желаемые даты"></textarea>
+            <button class="pcr-btn">Отправить запрос</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUBSCRIBE BAND (всегда внизу) -->
+<div class="subscribe-band">
+  <div class="ctr">
+    <div class="sb-inner">
+      <div class="sb-left">
+        <div class="sb-eyebrow">Будьте в курсе</div>
+        <div class="sb-title">Первыми<br><em>узнавайте</em><br>о событиях</div>
+        <div class="sb-desc">Анонсы открытий, гастроужинов, мастер-классов и закрытых показов — раньше всех.</div>
+      </div>
+      <div class="sb-right">
+        <div class="sub-options">
+          <div class="sub-opt">
+            <div class="sub-opt-icon">📧</div>
+            <div class="sub-opt-info">
+              <div class="sub-opt-name">Email-дайджест</div>
+              <div class="sub-opt-desc">Раз в 2 недели — события и открытия</div>
+            </div>
+          </div>
+          <div class="sub-email-form">
+            <input class="sef-input" type="email" placeholder="Ваш email для подписки">
+            <button class="sef-btn">Подписаться</button>
+          </div>
+          <div class="sub-opt" onclick="window.open('#','_blank')">
+            <div class="sub-opt-icon">✈</div>
+            <div class="sub-opt-info">
+              <div class="sub-opt-name">Telegram-канал</div>
+              <div class="sub-opt-desc">Быстрые новости и напоминания · 8.4K</div>
+            </div>
+            <div class="sub-opt-btn">Подписаться →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="ctr">
+    <div class="ft-inner">
+      <div><div class="ft-logo">ВЕНЕЦИЯ</div><div class="ft-desc">МФК на Краснопресненской набережной, рядом с Москва-Сити. III кв. 2026.</div></div>
+      <div class="ft-col"><h4>Навигация</h4><ul>
+        <li><a href="venecia_shops_v3.html">Магазины</a></li>
+        <li><a href="venecia_restaurants.html">Рестораны</a></li>
+        <li><a href="#">Велнес и СПА</a></li>
+        <li><a href="venecia_floormap.html">Схема центра</a></li>
+        <li><a href="venecia_howtoget.html">Как добраться</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Контакты</h4><ul>
+        <li><a href="tel:+74950000000">+7 (495) 000-00-00</a></li>
+        <li><a href="mailto:info@venecia-mfc.ru">info@venecia-mfc.ru</a></li>
+        <li><a href="#">Telegram</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-bottom"><p>© 2026 МФК «Венеция».</p><p>venecia-mfc.ru</p></div>
+  </div>
+</footer>
+
+<script>
+// ── TAB SWITCHER ──
+function setTab(id){
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.toggle('active',t.dataset.tab===id));
+  document.querySelectorAll('.page-section').forEach(s=>s.classList.toggle('active',s.id==='tab-'+id));
+  const labels={news:'Новости',events:'События',promos:'Акции',press:'Пресс-центр'};
+  document.getElementById('bcCur').textContent=labels[id]||id;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── COUNTDOWN ──
+function updateCountdown(){
+  const target=new Date('2026-09-01T10:00:00');
+  const now=new Date();
+  const diff=target-now;
+  if(diff<=0){document.getElementById('cdTimer').innerHTML='<div class="cd-unit"><span class="cd-num">🎉</span><span class="cd-label">Открылись!</span></div>';return;}
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor((diff%86400000)/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  const s=Math.floor((diff%60000)/1000);
+  document.getElementById('cdTimer').innerHTML=`
+    <div class="cd-unit"><span class="cd-num">${d}</span><span class="cd-label">Дней</span></div>
+    <div class="cd-unit"><span class="cd-num">${String(h).padStart(2,'0')}</span><span class="cd-label">Часов</span></div>
+    <div class="cd-unit"><span class="cd-num">${String(m).padStart(2,'0')}</span><span class="cd-label">Минут</span></div>
+    <div class="cd-unit"><span class="cd-num">${String(s).padStart(2,'0')}</span><span class="cd-label">Секунд</span></div>`;
+}
+updateCountdown();setInterval(updateCountdown,1000);
+
+// ── SUBSCRIBE ──
+let subCount=2471;
+function subscribeOpening(){
+  const v=document.getElementById('openingEmail').value;
+  if(!v||!v.includes('@')){return;}
+  subCount++;
+  document.getElementById('subCount').textContent=subCount.toLocaleString('ru');
+  document.getElementById('openingEmail').value='';
+  alert('Вы подписаны! Сообщим об открытии.');
+}
+
+// ── NEWS FILTER ──
+document.getElementById('newsFilter').addEventListener('click',e=>{
+  const btn=e.target.closest('.fb');if(!btn)return;
+  document.querySelectorAll('#newsFilter .fb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const f=btn.dataset.f;
+  document.querySelectorAll('#newsGrid .nc,#newsHero .nhc').forEach(c=>{
+    c.style.display=(f==='all'||c.dataset.cat===f)?'':( c.classList.contains('nhc')?'block':'flex');
+    if(f!=='all'&&c.dataset.cat!==f)c.style.display='none';
+    else c.style.display='';
+  });
+});
+
+// ── CALENDAR ──
+let calYear=2026,calMonth_=4; // May = index 4 (0-based)
+const MONTHS_RU=['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+const EVENT_DAYS=[2,5,9,15,20,25,30];
+function renderCal(){
+  document.getElementById('calMonth').textContent=MONTHS_RU[calMonth_]+' '+calYear;
+  const first=new Date(calYear,calMonth_,1).getDay();
+  const daysInMonth=new Date(calYear,calMonth_+1,0).getDate();
+  const startOffset=(first===0)?6:first-1;
+  const today=new Date();
+  const isCurrentMonth=today.getFullYear()===calYear&&today.getMonth()===calMonth_;
+  const dayLabels=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+  let html=dayLabels.map(d=>`<div class="cs-day-label">${d}</div>`).join('');
+  for(let i=0;i<startOffset;i++)html+=`<div class="cs-day empty"></div>`;
+  for(let d=1;d<=daysInMonth;d++){
+    const isToday=isCurrentMonth&&d===today.getDate();
+    const hasEv=EVENT_DAYS.includes(d);
+    html+=`<div class="cs-day${isToday?' today':''}${hasEv?' has-event':''}" onclick="calDayClick(${d})">${d}</div>`;
+  }
+  document.getElementById('calDays').innerHTML=html;
+}
+function calNav(dir){
+  calMonth_+=dir;
+  if(calMonth_>11){calMonth_=0;calYear++;}
+  if(calMonth_<0){calMonth_=11;calYear--;}
+  renderCal();
+}
+function calDayClick(d){
+  if(EVENT_DAYS.includes(d))alert(`${d} ${MONTHS_RU[calMonth_]} — есть события. Прокрутите ниже для подробностей.`);
+}
+renderCal();
+
+// ── LOAD MORE ──
+function loadMore(){alert('В реальном проекте: подгрузка следующей страницы через API или статическую пагинацию.');}
+
+// ── FILTERS (events) ──
+document.getElementById('evFilter').addEventListener('click',e=>{
+  const btn=e.target.closest('.fb');if(!btn)return;
+  document.querySelectorAll('#evFilter .fb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+});
+
+// ── BURGER ──
+const bb=document.getElementById('bb'),ov=document.getElementById('ov'),sd=document.getElementById('side'),sc=document.getElementById('sc');
+bb.addEventListener('click',()=>{sd.classList.add('open');ov.classList.add('open');document.body.style.overflow='hidden';});
+[sc,ov].forEach(el=>el.addEventListener('click',()=>{sd.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}));
+document.querySelectorAll('.side a').forEach(a=>a.addEventListener('click',()=>{sd.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}));
+</script>
+</body>
+</html>

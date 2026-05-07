@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Арендаторам и партнёрам — Венеция</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#0f0d0a;--muted:#7a6e62;--cream:#faf8f3;--sand:#f0e9dc;
+  --gold:#c6a15b;--gold-d:#a47c3e;--gold-p:#fdf6eb;
+  --bordo:#4A0B18;--bordo-m:#6B1024;--deep:#1f3e48;
+  --rule:rgba(198,161,91,0.18);--tr:.22s ease;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;}
+.ctr{max-width:1300px;margin:0 auto;padding:0 32px;}
+
+/* ── NAV ── */
+.nav{background:rgba(15,10,6,.96);backdrop-filter:blur(12px);position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(198,161,91,.12);}
+.navbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px;}
+.nav-l a,.nav-r-l a{font-size:13px;font-weight:500;letter-spacing:.05em;color:rgba(255,255,255,.45);text-decoration:none;transition:var(--tr);padding:0 16px;}
+.nav-l a:hover,.nav-r-l a:hover{color:var(--gold);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:.18em;color:var(--gold);text-decoration:none;text-align:center;}
+.nav-r{display:flex;justify-content:flex-end;align-items:center;}
+.nav-cta{background:var(--gold);color:#fff;border:none;padding:8px 20px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:var(--tr);text-decoration:none;display:inline-block;margin-left:16px;}
+.nav-cta:hover{background:var(--gold-d);}
+.burger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;width:26px;margin-left:12px;}
+.burger span{display:block;height:1.5px;background:rgba(255,255,255,.5);border-radius:2px;}
+.side{position:fixed;top:0;right:-300px;width:270px;height:100%;background:#0f0d0a;z-index:400;transition:right .35s cubic-bezier(.77,0,.18,1);padding:70px 0;box-shadow:-4px 0 32px rgba(0,0,0,.3);}
+.side.open{right:0;}
+.side a{display:block;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);text-decoration:none;padding:13px 28px;border-bottom:1px solid rgba(198,161,91,.12);transition:var(--tr);}
+.side a:hover{padding-left:36px;color:rgba(230,205,155,.9);}
+.side-close{position:absolute;top:18px;right:20px;background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted);}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;}
+.ov.open{display:block;}
+
+/* ── HERO ── */
+.hero{position:relative;height:88vh;min-height:560px;overflow:hidden;background:var(--ink);}
+.hero-bg{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;opacity:.45;}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(to right,rgba(10,5,2,.95) 0%,rgba(10,5,2,.65) 50%,rgba(10,5,2,.2) 100%);}
+.hero-body{position:absolute;inset:0;display:flex;align-items:center;}
+.hero-content{max-width:640px;}
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:rgba(198,161,91,.7);margin-bottom:16px;}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6vw,84px);font-weight:400;color:#fff;line-height:.9;letter-spacing:-.02em;margin-bottom:24px;}
+.hero-h1 em{font-style:italic;color:rgba(230,205,155,.92);}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.58);font-weight:300;line-height:1.8;max-width:480px;margin-bottom:36px;}
+.hero-stats{display:flex;gap:0;margin-bottom:40px;}
+.hs-item{padding-right:32px;margin-right:32px;border-right:1px solid rgba(255,255,255,.1);}
+.hs-item:last-child{border-right:none;}
+.hs-num{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:var(--gold);line-height:1;}
+.hs-label{font-size:11px;color:rgba(255,255,255,.42);letter-spacing:.08em;text-transform:uppercase;margin-top:3px;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-gold-lg{background:var(--gold);color:#fff;border:none;padding:15px 32px;font-family:'Raleway',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:var(--tr);text-decoration:none;display:inline-block;}
+.btn-gold-lg:hover{background:var(--gold-d);}
+.btn-ghost-lg{background:transparent;color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.28);padding:14px 28px;font-family:'Raleway',sans-serif;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:var(--tr);text-decoration:none;display:inline-block;}
+.btn-ghost-lg:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── FORMAT SWITCHER ── */
+.formats-section{background:#fff;border-bottom:1px solid var(--rule);}
+.formats-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.fmt-tab{padding:32px 28px;cursor:pointer;transition:var(--tr);border-right:1px solid var(--rule);border-bottom:3px solid transparent;display:flex;flex-direction:column;gap:12px;}
+.fmt-tab:last-child{border-right:none;}
+.fmt-tab:hover{background:var(--gold-p);}
+.fmt-tab.active{border-bottom-color:var(--gold);background:var(--gold-p);}
+.fmt-icon{font-size:28px;}
+.fmt-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--bordo);line-height:1.1;}
+.fmt-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.6;}
+.fmt-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;background:var(--sand);color:var(--gold-d);align-self:flex-start;}
+
+/* ── AUDIENCE ── */
+.audience-section{background:var(--deep);padding:80px 0;}
+.aud-header{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:48px;}
+.aud-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600;color:#fff;line-height:.95;letter-spacing:-.01em;}
+.aud-title em{font-style:italic;color:rgba(230,205,155,.9);}
+.aud-sub{font-size:14px;color:rgba(255,255,255,.5);font-weight:300;line-height:1.85;}
+.aud-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,.05);}
+.aud-card{background:var(--deep);padding:32px 24px;}
+.ac-pct{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:600;line-height:1;margin-bottom:8px;}
+.ac-c1{color:var(--gold);}
+.ac-c2{color:rgba(198,161,91,.7);}
+.ac-c3{color:rgba(198,161,91,.5);}
+.ac-c4{color:rgba(198,161,91,.35);}
+.ac-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:10px;letter-spacing:.01em;}
+.ac-detail{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,.08);}
+.acd-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+.acd-row:last-child{border-bottom:none;}
+.acd-k{font-size:11px;color:rgba(255,255,255,.38);font-weight:300;}
+.acd-v{font-size:11px;color:rgba(255,255,255,.7);font-weight:500;}
+.aud-bottom{margin-top:40px;display:flex;gap:48px;flex-wrap:wrap;padding-top:40px;border-top:1px solid rgba(255,255,255,.08);}
+.ab-item{display:flex;gap:16px;align-items:flex-start;}
+.ab-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:600;color:var(--gold);line-height:1;}
+.ab-label{font-size:13px;color:rgba(255,255,255,.55);font-weight:300;line-height:1.5;padding-top:4px;}
+
+/* ── LOCATION ── */
+.location-section{padding:80px 0;background:var(--cream);}
+.loc-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;min-height:500px;}
+.loc-map{background:linear-gradient(135deg,#e8e4dc 0%,#d8d2c8 100%);overflow:hidden;position:relative;}
+.loc-map::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 42px,rgba(255,255,255,.55) 42px,rgba(255,255,255,.55) 46px),repeating-linear-gradient(90deg,transparent,transparent 58px,rgba(255,255,255,.55) 58px,rgba(255,255,255,.55) 62px);pointer-events:none;}
+.loc-map::after{content:'';position:absolute;bottom:0;left:0;right:0;height:100px;background:rgba(59,139,212,.18);border-top:2px solid rgba(59,139,212,.35);}
+.loc-map-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.loc-pin{width:52px;height:52px;background:var(--bordo);border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(74,11,24,.4);position:relative;z-index:2;}
+.loc-pin-inner{transform:rotate(45deg);font-size:22px;}
+.loc-metro{position:absolute;width:14px;height:14px;border-radius:50%;background:var(--bordo);border:2px solid #fff;z-index:2;}
+.loc-metro-label{position:absolute;font-family:'Raleway',sans-serif;font-size:9px;font-weight:600;color:rgba(15,12,8,.6);z-index:2;}
+.loc-river-label{position:absolute;bottom:18px;right:24px;font-family:'Raleway',sans-serif;font-size:10px;color:rgba(59,139,212,.8);font-weight:600;letter-spacing:.08em;z-index:3;}
+.loc-street{position:absolute;background:rgba(255,255,255,.55);}
+.loc-content{padding:72px 64px;background:#fff;display:flex;flex-direction:column;justify-content:center;gap:28px;}
+.loc-eyebrow{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);}
+.loc-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.5vw,44px);font-weight:600;color:var(--bordo);line-height:1.0;}
+.loc-args{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);}
+.la-row{display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule);}
+.la-row:last-child{border-bottom:none;}
+.la-icon{font-size:18px;flex-shrink:0;width:24px;text-align:center;margin-top:2px;}
+.la-content{}
+.la-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px;}
+.la-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.6;}
+
+/* ── FLOOR AVAILABILITY ── */
+.floors-section{background:var(--sand);padding:80px 0;}
+.floors-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;flex-wrap:wrap;gap:16px;}
+.floors-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.5vw,42px);font-weight:600;color:var(--bordo);line-height:1;}
+.floors-sub{font-size:13px;color:var(--muted);font-weight:300;line-height:1.7;max-width:320px;}
+.floor-table{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);}
+.fl-row{display:grid;grid-template-columns:56px 220px 1fr auto auto;gap:0;align-items:center;border-bottom:1px solid var(--rule);transition:var(--tr);cursor:pointer;}
+.fl-row:hover{background:rgba(198,161,91,.06);}
+.fl-num{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:rgba(198,161,91,.4);padding:16px 0;}
+.fl-row.active .fl-num{color:var(--gold);}
+.fl-name{font-size:13px;font-weight:500;color:var(--ink);padding:16px 0;}
+.fl-desc{font-size:12px;color:var(--muted);font-weight:300;padding:16px 20px;}
+.fl-area{font-size:12px;color:var(--ink);font-weight:600;padding:16px 20px;white-space:nowrap;}
+.fl-status{padding:16px 0;}
+.fl-badge{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;}
+.fb-avail{background:rgba(15,110,86,.12);color:#0F6E56;}
+.fb-limited{background:rgba(186,117,23,.12);color:#7a4d00;}
+.fb-taken{background:rgba(95,94,90,.1);color:var(--muted);}
+.fl-row.clickable:hover .fl-badge.fb-avail{background:rgba(15,110,86,.2);}
+/* popup availability panel */
+.fl-popup{display:none;background:var(--cream);border:1px solid var(--rule);padding:20px 24px;margin-top:2px;}
+.fl-popup.open{display:block;}
+.flp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.flp-zone{background:#fff;border:1px solid var(--rule);padding:14px;cursor:pointer;transition:var(--tr);}
+.flp-zone:hover{border-color:var(--gold);background:var(--gold-p);}
+.flp-zone.taken{opacity:.4;cursor:not-allowed;}
+.flp-zone:hover.taken{border-color:var(--rule);background:#fff;}
+.flp-name{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:4px;}
+.flp-area{font-size:11px;color:var(--muted);}
+.flp-avail{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-top:6px;color:#0F6E56;}
+.flp-avail.no{color:var(--muted);}
+
+/* ── RESIDENTS ── */
+.residents-section{padding:80px 0;background:var(--cream);}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--rule);margin-top:40px;}
+.res-card{background:#fff;padding:28px 24px;transition:var(--tr);}
+.res-card:hover{background:var(--gold-p);}
+.res-logo-area{height:48px;display:flex;align-items:center;margin-bottom:14px;}
+.res-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--bordo);letter-spacing:.04em;}
+.res-cat{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-d);margin-bottom:8px;}
+.res-quote{font-size:13px;color:var(--muted);font-style:italic;line-height:1.7;font-weight:300;border-left:2px solid var(--gold);padding-left:14px;margin-top:8px;}
+.res-author{font-size:11px;color:var(--muted);margin-top:8px;font-weight:500;}
+
+/* ── CONTACTS BAND ── */
+.contacts-band{background:var(--deep);padding:56px 0;}
+.cb-inner{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;}
+.cb-left{}
+.cb-eyebrow{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(198,161,91,.6);margin-bottom:12px;}
+.cb-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:#fff;margin-bottom:4px;}
+.cb-role{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:18px;}
+.cb-links{display:flex;flex-direction:column;gap:8px;}
+.cb-link{font-size:13px;color:rgba(255,255,255,.65);text-decoration:none;display:flex;align-items:center;gap:8px;transition:.15s;}
+.cb-link:hover{color:var(--gold);}
+.cb-link span{font-size:16px;}
+.cb-right{display:flex;gap:12px;flex-wrap:wrap;}
+.cb-btn{padding:12px 24px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:var(--tr);text-decoration:none;display:inline-block;}
+.cb-btn.gold{background:var(--gold);color:#fff;border:none;}
+.cb-btn.gold:hover{background:var(--gold-d);}
+.cb-btn.outline{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);}
+.cb-btn.outline:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ── FORM SECTION ── */
+.form-section{padding:80px 0;background:#fff;}
+.form-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:start;}
+.form-left{padding-right:72px;border-right:1px solid var(--rule);}
+.form-right{padding-left:72px;}
+.form-eyebrow{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);margin-bottom:14px;}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,52px);font-weight:600;color:var(--bordo);line-height:.95;letter-spacing:-.01em;margin-bottom:20px;}
+.form-title em{font-style:italic;}
+.form-desc{font-size:14px;color:var(--muted);font-weight:300;line-height:1.85;margin-bottom:32px;}
+/* promises */
+.promises{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);}
+.promise-row{display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule);}
+.promise-row:last-child{border-bottom:none;}
+.pr-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
+.pr-content{}
+.pr-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px;}
+.pr-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.55;}
+/* form widget */
+.form-widget{background:var(--cream);padding:36px;}
+/* step indicator */
+.step-indicator{display:flex;align-items:center;gap:0;margin-bottom:32px;}
+.si-item{display:flex;align-items:center;gap:8px;flex:1;}
+.si-dot{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--rule);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--muted);flex-shrink:0;transition:var(--tr);}
+.si-dot.done{background:var(--bordo);border-color:var(--bordo);color:#fff;}
+.si-dot.active{background:var(--gold);border-color:var(--gold);color:#fff;}
+.si-label{font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.04em;transition:var(--tr);}
+.si-label.active{color:var(--ink);}
+.si-line{flex:1;height:1px;background:var(--rule);margin:0 8px;}
+.si-line.done{background:var(--bordo);}
+/* steps */
+.step-panel{display:none;}
+.step-panel.active{display:block;}
+.step-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--bordo);margin-bottom:6px;}
+.step-sub{font-size:12px;color:var(--muted);font-weight:300;margin-bottom:20px;line-height:1.5;}
+/* step 1 — type tiles */
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.type-tile{padding:18px 16px;border:1.5px solid var(--rule);cursor:pointer;transition:var(--tr);display:flex;flex-direction:column;gap:8px;background:#fff;}
+.type-tile:hover{border-color:var(--gold);background:var(--gold-p);}
+.type-tile.selected{border-color:var(--bordo);background:rgba(74,11,24,.04);}
+.tt-icon{font-size:24px;}
+.tt-name{font-size:13px;font-weight:600;color:var(--ink);}
+.tt-desc{font-size:11px;color:var(--muted);font-weight:300;line-height:1.4;}
+/* step 2 — brand details */
+.field-group{display:flex;flex-direction:column;gap:12px;}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fl-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+.fl-input,.fl-select,.fl-textarea{background:#fff;border:1px solid var(--rule);padding:11px 14px;font-family:'Raleway',sans-serif;font-size:13px;color:var(--ink);outline:none;transition:var(--tr);width:100%;appearance:none;-webkit-appearance:none;}
+.fl-input:focus,.fl-select:focus,.fl-textarea:focus{border-color:rgba(198,161,91,.55);box-shadow:0 0 0 3px rgba(198,161,91,.08);}
+.fl-input::placeholder,.fl-textarea::placeholder{color:rgba(122,110,98,.4);}
+.fl-textarea{height:80px;resize:none;}
+/* area slider */
+.slider-wrap{position:relative;}
+.area-slider{width:100%;height:4px;-webkit-appearance:none;appearance:none;background:var(--sand);outline:none;border-radius:2px;}
+.area-slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--bordo);cursor:pointer;border:2px solid #fff;box-shadow:0 2px 8px rgba(74,11,24,.3);}
+.slider-labels{display:flex;justify-content:space-between;margin-top:6px;}
+.sl-label{font-size:10px;color:var(--muted);}
+.area-display{font-size:14px;font-weight:600;color:var(--bordo);text-align:right;margin-top:4px;}
+/* step 3 */
+.form-note{font-size:11px;color:var(--muted);font-weight:300;line-height:1.6;margin-top:8px;}
+/* nav buttons */
+.form-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;}
+.btn-back{background:transparent;border:1px solid var(--rule);color:var(--muted);padding:11px 20px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:var(--tr);}
+.btn-back:hover{border-color:var(--gold);color:var(--ink);}
+.btn-next{background:var(--bordo);color:#fff;border:none;padding:12px 28px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:var(--tr);}
+.btn-next:hover{background:var(--bordo-m);}
+.btn-submit{background:var(--gold);color:#fff;border:none;padding:14px 32px;font-family:'Raleway',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:var(--tr);width:100%;}
+.btn-submit:hover{background:var(--gold-d);}
+/* success state */
+.form-success{display:none;text-align:center;padding:32px 20px;}
+.form-success.visible{display:block;}
+.fs-icon{font-size:48px;margin-bottom:16px;}
+.fs-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--bordo);margin-bottom:10px;}
+.fs-sub{font-size:13px;color:var(--muted);font-weight:300;line-height:1.7;margin-bottom:20px;}
+.fs-manager{background:var(--sand);padding:16px;display:flex;align-items:center;gap:14px;margin-top:16px;text-align:left;}
+.fsm-avatar{width:44px;height:44px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#fff;flex-shrink:0;}
+.fsm-name{font-size:13px;font-weight:600;color:var(--ink);}
+.fsm-role{font-size:11px;color:var(--muted);}
+
+/* ── FOOTER ── */
+.footer{background:#0c1518;padding:52px 0 24px;}
+.ft-inner{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:24px;}
+.ft-logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--gold);letter-spacing:.16em;margin-bottom:8px;}
+.ft-desc{font-size:12px;color:rgba(255,255,255,.26);font-weight:300;line-height:1.8;max-width:200px;}
+.ft-col h4{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(198,161,91,.58);font-weight:600;margin-bottom:14px;}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.ft-col a{color:rgba(255,255,255,.33);font-size:13px;text-decoration:none;font-weight:300;transition:.15s;}
+.ft-col a:hover{color:var(--gold);}
+.ft-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.ft-bottom p{font-size:11px;color:rgba(255,255,255,.16);}
+
+@media(max-width:1024px){.form-layout{grid-template-columns:1fr;}.form-left{padding-right:0;border-right:none;border-bottom:1px solid var(--rule);padding-bottom:48px;margin-bottom:48px;}.form-right{padding-left:0;}.loc-layout{grid-template-columns:1fr;}.aud-header{grid-template-columns:1fr;gap:16px;}.aud-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){.formats-inner{grid-template-columns:repeat(2,1fr);}.type-grid{grid-template-columns:1fr;}.hero-stats{flex-direction:column;gap:16px;}.aud-grid{grid-template-columns:1fr;}.res-grid{grid-template-columns:1fr;}.floor-table .fl-desc,.floor-table .fl-area{display:none;}.cb-inner{flex-direction:column;}.floor-table{display:block;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="ctr">
+    <div class="navbar">
+      <div class="nav-l"><a href="/">← Для посетителей</a></div>
+      <a href="/" class="logo">В Е Н Е Ц И Я</a>
+      <div class="nav-r">
+        <div class="nav-r-l"><a href="venecia_howtoget.html" style="display:none;">Как добраться</a></div>
+        <a href="#form" class="nav-cta">Оставить заявку</a>
+        <button class="burger" id="bb"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="ov" id="ov"></div>
+<div class="side" id="side">
+  <button class="side-close" id="sc">✕</button>
+  <a href="#formats">Форматы аренды</a>
+  <a href="#audience">Наша аудитория</a>
+  <a href="#location">Локация</a>
+  <a href="#floors">Свободные площади</a>
+  <a href="#residents">Резиденты</a>
+  <a href="#form">Оставить заявку</a>
+  <a href="/">Сайт для посетителей</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-bg" src="https://images.unsplash.com/photo-1513326738677-b964603b136d?w=1920&q=85" alt="МФК Венеция">
+  <div class="hero-grad"></div>
+  <div class="hero-body">
+    <div class="ctr">
+      <div class="hero-content">
+        <div class="hero-eyebrow">МФК «Венеция» · Аренда и партнёрство</div>
+        <h1 class="hero-h1">Ваш бренд —<br>перед <em>300 000</em><br>гостей ежедневно</h1>
+        <p class="hero-sub">Новая точка притяжения на Краснопресненской набережной. Премиальная аудитория Москва-Сити, уникальная архитектура, кураторский отбор резидентов.</p>
+        <div class="hero-stats">
+          <div class="hs-item">
+            <div class="hs-num">~1 млн</div>
+            <div class="hs-label">Жителей в зоне охвата</div>
+          </div>
+          <div class="hs-item">
+            <div class="hs-num">300 тыс.</div>
+            <div class="hs-label">Офисный трафик ежедневно</div>
+          </div>
+          <div class="hs-item">
+            <div class="hs-num">23 000 м²</div>
+            <div class="hs-label">Арендопригодной площади</div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a href="#form" class="btn-gold-lg">Оставить заявку</a>
+          <a href="#" class="btn-ghost-lg" onclick="downloadKit()">Скачать презентацию ↓</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATS -->
+<section class="formats-section" id="formats">
+  <div class="formats-inner">
+    <div class="fmt-tab active" onclick="selectFmt(this,'retail')" data-fmt="retail">
+      <div class="fmt-icon">🛍</div>
+      <div class="fmt-name">Долгосрочная аренда</div>
+      <div class="fmt-desc">Якорные и boutique-позиции от 50 до 2 000 м² на 2–5 лет. Кураторский отбор.</div>
+      <span class="fmt-tag">От 50 м²</span>
+    </div>
+    <div class="fmt-tab" onclick="selectFmt(this,'resto')" data-fmt="resto">
+      <div class="fmt-icon">🍽</div>
+      <div class="fmt-name">Ресторан или кафе</div>
+      <div class="fmt-desc">Видовые позиции на 4-м этаже. Вечерний трафик, деловая аудитория.</div>
+      <span class="fmt-tag">4 этаж · Панорама</span>
+    </div>
+    <div class="fmt-tab" onclick="selectFmt(this,'popup')" data-fmt="popup">
+      <div class="fmt-icon">⚡</div>
+      <div class="fmt-name">Поп-ап формат</div>
+      <div class="fmt-desc">От 2 недель до 3 месяцев. Торговая галерея, 1 этаж. Фиксированная ставка.</div>
+      <span class="fmt-tag">От 2 недель</span>
+    </div>
+    <div class="fmt-tab" onclick="selectFmt(this,'partner')" data-fmt="partner">
+      <div class="fmt-icon">🤝</div>
+      <div class="fmt-name">Партнёрство</div>
+      <div class="fmt-desc">Спонсорство, брендинг зон, совместные события. Не аренда — стратегия.</div>
+      <span class="fmt-tag">Нестандарт</span>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="audience-section" id="audience">
+  <div class="ctr">
+    <div class="aud-header">
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(198,161,91,.6);margin-bottom:12px;">Наша аудитория</div>
+        <h2 class="aud-title">Ваш покупатель<br>уже <em>здесь</em></h2>
+      </div>
+      <p class="aud-sub">Ценители брендов и качества, персонализированного подхода и уникальных впечатлений. Средний доход — 300–700 тыс. ₽/мес. Частота визитов — 2–4 раза в неделю.</p>
+    </div>
+    <div class="aud-grid">
+      <div class="aud-card">
+        <div class="ac-pct ac-c1">35%</div>
+        <div class="ac-name">Премиальное ядро</div>
+        <div class="ac-detail">
+          <div class="acd-row"><span class="acd-k">Возраст</span><span class="acd-v">35–55 лет</span></div>
+          <div class="acd-row"><span class="acd-k">Доход</span><span class="acd-v">500+ тыс. ₽/мес</span></div>
+          <div class="acd-row"><span class="acd-k">Откуда</span><span class="acd-v">Жители Capital Towers, RedSide, Lucky</span></div>
+          <div class="acd-row"><span class="acd-k">Шоппинг</span><span class="acd-v">2–3 раза в месяц</span></div>
+          <div class="acd-row"><span class="acd-k">Фитнес</span><span class="acd-v">2–3 раза в неделю</span></div>
+        </div>
+      </div>
+      <div class="aud-card">
+        <div class="ac-pct ac-c2">30%</div>
+        <div class="ac-name">Офисные сотрудники</div>
+        <div class="ac-detail">
+          <div class="acd-row"><span class="acd-k">Возраст</span><span class="acd-v">30–45 лет</span></div>
+          <div class="acd-row"><span class="acd-k">Доход</span><span class="acd-v">300–700 тыс. ₽/мес</span></div>
+          <div class="acd-row"><span class="acd-k">Откуда</span><span class="acd-v">Москва-Сити, топ-менеджмент</span></div>
+          <div class="acd-row"><span class="acd-k">Ланч</span><span class="acd-v">5 раз в неделю</span></div>
+          <div class="acd-row"><span class="acd-k">Шоппинг</span><span class="acd-v">2–3 раза в месяц</span></div>
+        </div>
+      </div>
+      <div class="aud-card">
+        <div class="ac-pct ac-c3">20%</div>
+        <div class="ac-name">Жители района</div>
+        <div class="ac-detail">
+          <div class="acd-row"><span class="acd-k">Возраст</span><span class="acd-v">25–45 лет</span></div>
+          <div class="acd-row"><span class="acd-k">Доход</span><span class="acd-v">200+ тыс. ₽/мес</span></div>
+          <div class="acd-row"><span class="acd-k">Откуда</span><span class="acd-v">Семьи, творческая среда</span></div>
+          <div class="acd-row"><span class="acd-k">Визиты</span><span class="acd-v">1–2 раза в неделю</span></div>
+          <div class="acd-row"><span class="acd-k">Фокус</span><span class="acd-v">Продукты, сервисы, кафе</span></div>
+        </div>
+      </div>
+      <div class="aud-card">
+        <div class="ac-pct ac-c4">15%</div>
+        <div class="ac-name">Туристы и гости</div>
+        <div class="ac-detail">
+          <div class="acd-row"><span class="acd-k">Профиль</span><span class="acd-v">Гости столицы у Москва-Сити</span></div>
+          <div class="acd-row"><span class="acd-k">Интерес</span><span class="acd-v">Рестораны, шоппинг, виды</span></div>
+          <div class="acd-row"><span class="acd-k">Чек</span><span class="acd-v">Высокий разовый</span></div>
+          <div class="acd-row"><span class="acd-k">Канал</span><span class="acd-v">Рекомендации, карты</span></div>
+          <div class="acd-row"><span class="acd-k">Пик</span><span class="acd-v">Сб–Вс, праздники</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="aud-bottom">
+      <div class="ab-item">
+        <div class="ab-num">2 500 ₽</div>
+        <div class="ab-label">Средний чек<br>в ресторанах</div>
+      </div>
+      <div class="ab-item">
+        <div class="ab-num">35%</div>
+        <div class="ab-label">Выше средний чек<br>vs другие точки у резидентов</div>
+      </div>
+      <div class="ab-item">
+        <div class="ab-num">3×/нед</div>
+        <div class="ab-label">Возвратный трафик<br>от велнес-клуба</div>
+      </div>
+      <div class="ab-item">
+        <div class="ab-num">70%</div>
+        <div class="ab-label">Женщины<br>в основной аудитории</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="location-section" id="location">
+  <div class="loc-layout">
+    <!-- Map -->
+    <div class="loc-map">
+      <div class="loc-map-inner">
+        <!-- Streets -->
+        <div class="loc-street" style="top:38%;left:0;right:0;height:3px;background:rgba(255,255,255,.6);"></div>
+        <div class="loc-street" style="top:0;bottom:0;left:35%;width:2px;background:rgba(255,255,255,.5);"></div>
+        <div class="loc-street" style="top:0;bottom:0;left:65%;width:1.5px;background:rgba(255,255,255,.4);"></div>
+        <!-- River -->
+        <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:rgba(59,139,212,.2);border-top:2px solid rgba(59,139,212,.4);z-index:1;"></div>
+        <!-- Street labels -->
+        <div style="position:absolute;top:40%;left:10px;font-family:'Raleway',sans-serif;font-size:9px;color:rgba(15,12,8,.5);z-index:2;">Краснопресненская наб.</div>
+        <!-- Metro marks -->
+        <div class="loc-metro" style="top:28%;left:32%;z-index:3;"></div>
+        <div class="loc-metro-label" style="top:20%;left:24%;">Деловой центр</div>
+        <div class="loc-metro" style="top:25%;left:62%;background:#003f8a;z-index:3;"></div>
+        <div class="loc-metro-label" style="top:18%;left:56%;">Выставочная</div>
+        <!-- Destination -->
+        <div style="position:absolute;top:30%;left:42%;z-index:5;">
+          <div class="loc-pin"><div class="loc-pin-inner">📍</div></div>
+        </div>
+        <div style="position:absolute;top:23%;left:34%;font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:600;color:var(--bordo);background:rgba(250,248,243,.9);padding:4px 10px;z-index:5;">ВЕНЕЦИЯ</div>
+        <div class="loc-river-label" style="z-index:3;">МОСКВА-РЕКА</div>
+        <!-- Park -->
+        <div style="position:absolute;top:42%;left:42%;right:15%;height:28%;background:rgba(61,153,112,.15);border:1px solid rgba(61,153,112,.3);z-index:1;display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:'Raleway',sans-serif;font-size:9px;color:rgba(15,80,41,.6);font-weight:500;letter-spacing:.06em;">Парк</span>
+        </div>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="loc-content">
+      <div>
+        <div class="loc-eyebrow">Локация с гарантированным спросом</div>
+        <h2 class="loc-title">Краснопресненская набережная — незанятая ниша</h2>
+      </div>
+      <div class="loc-args">
+        <div class="la-row">
+          <div class="la-icon">🚇</div>
+          <div class="la-content">
+            <div class="la-title">3 станции метро в 5–10 минутах</div>
+            <div class="la-desc">Деловой центр (МЦД), Выставочная, Международная — максимальная транспортная доступность без автомобиля.</div>
+          </div>
+        </div>
+        <div class="la-row">
+          <div class="la-icon">🏢</div>
+          <div class="la-content">
+            <div class="la-title">Москва-Сити — ежедневный трафик топ-менеджеров</div>
+            <div class="la-desc">300 000 офисных сотрудников ищут обеды, шоппинг и велнес в пешей доступности. Этой инфраструктуры не было.</div>
+          </div>
+        </div>
+        <div class="la-row">
+          <div class="la-icon">🏠</div>
+          <div class="la-content">
+            <div class="la-title">Премиальное жильё в зоне охвата</div>
+            <div class="la-desc">Capital Towers, RedSide, Бадаевский — более 15 ЖК премиум-класса вокруг. Покупательная способность выше среднего по Москве.</div>
+          </div>
+        </div>
+        <div class="la-row">
+          <div class="la-icon">🚫</div>
+          <div class="la-content">
+            <div class="la-title">Нет конкурентного ТЦ рядом</div>
+            <div class="la-desc">Ближайший сопоставимый ТЦ — Афимолл, 15 минут езды. Вы заходите в незанятую нишу первым.</div>
+          </div>
+        </div>
+        <div class="la-row">
+          <div class="la-icon">💎</div>
+          <div class="la-content">
+            <div class="la-title">Кураторский отбор = монополия в своём сегменте</div>
+            <div class="la-desc">Один бренд в категории — никакой внутренней конкуренции. Ваш сегмент аудитории принадлежит только вам.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOOR AVAILABILITY -->
+<section class="floors-section" id="floors">
+  <div class="ctr">
+    <div class="floors-header">
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);margin-bottom:12px;">Свободные площади</div>
+        <h2 class="floors-title">Выберите<br>свой этаж</h2>
+      </div>
+      <p class="floors-sub">Нажмите на этаж, чтобы увидеть доступные зоны. Ставки — по запросу, индивидуально.</p>
+    </div>
+    <div class="floor-table" id="floorTable">
+      <!-- rows injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- RESIDENTS -->
+<section class="residents-section" id="residents">
+  <div class="ctr">
+    <div style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);margin-bottom:12px;">Уже в Венеции</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.5vw,44px);font-weight:600;color:var(--bordo);line-height:1;letter-spacing:-.01em;margin-bottom:8px;">Правильное соседство<br>брендов</h2>
+    <p style="font-size:14px;color:var(--muted);font-weight:300;max-width:540px;line-height:1.8;">Мы строим экосистему, где каждый резидент усиливает соседей. Brunello Cucinelli поднимает статус этажа. Золотое яблоко генерирует женский трафик. Велнес-клуб создаёт возвратный поток.</p>
+    <div class="res-grid">
+      <div class="res-card">
+        <div class="res-logo-area"><div class="res-logo">Brunello Cucinelli</div></div>
+        <div class="res-cat">Премиум мода · 3 этаж</div>
+        <div class="res-quote">Единственный бутик в районе Москва-Сити. Для нас «Венеция» — это правильная аудитория в правильном месте.</div>
+        <div class="res-author">— Директор по развитию Brunello Cucinelli в России</div>
+      </div>
+      <div class="res-card">
+        <div class="res-logo-area"><div class="res-logo">Alba Group</div></div>
+        <div class="res-cat">Рестораны · 4 этаж</div>
+        <div class="res-quote">Вид на Москву-реку и ежедневный трафик деловой аудитории — это то, чего не хватало нашему формату. Средний чек здесь на 35% выше других точек.</div>
+        <div class="res-author">— Операционный директор Alba Group</div>
+      </div>
+      <div class="res-card">
+        <div class="res-logo-area"><div class="res-logo">Золотое яблоко</div></div>
+        <div class="res-cat">Красота · 1 этаж</div>
+        <div class="res-quote">Поп-ап формат дал нам возможность тестировать эксклюзивную коллекцию без риска. Результат превзошёл ожидания — продлили до постоянного формата.</div>
+        <div class="res-author">— Менеджер по развитию сети</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTS BAND -->
+<div class="contacts-band">
+  <div class="ctr">
+    <div class="cb-inner">
+      <div class="cb-left">
+        <div class="cb-eyebrow">Директор по аренде</div>
+        <div class="cb-name">Мария Соколова</div>
+        <div class="cb-role">Отвечает в течение 24 часов</div>
+        <div class="cb-links">
+          <a href="tel:+74951000300" class="cb-link"><span>📞</span> +7 (495) 100-03-00</a>
+          <a href="mailto:lease@venecia-mfc.ru" class="cb-link"><span>✉</span> lease@venecia-mfc.ru</a>
+          <a href="#" class="cb-link"><span>💬</span> Telegram: @venecia_lease</a>
+        </div>
+      </div>
+      <div class="cb-right">
+        <a href="#form" class="cb-btn gold">Оставить заявку</a>
+        <a href="#" class="cb-btn outline" onclick="downloadKit();return false;">Скачать презентацию ↓</a>
+        <a href="#" class="cb-btn outline">Записаться на тур ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM SECTION -->
+<section class="form-section" id="form">
+  <div class="ctr">
+    <div class="form-layout">
+      <!-- Left: pitch -->
+      <div class="form-left">
+        <div class="form-eyebrow">Стать резидентом</div>
+        <h2 class="form-title">Расскажите<br>о вашем<br><em>бренде</em></h2>
+        <p class="form-desc">Мы отвечаем на все заявки в течение 24 часов. После — звонок, очный тур по объекту и персональное коммерческое предложение.</p>
+        <div class="promises">
+          <div class="promise-row">
+            <div class="pr-icon">⚡</div>
+            <div class="pr-content">
+              <div class="pr-title">Ответ в течение 24 часов</div>
+              <div class="pr-desc">Менеджер позвонит лично — не автоответчик, не шаблонное письмо.</div>
+            </div>
+          </div>
+          <div class="promise-row">
+            <div class="pr-icon">🏛</div>
+            <div class="pr-content">
+              <div class="pr-title">Тур по объекту</div>
+              <div class="pr-desc">Покажем пространство вживую, познакомим с командой и соседними резидентами.</div>
+            </div>
+          </div>
+          <div class="promise-row">
+            <div class="pr-icon">📊</div>
+            <div class="pr-content">
+              <div class="pr-title">Персональный трафик-анализ</div>
+              <div class="pr-desc">Подготовим данные по вашей целевой аудитории в зоне охвата — до переговоров.</div>
+            </div>
+          </div>
+          <div class="promise-row">
+            <div class="pr-icon">🔒</div>
+            <div class="pr-content">
+              <div class="pr-title">Конфиденциальность</div>
+              <div class="pr-desc">Данные заявки и переговоры — строго между нами. NDA по запросу.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="form-right">
+        <div class="form-widget">
+          <!-- Step indicator -->
+          <div class="step-indicator" id="stepIndicator">
+            <div class="si-item">
+              <div class="si-dot active" id="si1">1</div>
+              <div class="si-label active" id="sl1">Формат</div>
+            </div>
+            <div class="si-line" id="sl-line1"></div>
+            <div class="si-item">
+              <div class="si-dot" id="si2">2</div>
+              <div class="si-label" id="sl2">О бренде</div>
+            </div>
+            <div class="si-line" id="sl-line2"></div>
+            <div class="si-item">
+              <div class="si-dot" id="si3">3</div>
+              <div class="si-label" id="sl3">Контакты</div>
+            </div>
+          </div>
+
+          <!-- STEP 1: Format -->
+          <div class="step-panel active" id="step1">
+            <div class="step-title">Выберите формат</div>
+            <div class="step-sub">Расскажите, какой вид присутствия вас интересует</div>
+            <div class="type-grid" id="typeGrid">
+              <div class="type-tile" data-type="retail" onclick="selectType(this)">
+                <div class="tt-icon">🛍</div>
+                <div class="tt-name">Долгосрочная аренда</div>
+                <div class="tt-desc">От 50 м², от 2 лет. Якорные и boutique-позиции.</div>
+              </div>
+              <div class="type-tile" data-type="resto" onclick="selectType(this)">
+                <div class="tt-icon">🍽</div>
+                <div class="tt-name">Ресторан или кафе</div>
+                <div class="tt-desc">4-й этаж с панорамой. Вечерний трафик.</div>
+              </div>
+              <div class="type-tile" data-type="popup" onclick="selectType(this)">
+                <div class="tt-icon">⚡</div>
+                <div class="tt-name">Поп-ап</div>
+                <div class="tt-desc">От 2 недель. Торговая галерея, 1 этаж.</div>
+              </div>
+              <div class="type-tile" data-type="partner" onclick="selectType(this)">
+                <div class="tt-icon">🤝</div>
+                <div class="tt-name">Партнёрство</div>
+                <div class="tt-desc">Спонсорство, события, брендинг зон.</div>
+              </div>
+            </div>
+            <div class="form-nav">
+              <span></span>
+              <button class="btn-next" onclick="goStep(2)">Далее →</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Brand -->
+          <div class="step-panel" id="step2">
+            <div class="step-title">О вашем бренде</div>
+            <div class="step-sub">Это поможет нам подготовить персональное предложение</div>
+            <div class="field-group">
+              <div class="field">
+                <label class="fl-label">Название бренда *</label>
+                <input class="fl-input" id="f_brand" type="text" placeholder="Название компании или бренда">
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label class="fl-label">Категория *</label>
+                  <select class="fl-select" id="f_cat">
+                    <option value="" disabled selected>Выберите...</option>
+                    <option>Женская мода</option>
+                    <option>Мужская мода</option>
+                    <option>Аксессуары и ювелирные</option>
+                    <option>Косметика и парфюмерия</option>
+                    <option>Продукты и гастрономия</option>
+                    <option>Ресторан / кафе / бар</option>
+                    <option>Велнес и красота</option>
+                    <option>Спорт и активный отдых</option>
+                    <option>Сервисы и услуги</option>
+                    <option>Другое</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="fl-label">Желаемый этаж</label>
+                  <select class="fl-select" id="f_floor">
+                    <option value="" disabled selected>Не важно</option>
+                    <option>0 этаж — продукты и сервисы</option>
+                    <option>1 этаж — торговая галерея</option>
+                    <option>2–3 этаж — универмаг</option>
+                    <option>4 этаж — рестораны</option>
+                    <option>5 этаж — велнес</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label class="fl-label">Площадь: <span id="areaVal">100 м²</span></label>
+                <div class="slider-wrap">
+                  <input class="area-slider" type="range" min="20" max="2000" step="10" value="100" id="areaSlider" oninput="updateArea(this.value)">
+                  <div class="slider-labels"><span class="sl-label">20 м²</span><span class="sl-label">500 м²</span><span class="sl-label">2 000 м²</span></div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="fl-label">Сайт или Instagram</label>
+                <input class="fl-input" id="f_url" type="text" placeholder="https:// или @brand_name">
+              </div>
+            </div>
+            <div class="form-nav">
+              <button class="btn-back" onclick="goStep(1)">← Назад</button>
+              <button class="btn-next" onclick="goStep(3)">Далее →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Contacts -->
+          <div class="step-panel" id="step3">
+            <div class="step-title">Контактные данные</div>
+            <div class="step-sub">Менеджер свяжется с вами в течение 24 часов</div>
+            <div class="field-group">
+              <div class="field-row">
+                <div class="field">
+                  <label class="fl-label">Имя *</label>
+                  <input class="fl-input" id="f_name" type="text" placeholder="Ваше имя">
+                </div>
+                <div class="field">
+                  <label class="fl-label">Должность</label>
+                  <input class="fl-input" id="f_role" type="text" placeholder="Директор, менеджер...">
+                </div>
+              </div>
+              <div class="field">
+                <label class="fl-label">Email *</label>
+                <input class="fl-input" id="f_email" type="email" placeholder="your@company.ru">
+              </div>
+              <div class="field">
+                <label class="fl-label">Телефон</label>
+                <input class="fl-input" id="f_phone" type="tel" placeholder="+7 (___) ___-__-__">
+              </div>
+              <div class="field">
+                <label class="fl-label">Кратко о концепции</label>
+                <textarea class="fl-input fl-textarea" id="f_concept" placeholder="Несколько слов о вашем формате или пожелании к пространству (необязательно)"></textarea>
+              </div>
+              <div class="form-note">Нажимая «Отправить», вы соглашаетесь с обработкой персональных данных. Мы не передаём данные третьим лицам.</div>
+            </div>
+            <div class="form-nav">
+              <button class="btn-back" onclick="goStep(2)">← Назад</button>
+            </div>
+            <button class="btn-submit" style="margin-top:12px;" onclick="submitForm()">Отправить заявку →</button>
+          </div>
+
+          <!-- SUCCESS -->
+          <div class="form-success" id="formSuccess">
+            <div class="fs-icon">✅</div>
+            <div class="fs-title">Заявка принята!</div>
+            <div class="fs-sub">Спасибо, <strong id="successName">имя</strong>. Ваша заявка для <strong id="successBrand">бренда</strong> передана нашему менеджеру.</div>
+            <a href="#" onclick="downloadKit();return false;" style="display:inline-block;background:var(--bordo);color:#fff;padding:12px 24px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-bottom:4px;">Скачать презентацию ↓</a>
+            <div class="fs-manager">
+              <div class="fsm-avatar">МС</div>
+              <div>
+                <div class="fsm-name">Мария Соколова</div>
+                <div class="fsm-role">Свяжется с вами в течение 24 часов</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="ctr">
+    <div class="ft-inner">
+      <div><div class="ft-logo">ВЕНЕЦИЯ</div><div class="ft-desc">МФК на Краснопресненской набережной. Открытие — III кв. 2026.</div></div>
+      <div class="ft-col"><h4>Арендаторам</h4><ul>
+        <li><a href="#formats">Форматы аренды</a></li>
+        <li><a href="#audience">Аудитория</a></li>
+        <li><a href="#floors">Свободные площади</a></li>
+        <li><a href="#form">Оставить заявку</a></li>
+        <li><a href="#" onclick="downloadKit();return false;">Скачать презентацию</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Контакты</h4><ul>
+        <li><a href="tel:+74951000300">+7 (495) 100-03-00</a></li>
+        <li><a href="mailto:lease@venecia-mfc.ru">lease@venecia-mfc.ru</a></li>
+        <li><a href="#">Telegram: @venecia_lease</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Для посетителей</h4><ul>
+        <li><a href="venecia_shops_v3.html">Магазины</a></li>
+        <li><a href="venecia_restaurants.html">Рестораны</a></li>
+        <li><a href="venecia_howtoget.html">Как добраться</a></li>
+        <li><a href="/">Главная</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-bottom"><p>© 2026 МФК «Венеция». Все права защищены.</p><p>venecia-mfc.ru/partners</p></div>
+  </div>
+</footer>
+
+<script>
+// ── FORMAT TABS ──
+function selectFmt(el,type){
+  document.querySelectorAll('.fmt-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  // sync form type
+  document.querySelectorAll('.type-tile').forEach(t=>{
+    if(t.dataset.type===type){t.click();}
+  });
+}
+
+// ── FLOORS DATA ──
+const FLOORS=[
+  {num:'7',name:'VIP-клуб',desc:'Закрытый клуб, события',area:'—',status:'taken',zones:[]},
+  {num:'6',name:'VIP-клуб',desc:'Закрытый клуб',area:'—',status:'taken',zones:[]},
+  {num:'5',name:'Велнес & СПА',desc:'Велнес, клиника красоты',area:'2 000 м²',status:'limited',zones:[
+    {name:'Клиника красоты',area:'400 м²',avail:true},
+    {name:'Студия пилатес',area:'120 м²',avail:true},
+    {name:'Велнес-клуб',area:'1 480 м²',avail:false},
+  ]},
+  {num:'4',name:'Рестораны · Панорама',desc:'Видовые рестораны, вид на реку',area:'~4 000 м²',status:'limited',zones:[
+    {name:'Ресторанная зона A',area:'600 м²',avail:false},
+    {name:'Ресторанная зона B',area:'480 м²',avail:false},
+    {name:'Лаунж / Бар',area:'200 м²',avail:true},
+    {name:'Открытая терраса',area:'300 м²',avail:true},
+  ]},
+  {num:'3',name:'Универмаг — премиум',desc:'Люкс-бренды, персональный стилист',area:'~3 000 м²',status:'available',zones:[
+    {name:'Бутик A (угловой)',area:'150 м²',avail:true},
+    {name:'Бутик B',area:'80 м²',avail:true},
+    {name:'Бутик C',area:'120 м²',avail:false},
+    {name:'Бутик D',area:'200 м²',avail:true},
+    {name:'Бутик E (якорный)',area:'400 м²',avail:true},
+    {name:'Lounge зона',area:'100 м²',avail:false},
+  ]},
+  {num:'2',name:'Универмаг — средний+',desc:'Трендовые бренды, 60+ резидентов',area:'~3 000 м²',status:'limited',zones:[
+    {name:'Корнер A',area:'40 м²',avail:true},
+    {name:'Корнер B',area:'60 м²',avail:false},
+    {name:'Магазин C',area:'120 м²',avail:true},
+    {name:'Якорная зона',area:'800 м²',avail:false},
+  ]},
+  {num:'1',name:'Торговая галерея',desc:'Бутики, поп-апы, сервисы',area:'~2 500 м²',status:'available',zones:[
+    {name:'Поп-ап зона 1',area:'25 м²',avail:true},
+    {name:'Поп-ап зона 2',area:'30 м²',avail:true},
+    {name:'Бутик A',area:'60 м²',avail:true},
+    {name:'Бутик B',area:'80 м²',avail:false},
+    {name:'Кафе / Кофейня',area:'120 м²',avail:true},
+  ]},
+  {num:'0',name:'Продукты и сервисы',desc:'Гастроном, бытовые услуги',area:'~2 200 м²',status:'limited',zones:[
+    {name:'Сервисная зона',area:'50 м²',avail:true},
+    {name:'Кулинария to-go',area:'80 м²',avail:true},
+  ]},
+];
+
+let openFloor=null;
+function renderFloors(){
+  const tbl=document.getElementById('floorTable');
+  tbl.innerHTML=FLOORS.map(f=>`
+    <div class="fl-row${f.zones.length?' clickable':''}" onclick="toggleFloor('${f.num}')">
+      <div class="fl-num">${f.num}</div>
+      <div class="fl-name">${f.name}</div>
+      <div class="fl-desc">${f.desc}</div>
+      <div class="fl-area">${f.area}</div>
+      <div class="fl-status">
+        <span class="fl-badge ${f.status==='available'?'fb-avail':f.status==='limited'?'fb-limited':'fb-taken'}">
+          ${f.status==='available'?'Есть места':f.status==='limited'?'Частично':'Занято'}
+        </span>
+      </div>
+    </div>
+    ${f.zones.length?`<div class="fl-popup" id="fp-${f.num}">
+      <div class="flp-grid">${f.zones.map(z=>`
+        <div class="flp-zone${z.avail?'':' taken'}" onclick="${z.avail?`zoneClick('${f.name} — ${z.name}','${z.area}')`:''};event.stopPropagation();">
+          <div class="flp-name">${z.name}</div>
+          <div class="flp-area">${z.area}</div>
+          <div class="flp-avail${z.avail?'':' no'}">${z.avail?'✓ Свободно':'Занято'}</div>
+        </div>`).join('')}
+      </div>
+    </div>`:''}
+  `).join('');
+}
+
+function toggleFloor(num){
+  const fl=FLOORS.find(f=>f.num===num);if(!fl||!fl.zones.length)return;
+  const popup=document.getElementById('fp-'+num);if(!popup)return;
+  // close others
+  document.querySelectorAll('.fl-popup.open').forEach(p=>{if(p.id!=='fp-'+num)p.classList.remove('open');});
+  popup.classList.toggle('open');
+  openFloor=popup.classList.contains('open')?num:null;
+}
+
+function zoneClick(zoneName,area){
+  // Pre-fill form and scroll to it
+  document.getElementById('f_brand').placeholder='Название вашего бренда';
+  document.getElementById('f_concept').value=`Интересует: ${zoneName} (${area})`;
+  goStep(1);
+  setTimeout(()=>document.getElementById('form').scrollIntoView({behavior:'smooth'}),100);
+}
+
+// ── FORM LOGIC ──
+let currentStep=1;
+let selectedType='';
+
+function selectType(el){
+  document.querySelectorAll('.type-tile').forEach(t=>t.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedType=el.dataset.type;
+}
+
+function goStep(n){
+  if(n===2&&!selectedType){
+    document.getElementById('typeGrid').style.outline='1px solid rgba(198,161,91,.5)';
+    setTimeout(()=>document.getElementById('typeGrid').style.outline='',1500);
+    return;
+  }
+  if(n===3){
+    const brand=document.getElementById('f_brand').value.trim();
+    const cat=document.getElementById('f_cat').value;
+    if(!brand||!cat){
+      if(!brand)document.getElementById('f_brand').style.borderColor='#c0392b';
+      if(!cat)document.getElementById('f_cat').style.borderColor='#c0392b';
+      setTimeout(()=>{document.getElementById('f_brand').style.borderColor='';document.getElementById('f_cat').style.borderColor='';},2000);
+      return;
+    }
+  }
+  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+  currentStep=n;
+  updateIndicator(n);
+}
+
+function updateIndicator(n){
+  for(let i=1;i<=3;i++){
+    const dot=document.getElementById('si'+i);
+    const lbl=document.getElementById('sl'+i);
+    dot.className='si-dot'+(i<n?' done':i===n?' active':'');
+    lbl.className='si-label'+(i===n?' active':'');
+  }
+  if(n>1)document.getElementById('sl-line1').className='si-line done';
+  else document.getElementById('sl-line1').className='si-line';
+  if(n>2)document.getElementById('sl-line2').className='si-line done';
+  else document.getElementById('sl-line2').className='si-line';
+}
+
+function updateArea(v){
+  document.getElementById('areaVal').textContent=v+' м²';
+}
+
+function submitForm(){
+  const name=document.getElementById('f_name').value.trim();
+  const email=document.getElementById('f_email').value.trim();
+  if(!name||!email||!email.includes('@')){
+    if(!name)document.getElementById('f_name').style.borderColor='#c0392b';
+    if(!email||!email.includes('@'))document.getElementById('f_email').style.borderColor='#c0392b';
+    setTimeout(()=>{document.getElementById('f_name').style.borderColor='';document.getElementById('f_email').style.borderColor='';},2000);
+    return;
+  }
+  document.getElementById('successName').textContent=name;
+  document.getElementById('successBrand').textContent=document.getElementById('f_brand').value||'вашего бренда';
+  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('stepIndicator').style.display='none';
+  document.getElementById('formSuccess').classList.add('visible');
+}
+
+function downloadKit(){
+  alert('В реальном проекте: PDF-презентация скачивается после ввода email. Здесь — демо.');
+}
+
+// ── BURGER ──
+const bb=document.getElementById('bb'),ov=document.getElementById('ov'),sd=document.getElementById('side'),sc=document.getElementById('sc');
+bb.addEventListener('click',()=>{sd.classList.add('open');ov.classList.add('open');document.body.style.overflow='hidden';});
+[sc,ov].forEach(el=>el.addEventListener('click',()=>{sd.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}));
+document.querySelectorAll('.side a').forEach(a=>a.addEventListener('click',()=>{sd.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}));
+
+// Init
+renderFloors();
+</script>
+</body>
+</html>

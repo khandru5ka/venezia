@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Бренд — Венеция</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:#fff;color:#1e2a32;line-height:1.5;scroll-behavior:smooth;}
+:root{
+  --sand:#f5efe7;
+  --gold:#c6a15b;
+  --gold-dark:#a47c3e;
+  --gold-pale:#fdf6eb;
+  --deep-blue:#1f3e48;
+  --cream:#fef9f0;
+  --transition:all 0.3s ease;
+  --bordo:#6B1024;
+  --bordo-deep:#4A0B18;
+  --rule:rgba(198,161,91,0.2);
+}
+.container{max-width:1280px;margin:0 auto;padding:0 24px;}
+
+/* ── NAV ── */
+.site-header{background:rgba(255,253,248,0.97);backdrop-filter:blur(10px);box-shadow:0 2px 20px rgba(0,0,0,0.03);position:sticky;top:0;z-index:1000;border-bottom:1px solid var(--rule);}
+.navbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:20px 0;gap:16px;}
+.nav-left{display:flex;justify-content:flex-start;}
+.nav-left a{text-decoration:none;font-weight:500;font-size:15px;color:#4a5c62;transition:var(--transition);white-space:nowrap;letter-spacing:0.01em;}
+.nav-left a:hover{color:var(--gold-dark);}
+.logo-center{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;letter-spacing:0.12em;color:var(--deep-blue);text-decoration:none;white-space:nowrap;text-align:center;}
+.nav-right{display:flex;justify-content:flex-end;align-items:center;gap:28px;}
+.nav-right a{color:#4a5c62;font-weight:500;font-size:15px;text-decoration:none;white-space:nowrap;letter-spacing:0.01em;transition:var(--transition);}
+.nav-right a:hover{color:var(--gold-dark);}
+.burger-btn{background:transparent;border:none;cursor:pointer;display:flex;flex-direction:column;justify-content:center;gap:5px;width:28px;height:28px;}
+.burger-btn span{display:block;height:1.5px;background:var(--deep-blue);border-radius:2px;transition:.2s;}
+.burger-menu{position:fixed;top:0;right:-340px;width:300px;height:100%;background:#fffdf9;box-shadow:-5px 0 40px rgba(0,0,0,0.08);z-index:1100;transition:right 0.35s cubic-bezier(.77,0,.18,1);padding:72px 0 32px;display:flex;flex-direction:column;}
+.burger-menu.active{right:0;}
+.burger-menu a{text-decoration:none;font-family:'Playfair Display',serif;font-size:20px;font-weight:400;color:var(--deep-blue);padding:16px 32px;border-bottom:1px solid rgba(198,161,91,0.15);transition:var(--transition);display:block;}
+.burger-menu a:hover{color:var(--gold-dark);padding-left:40px;}
+.close-burger{position:absolute;top:22px;right:24px;font-size:22px;background:none;border:none;cursor:pointer;color:#8a9aa0;line-height:1;}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.25);z-index:1050;display:none;}
+.overlay.active{display:block;}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{display:flex;gap:8px;align-items:center;padding:20px 0 0;}
+.breadcrumb a{font-size:12px;color:#8a9aa0;text-decoration:none;letter-spacing:0.04em;transition:.15s;}
+.breadcrumb a:hover{color:var(--bordo);}
+.breadcrumb span{font-size:12px;color:rgba(138,154,160,0.4);}
+.breadcrumb .cur{font-size:12px;color:var(--deep-blue);font-weight:500;}
+
+/* ── HERO ── */
+.brand-hero{position:relative;height:52vh;min-height:380px;overflow:hidden;background:var(--bordo-deep);}
+.brand-hero-img{width:100%;height:100%;object-fit:cover;display:block;opacity:.72;}
+.brand-hero-overlay{position:absolute;inset:0;background:linear-gradient(to right, rgba(74,11,24,0.85) 0%, rgba(74,11,24,0.35) 55%, transparent 100%);}
+.brand-hero-content{position:absolute;bottom:0;left:0;right:0;padding:52px 0;}
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(198,161,91,0.8);margin-bottom:12px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,72px);font-weight:600;color:#fff;line-height:0.95;letter-spacing:-0.02em;margin-bottom:14px;}
+.hero-title em{font-style:italic;color:rgba(230,205,155,0.9);}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.hero-tag{font-size:10px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:4px 12px;border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.75);}
+.hero-tag.gold{background:var(--gold);border-color:var(--gold);color:#fff;}
+
+/* ── MAIN LAYOUT ── */
+.brand-layout{display:grid;grid-template-columns:1fr 360px;gap:0;align-items:start;padding:0 0 80px;}
+.brand-main{padding:52px 56px 0 0;border-right:1px solid var(--rule);}
+.brand-sidebar{padding:52px 0 0 48px;position:sticky;top:90px;}
+
+/* ── GALLERY ── */
+.gallery{margin-bottom:48px;}
+.gallery-grid{display:grid;grid-template-columns:2fr 1fr;gap:3px;height:420px;}
+.gallery-main{overflow:hidden;}
+.gallery-main img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+.gallery-main:hover img{transform:scale(1.03);}
+.gallery-thumbs{display:grid;grid-template-rows:1fr 1fr;gap:3px;}
+.gallery-thumb{overflow:hidden;cursor:pointer;}
+.gallery-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;opacity:.85;}
+.gallery-thumb:hover img{transform:scale(1.05);opacity:1;}
+
+/* ── ABOUT ── */
+.about-section{margin-bottom:40px;}
+.section-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:14px;}
+.about-text{font-size:15px;color:#5a6e76;font-weight:300;line-height:1.9;margin-bottom:16px;}
+.about-text p+p{margin-top:14px;}
+
+/* ── SERVICES LIST ── */
+.services-list{display:flex;flex-direction:column;border-top:1px solid var(--rule);margin-bottom:48px;}
+.svc-row{display:flex;align-items:flex-start;gap:20px;padding:16px 0;border-bottom:1px solid var(--rule);}
+.svc-num{font-family:'Playfair Display',serif;font-size:12px;color:rgba(198,161,91,0.45);min-width:20px;padding-top:1px;}
+.svc-content{}
+.svc-title{font-size:13px;font-weight:600;color:var(--deep-blue);letter-spacing:0.01em;margin-bottom:3px;}
+.svc-sub{font-size:12px;color:#8a9aa0;font-weight:300;line-height:1.55;}
+
+/* ── BRANDS IN UNIVERSAM ── */
+.brands-strip{}
+.brands-strip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--rule);}
+.brand-pill-card{background:#fff;padding:16px;cursor:pointer;transition:.15s;border-top:2px solid transparent;}
+.brand-pill-card:hover{background:var(--gold-pale);border-top-color:var(--gold);}
+.bpc-emoji{font-size:22px;margin-bottom:8px;}
+.bpc-name{font-size:13px;font-weight:500;color:var(--deep-blue);}
+.bpc-cat{font-size:11px;color:#8a9aa0;margin-top:2px;}
+
+/* ── SIDEBAR ── */
+.sidebar-card{background:var(--cream);padding:28px;margin-bottom:16px;}
+.sc-title{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#8a9aa0;margin-bottom:16px;}
+.meta-list{display:flex;flex-direction:column;gap:0;}
+.ml-row{display:flex;gap:0;padding:10px 0;border-bottom:1px solid var(--rule);}
+.ml-row:last-child{border-bottom:none;}
+.ml-key{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#8a9aa0;min-width:90px;padding-top:1px;}
+.ml-val{font-size:13px;color:var(--deep-blue);line-height:1.5;}
+.ml-badge{display:inline-block;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;background:var(--gold-pale);color:var(--gold-dark);border:1px solid rgba(198,161,91,0.4);}
+
+/* floor map mini */
+.floor-map{background:var(--cream);padding:28px;margin-bottom:16px;}
+.fm-title{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#8a9aa0;margin-bottom:16px;}
+.fm-floors{display:flex;flex-direction:column;gap:2px;}
+.fm-floor{display:flex;align-items:center;gap:10px;padding:7px 10px;font-size:12px;color:#8a9aa0;}
+.fm-floor.active{background:#fff;border-left:2px solid var(--gold);color:var(--deep-blue);font-weight:500;}
+.fm-floor-num{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:rgba(198,161,91,0.4);min-width:20px;line-height:1;}
+.fm-floor.active .fm-floor-num{color:var(--gold);}
+.fm-floor-label{font-size:12px;}
+
+.sb-actions{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.btn-primary{background:var(--bordo-deep);color:#fff;border:none;padding:13px 20px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:.2s;width:100%;text-align:center;}
+.btn-primary:hover{background:var(--bordo);}
+.btn-secondary{background:transparent;color:var(--deep-blue);border:1px solid var(--rule);padding:12px 20px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:.2s;width:100%;text-align:center;}
+.btn-secondary:hover{border-color:var(--gold);background:var(--gold-pale);}
+
+/* back link */
+.back-link{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8a9aa0;text-decoration:none;transition:.15s;margin-bottom:0;}
+.back-link:hover{color:var(--bordo);}
+
+/* ── NEARBY FLOOR ── */
+.nearby-section{padding:64px 0 0;border-top:1px solid var(--rule);}
+.nearby-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+.nearby-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:600;color:var(--deep-blue);}
+.nearby-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--rule);}
+.nc{background:#fff;cursor:pointer;transition:.15s;overflow:hidden;}
+.nc:hover{background:var(--cream);}
+.nc-img{height:140px;overflow:hidden;}
+.nc-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;}
+.nc:hover .nc-img img{transform:scale(1.04);}
+.nc-img-ph{width:100%;height:100%;background:var(--sand);display:flex;align-items:center;justify-content:center;font-size:32px;}
+.nc-body{padding:14px 16px;}
+.nc-cat{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:4px;}
+.nc-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--deep-blue);margin-bottom:2px;}
+.nc-floor{font-size:11px;color:#8a9aa0;}
+
+/* ── EVENTS ── */
+.events-section{padding:72px 0;background:var(--cream);}
+.events-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:36px;flex-wrap:wrap;gap:16px;}
+.ev-title-main{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,38px);font-weight:600;color:var(--deep-blue);line-height:1;}
+.ev-sub{font-size:13px;color:#6a7c84;font-weight:300;margin-top:8px;line-height:1.7;}
+.ev-all-link{font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--bordo);text-decoration:none;border-bottom:1px solid rgba(107,16,36,0.25);padding-bottom:2px;white-space:nowrap;}
+.ev-all-link:hover{color:var(--gold-dark);}
+.events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--rule);}
+.ev-card{background:#fff;overflow:hidden;cursor:pointer;transition:.2s;}
+.ev-card:hover{background:var(--cream);}
+.ev-card:hover .ev-img-inner{transform:scale(1.03);}
+.ev-img{height:200px;overflow:hidden;position:relative;}
+.ev-img-inner{width:100%;height:100%;background-size:cover;background-position:center;transition:transform .5s ease;}
+.ev-type-badge{position:absolute;bottom:12px;left:12px;font-size:9px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);color:rgba(255,255,255,.9);padding:4px 10px;}
+.ev-body{padding:22px 20px;}
+.ev-date{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:8px;}
+.ev-name{font-family:'Playfair Display',serif;font-size:19px;font-weight:600;color:var(--deep-blue);line-height:1.2;margin-bottom:8px;}
+.ev-desc{font-size:13px;color:#6a7c84;line-height:1.7;font-weight:300;}
+.ev-cta{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--bordo);text-decoration:none;}
+.events-btn-wrap{text-align:center;margin-top:40px;}
+.btn-outline{border:1px solid var(--gold);color:var(--deep-blue);background:transparent;padding:13px 36px;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:var(--transition);letter-spacing:0.1em;text-transform:uppercase;}
+.btn-outline:hover{background:var(--gold);color:white;}
+
+/* ── SOCIAL BLOCK ── */
+.social-section{background:var(--bordo-deep);padding:52px 0;}
+.social-inner{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;}
+.social-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(198,161,91,0.65);margin-bottom:10px;}
+.social-title{font-family:'Playfair Display',serif;font-size:clamp(20px,2.5vw,30px);font-weight:600;color:#fff;line-height:1.05;}
+.social-title em{font-style:italic;color:rgba(230,205,155,0.9);}
+.social-sub{font-size:14px;color:rgba(255,255,255,0.45);font-weight:300;margin-top:8px;max-width:380px;line-height:1.7;}
+.soc-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.soc-btn{display:flex;align-items:center;gap:10px;padding:12px 20px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:rgba(255,255,255,.82);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.04em;transition:.2s;cursor:pointer;}
+.soc-btn:hover{border-color:var(--gold);background:rgba(198,161,91,0.12);color:#fff;}
+.soc-btn svg{width:17px;height:17px;flex-shrink:0;}
+.soc-count{font-size:11px;color:rgba(255,255,255,.3);font-weight:300;margin-left:2px;}
+.soc-btn-primary{background:var(--gold);border-color:var(--gold);color:#fff;}
+.soc-btn-primary:hover{background:var(--gold-dark);border-color:var(--gold-dark);}
+.soc-divider{width:1px;height:56px;background:rgba(255,255,255,0.08);align-self:center;}
+
+/* ── FOOTER ── */
+.footer{background:#0f1a1f;padding:48px 0 24px;}
+.footer-inner{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:24px;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--gold);letter-spacing:0.14em;margin-bottom:8px;}
+.footer-desc{font-size:12px;color:rgba(255,255,255,.3);font-weight:300;line-height:1.8;max-width:200px;}
+.footer-col h4{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(198,161,91,0.65);font-weight:600;margin-bottom:14px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.footer-col a{color:rgba(255,255,255,.38);font-size:13px;text-decoration:none;font-weight:300;transition:.15s;}
+.footer-col a:hover{color:var(--gold);}
+.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.footer-bottom p{font-size:11px;color:rgba(255,255,255,.18);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){.brand-layout{grid-template-columns:1fr;}.brand-sidebar{position:static;padding:0 0 0;border-top:1px solid var(--rule);}.brand-main{padding:48px 0 0;border-right:none;}.gallery-grid{height:320px;}.nearby-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:768px){.events-grid{grid-template-columns:1fr 1fr;}.nearby-grid{grid-template-columns:repeat(2,1fr);}.social-inner{flex-direction:column;}.gallery-grid{grid-template-columns:1fr;height:auto;}.gallery-thumbs{display:none;}.brands-strip-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.events-grid{grid-template-columns:1fr;}.nearby-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="site-header">
+  <div class="container">
+    <div class="navbar">
+      <div class="nav-left">
+        <a href="venecia_shops_v3.html">Универмаг</a>
+      </div>
+      <a href="/" class="logo-center">В Е Н Е Ц И Я</a>
+      <div class="nav-right">
+        <a href="#">Велнес и СПА</a>
+        <button class="burger-btn" id="burgerBtn" aria-label="Меню"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="overlay" id="overlay"></div>
+<div class="burger-menu" id="burgerMenu">
+  <button class="close-burger" id="closeBurger">✕</button>
+  <a href="venecia_shops_v3.html">Магазины и бренды</a>
+  <a href="#">Рестораны и кафе</a>
+  <a href="#">Велнес и СПА</a>
+  <a href="#">Парк</a>
+  <a href="#">События</a>
+  <a href="#">Схема центра</a>
+  <a href="#">Как добраться</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="container">
+  <div class="breadcrumb">
+    <a href="/">Главная</a>
+    <span>›</span>
+    <a href="venecia_shops_v3.html">Магазины и бренды</a>
+    <span>›</span>
+    <span class="cur" id="breadcrumbCur">Загрузка...</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="brand-hero" id="brandHero">
+  <img id="heroImg" class="brand-hero-img" src="" alt="">
+  <div class="brand-hero-overlay"></div>
+  <div class="brand-hero-content">
+    <div class="container">
+      <a href="venecia_shops_v3.html" class="back-link" style="color:rgba(255,255,255,0.5);margin-bottom:20px;display:inline-flex;">← Все магазины</a>
+      <div class="hero-eyebrow" id="heroEyebrow"></div>
+      <h1 class="hero-title" id="heroTitle"></h1>
+      <div class="hero-tags" id="heroTags"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+  <div class="brand-layout">
+
+    <!-- MAIN COLUMN -->
+    <div class="brand-main">
+
+      <!-- GALLERY -->
+      <div class="gallery" id="gallerySection">
+        <div class="gallery-grid">
+          <div class="gallery-main"><img id="galleryMain" src="" alt=""></div>
+          <div class="gallery-thumbs">
+            <div class="gallery-thumb"><img id="galleryThumb1" src="" alt=""></div>
+            <div class="gallery-thumb"><img id="galleryThumb2" src="" alt=""></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="about-section">
+        <div class="section-eyebrow">О бренде</div>
+        <div class="about-text" id="aboutText"></div>
+      </div>
+
+      <!-- SERVICES / FEATURES -->
+      <div id="servicesBlock" style="margin-bottom:48px;">
+        <div class="section-eyebrow" id="servicesEyebrow">Сервисы и возможности</div>
+        <div class="services-list" id="servicesList"></div>
+      </div>
+
+      <!-- BRANDS IN UNIVERSAM (shown only for universam) -->
+      <div id="brandsInBlock" style="display:none;margin-bottom:52px;">
+        <div class="section-eyebrow">Бренды в универмаге</div>
+        <div style="margin-bottom:16px;font-size:14px;color:#6a7c84;font-weight:300;line-height:1.7;">Кураторский отбор актуальных дизайнерских марок и сильных коммерческих брендов</div>
+        <div class="brands-strip-grid" id="brandsInGrid"></div>
+      </div>
+
+      <!-- NEARBY ON FLOOR -->
+      <div class="nearby-section" id="nearbySection">
+        <div class="nearby-header">
+          <div class="nearby-title">Рядом на этаже</div>
+          <a href="venecia_shops_v3.html" style="font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--bordo);text-decoration:none;border-bottom:1px solid rgba(107,16,36,0.2);">Все этажи →</a>
+        </div>
+        <div class="nearby-grid" id="nearbyGrid"></div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="brand-sidebar">
+
+      <!-- ACTIONS -->
+      <div class="sb-actions">
+        <button class="btn-primary" id="btnAction">Записаться / Забронировать</button>
+        <button class="btn-secondary">Добавить в избранное</button>
+        <button class="btn-secondary" onclick="navigator.share&&navigator.share({title:document.title,url:location.href})">Поделиться</button>
+      </div>
+
+      <!-- META INFO -->
+      <div class="sidebar-card">
+        <div class="sc-title">Информация</div>
+        <div class="meta-list" id="metaList"></div>
+      </div>
+
+      <!-- FLOOR MAP -->
+      <div class="floor-map">
+        <div class="fm-title">Схема центра</div>
+        <div class="fm-floors" id="fmFloors">
+          <div class="fm-floor" data-f="5"><span class="fm-floor-num">5</span><span class="fm-floor-label">Велнес клуб & СПА</span></div>
+          <div class="fm-floor" data-f="4"><span class="fm-floor-num">4</span><span class="fm-floor-label">Рестораны и бары</span></div>
+          <div class="fm-floor" data-f="3"><span class="fm-floor-num">3</span><span class="fm-floor-label">Универмаг — премиум</span></div>
+          <div class="fm-floor" data-f="2"><span class="fm-floor-num">2</span><span class="fm-floor-label">Универмаг — средний+</span></div>
+          <div class="fm-floor" data-f="1"><span class="fm-floor-num">1</span><span class="fm-floor-label">Торговая галерея</span></div>
+          <div class="fm-floor" data-f="0"><span class="fm-floor-num">0</span><span class="fm-floor-label">Продукты и сервисы</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- EVENTS -->
+<section class="events-section">
+  <div class="container">
+    <div class="events-hd">
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:10px;">События и мероприятия</div>
+        <div class="ev-title-main">Ближайшие<br>события</div>
+        <p class="ev-sub">Показы, мастер-классы, гастроужины — каждую неделю что-то новое</p>
+      </div>
+      <a href="#" class="ev-all-link">Все события →</a>
+    </div>
+    <div class="events-grid">
+      <div class="ev-card">
+        <div class="ev-img"><div class="ev-img-inner" style="background-image:url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=700&q=85');"></div><span class="ev-type-badge">Открытие</span></div>
+        <div class="ev-body"><div class="ev-date">25 апреля 2026</div><div class="ev-name">Открытие Универмага «Венеция»</div><div class="ev-desc">Fashion-показ, шампанское и первые 60+ брендов. Стилист бесплатно в день открытия.</div><a href="#" class="ev-cta">Подробнее →</a></div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-img"><div class="ev-img-inner" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=85');"></div><span class="ev-type-badge">Гастроужин</span></div>
+        <div class="ev-body"><div class="ev-date">2 мая 2026</div><div class="ev-name">Гастроужин от Alba Group</div><div class="ev-desc">Эксклюзивное меню из семи сетов с видом на Москву-реку. Лимитированные места.</div><a href="#" class="ev-cta">Забронировать →</a></div>
+      </div>
+      <div class="ev-card">
+        <div class="ev-img"><div class="ev-img-inner" style="background-image:url('https://images.unsplash.com/photo-1618241155845-f90a1c66ca61?w=700&q=85');"></div><span class="ev-type-badge">Мастер-класс</span></div>
+        <div class="ev-body"><div class="ev-date">15 мая 2026</div><div class="ev-name">Мастер-класс Золотого яблока</div><div class="ev-desc">Создайте свой персональный аромат с экспертами. Лаборатория парфюмерии.</div><a href="#" class="ev-cta">Записаться →</a></div>
+      </div>
+    </div>
+    <div class="events-btn-wrap"><button class="btn-outline">Все события и мероприятия</button></div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section class="social-section">
+  <div class="container">
+    <div class="social-inner">
+      <div>
+        <div class="social-eyebrow">Подпишитесь на нас</div>
+        <div class="social-title">Будьте в <em>первом ряду</em><br>главных событий</div>
+        <p class="social-sub">Новые открытия, события, акции и закрытые показы — первыми в нашем канале</p>
+      </div>
+      <div class="soc-btns">
+        <a href="#" class="soc-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          Instagram <span class="soc-count">12K</span>
+        </a>
+        <a href="#" class="soc-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          Telegram <span class="soc-count">8.4K</span>
+        </a>
+        <a href="#" class="soc-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C1.592 0 0 1.592 0 8.316v7.368C0 22.408 1.592 24 8.316 24h7.368C22.408 24 24 22.408 24 15.684V8.316C24 1.592 22.408 0 15.684 0zm3.692 7.956h-2.256c-.868 0-1.032.408-1.032 1.008v1.332h2.064l-.27 2.1H16.09V18h-2.16v-5.604h-1.788v-2.1h1.788V8.748c0-1.776 1.08-2.748 2.676-2.748.756 0 1.548.06 2.784.06v2.02-.124z"/></svg>
+          VK <span class="soc-count">5.2K</span>
+        </a>
+        <div class="soc-divider"></div>
+        <a href="#" class="soc-btn soc-btn-primary">Подписаться на новости →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div><div class="footer-logo">ВЕНЕЦИЯ</div><div class="footer-desc">Многофункциональный центр на Краснопресненской набережной, рядом с Москва-Сити.</div></div>
+      <div class="footer-col"><h4>Навигация</h4><ul><li><a href="venecia_shops_v3.html">Магазины</a></li><li><a href="#">Рестораны</a></li><li><a href="#">Велнес и СПА</a></li><li><a href="#">События</a></li><li><a href="#">Как добраться</a></li></ul></div>
+      <div class="footer-col"><h4>Контакты</h4><ul><li><a href="#">+7 (495) 000-00-00</a></li><li><a href="#">info@venecia-mfc.ru</a></li><li><a href="#">10:00–22:00 ежедневно</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 МФК «Венеция». Все права защищены.</p><p>venecia-mfc.ru</p></div>
+  </div>
+</footer>
+
+<script>
+const BRANDS={
+  universam:{name:'Универмаг «Венеция»',catLabel:'Мода · Универмаг',floor:2,badge:'excl',emoji:'👗',
+    img:'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=85',
+    img2:'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=85',
+    img3:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=85',
+    about:`<p>Модный якорь МФК «Венеция» — пространство, формирующее вкус и спрос в Москве. Универмаг объединяет 60+ тщательно отобранных брендов: от актуальных российских дизайнеров до международных премиум-марок.</p><p>Кураторский подход к формированию пула резидентов означает, что здесь нет случайных брендов. Каждый из них отобран за сочетание актуального дизайна и коммерческой состоятельности. Для гостей это гарантия качественного шопинга без лишних поисков.</p>`,
+    actionLabel:'Записаться к стилисту',
+    services:[
+      {title:'Персональный шопинг со стилистом',sub:'Формирование образа под любой повод — по предварительной записи'},
+      {title:'Примерочные премиум-класса',sub:'Просторные кабины с освещением, зеркалами и кнопкой вызова ассистента'},
+      {title:'Упаковка подарков и доставка',sub:'Фирменная упаковка и курьерская доставка по Москве'},
+      {title:'Tax Free — налоговый возврат',sub:'Оформление возврата НДС для иностранных покупателей'},
+    ],
+    servicesEyebrow:'Сервисы универмага',
+    meta:{hours:'10:00–22:00 ежедневно',floor:'2–3 этаж',phone:'+7 (495) 100-01-01',area:'6 000 м²'},
+    showBrands:true,
+    tags:['Мода','60+ брендов','Персональный стилист'],
+  },
+  zolotoe:{name:'Золотое яблоко',catLabel:'Красота · Косметика',floor:1,badge:'new',emoji:'💄',
+    img:'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1600&q=85',
+    img2:'https://images.unsplash.com/photo-1487530811015-780780baaec0?w=600&q=85',
+    img3:'https://images.unsplash.com/photo-1618241155845-f90a1c66ca61?w=600&q=85',
+    about:`<p>Золотое яблоко в МФК «Венеция» — первый поп-ап формат бренда у Москва-Сити. Эксклюзивная коллекция, не представленная ни в одном другом магазине Москвы, создана специально для открытия центра.</p><p>Гипермаркет парфюмерии и косметики с расширенным ассортиментом: более 500 брендов, отдельная beauty-зона и консультанты-эксперты по каждой категории продуктов.</p>`,
+    actionLabel:'Записаться на консультацию',
+    services:[
+      {title:'Beauty-зона с консультантами',sub:'Пробники, тестирование и персональный подбор по типу кожи'},
+      {title:'Мастер-классы по макияжу',sub:'Еженедельные занятия с бьюти-экспертами — бесплатно для гостей'},
+      {title:'Эксклюзивные поп-ап коллекции',sub:'Лимитированные выпуски, доступные только в «Венеции»'},
+      {title:'Программа лояльности',sub:'Интеграция с картой гостя МФК — двойные бонусы'},
+    ],
+    servicesEyebrow:'Услуги и форматы',
+    meta:{hours:'10:00–22:00 ежедневно',floor:'1 этаж',phone:'+7 (495) 100-01-02',area:'800 м²'},
+    tags:['Косметика','Парфюмерия','Поп-ап'],
+  },
+  wellness:{name:'Велнес клуб «Венеция»',catLabel:'Велнес & СПА · 5 этаж',floor:5,badge:'excl',emoji:'🏊',
+    img:'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=1600&q=85',
+    img2:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=85',
+    img3:'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=600&q=85',
+    about:`<p>Приватный велнес-клуб на 5-м уровне МФК «Венеция» — новый стандарт восстановления в центре мегаполиса. Закрытое пространство с бассейном исключительно для женщин, СПА-зоной, тренажёрным залом и клиникой красоты.</p><p>Членство в клубе открывает доступ ко всем сервисам на 5-м этаже и даёт приоритетное бронирование столиков в ресторанах, скидки в универмаге и консьерж-сопровождение по всему МФК.</p>`,
+    actionLabel:'Узнать об абонементах',
+    services:[
+      {title:'Бассейн только для женщин',sub:'Закрытая зона с панорамным видом, шезлонги, подогреваемая вода'},
+      {title:'Фитнес и групповые программы',sub:'Оборудование Technogym, йога, пилатес, персональные тренеры'},
+      {title:'СПА-ритуалы и хаммам',sub:'Авторские программы, массажи, скрабы и обёртывания'},
+      {title:'Клиника эстетической медицины',sub:'Для всех гостей МФК: инъекции, аппаратные процедуры, уходы'},
+      {title:'Консьерж и персональный ассистент',sub:'Бронирование, организация мероприятий, личные поручения'},
+    ],
+    servicesEyebrow:'Сервисы клуба',
+    meta:{hours:'07:00–23:00 ежедневно',floor:'5 этаж',phone:'+7 (495) 100-01-00',area:'2 000 м²'},
+    tags:['Только для женщин','Бассейн','СПА','Фитнес'],
+  },
+  perekrestok:{name:'Перекрёсток Селект',catLabel:'Продукты · Гастроном',floor:0,badge:null,emoji:'🛒',
+    img:'https://images.unsplash.com/photo-1534723452862-4c874018d66d?w=1600&q=85',
+    img2:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=85',
+    img3:'https://images.unsplash.com/photo-1498579150354-977475b7ea0b?w=600&q=85',
+    about:`<p>Флагманский гипермаркет Перекрёсток в формате Селект — расширенный ассортимент продуктов премиум-сегмента для взыскательных покупателей Краснопресненской набережной.</p><p>Авторский раздел гастрономии, фреш-зона с локальными фермерскими продуктами, обширная винная карта и готовые блюда от шеф-поваров. Идеальный выбор для ежедневных покупок и особых вечеров дома.</p>`,
+    actionLabel:'Заказать доставку',
+    services:[
+      {title:'Фреш-зона с фермерскими продуктами',sub:'Ежедневные поставки от локальных производителей'},
+      {title:'Авторская кулинария',sub:'Готовые блюда и полуфабрикаты от шеф-поваров'},
+      {title:'Винный отдел',sub:'Более 800 позиций — Россия, Европа, Новый Свет'},
+      {title:'Доставка на дом',sub:'Экспресс-доставка за 60 минут по всему Пресненскому району'},
+    ],
+    servicesEyebrow:'Отделы и сервисы',
+    meta:{hours:'08:00–23:00 ежедневно',floor:'0 этаж',phone:'+7 (495) 100-01-03',area:'2 200 м²'},
+    tags:['Премиум продукты','Гастроном','Фреш-зона'],
+  },
+  '12storeez':{name:'12 Storeez',catLabel:'Мода · Женская одежда',floor:2,badge:'new',emoji:'🧣',
+    img:'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1600&q=85',
+    img2:'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=85',
+    img3:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=85',
+    about:`<p>12 Storeez — российский бренд, определивший понятие «базовый гардероб» для нового поколения женщин. Двенадцать историй в год, каждая — отдельная концепция, связывающая образ, настроение и ткань.</p><p>Флагманский магазин в «Венеции» представляет полную текущую коллекцию, а также эксклюзивные «тихие» позиции, которые не появляются в онлайн-магазине до распродажи.</p>`,
+    actionLabel:'Забронировать примерочную',
+    services:[
+      {title:'Полная сезонная коллекция',sub:'Все 12 историй года одновременно в одном пространстве'},
+      {title:'Эксклюзивные offline-позиции',sub:'Вещи, доступные только в физическом магазине'},
+      {title:'Персональный подбор образа',sub:'Консультация стилиста бренда — по запросу'},
+      {title:'Подгонка по фигуре',sub:'Бесплатная подгонка изделий в ателье на 3-м этаже'},
+    ],
+    servicesEyebrow:'Возможности магазина',
+    meta:{hours:'10:00–22:00 ежедневно',floor:'2 этаж',phone:'+7 (495) 100-01-04',area:'320 м²'},
+    tags:['Базовый гардероб','Российский бренд','Новый'],
+  },
+  brunello:{name:'Brunello Cucinelli',catLabel:'Премиум мода · Люкс',floor:3,badge:'excl',emoji:'🧥',
+    img:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1600&q=85',
+    img2:'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=85',
+    img3:'https://images.unsplash.com/photo-1467043237213-65f2da53396f?w=600&q=85',
+    about:`<p>Brunello Cucinelli — итальянский дом моды из Умбрии, синоним «гуманистической роскоши». Каждое изделие создаётся вручную из лучшего кашемира, шёлка и благородной шерсти мастерами солейской школы.</p><p>Магазин в «Венеции» — единственная точка продаж бренда у Москва-Сити. Интерьер разработан совместно с командой Brunello Cucinelli и воспроизводит дух умбрийских студий: натуральные материалы, приглушённый свет и философия замедления.</p>`,
+    actionLabel:'Записаться на private shopping',
+    services:[
+      {title:'Private shopping по записи',sub:'Закрытый показ новой коллекции только для вас'},
+      {title:'Персонализация изделий',sub:'Монограммы, выбор отделки и специальные заказы напрямую из Умбрии'},
+      {title:'Консьерж-шопинг',sub:'Доставка в любую точку мира через фирменную службу'},
+      {title:'Культурные события',sub:'Закрытые лекции, философские завтраки и презентации коллекций'},
+    ],
+    servicesEyebrow:'Услуги бутика',
+    meta:{hours:'11:00–21:00 ежедневно',floor:'3 этаж',phone:'+7 (495) 100-01-05',area:'180 м²'},
+    tags:['Люкс','Кашемир','Только здесь'],
+  },
+  styliste:{name:'Персональный стилист',catLabel:'Сервис · Универмаг',floor:3,badge:'excl',emoji:'✂️',
+    img:'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=85',
+    img2:'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85',
+    img3:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=85',
+    about:`<p>Уникальный сервис персонального шопинга в МФК «Венеция»: опытные стилисты-шопперы сопроводят вас по универмагу и всему центру, помогут сформировать полноценный гардероб или подобрать образ к конкретному событию.</p><p>Каждый стилист имеет многолетний опыт работы с брендами из универмага и знает поставки наперёд — вы получите доступ к вещам до того, как они появятся в зале.</p>`,
+    actionLabel:'Записаться к стилисту',
+    services:[
+      {title:'Сессия шопинга (2–4 часа)',sub:'Обход универмага с персональным стилистом, подбор образа'},
+      {title:'Аудит гардероба',sub:'Анализ текущего гардероба и план обновления на сезон'},
+      {title:'Образ к событию',sub:'Свадьба, деловая встреча, торжество — от A до Z'},
+      {title:'Консультация онлайн',sub:'Предварительный разбор запроса видеозвонок + мудборд'},
+    ],
+    servicesEyebrow:'Форматы работы',
+    meta:{hours:'11:00–20:00 (по записи)',floor:'3 этаж',phone:'+7 (495) 100-01-08',area:'—'},
+    tags:['По записи','Персональный шопинг','Только здесь'],
+  },
+  clinic:{name:'Клиника красоты',catLabel:'Велнес · Эстетика',floor:5,badge:'new',emoji:'🌿',
+    img:'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=1600&q=85',
+    img2:'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=600&q=85',
+    img3:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=85',
+    about:`<p>Клиника эстетической медицины на 5-м этаже МФК «Венеция» — пространство, доступное всем гостям центра без членства в клубе. Врачи-дерматологи и косметологи с международным опытом.</p><p>Современные аппаратные методики, инъекционные процедуры и авторские уходовые программы в интерьере, вдохновлённом венецианскими термами. Запись доступна онлайн — без ожидания в очереди.</p>`,
+    actionLabel:'Записаться на процедуру',
+    services:[
+      {title:'Инъекционные процедуры',sub:'Ботулинотерапия, гиалуроновые филлеры, биоревитализация'},
+      {title:'Аппаратная косметология',sub:'Лазерные процедуры, RF-лифтинг, криотерапия'},
+      {title:'Авторские уходы лица',sub:'Программы по типу кожи от 60 минут'},
+      {title:'Диагностика кожи',sub:'Бесплатная первичная консультация и составление плана ухода'},
+    ],
+    servicesEyebrow:'Направления клиники',
+    meta:{hours:'09:00–21:00 (запись)',floor:'5 этаж',phone:'+7 (495) 100-01-12',area:'400 м²'},
+    tags:['Эстетическая медицина','По записи','Новый'],
+  },
+};
+
+const BRANDS_LIST=[
+  {id:'universam',name:'Универмаг «Венеция»',floor:2,emoji:'👗',catLabel:'Мода'},
+  {id:'zolotoe',name:'Золотое яблоко',floor:1,emoji:'💄',catLabel:'Красота'},
+  {id:'wellness',name:'Велнес клуб',floor:5,emoji:'🏊',catLabel:'Велнес'},
+  {id:'perekrestok',name:'Перекрёсток Селект',floor:0,emoji:'🛒',catLabel:'Продукты'},
+  {id:'12storeez',name:'12 Storeez',floor:2,emoji:'🧣',catLabel:'Мода'},
+  {id:'brunello',name:'Brunello Cucinelli',floor:3,emoji:'🧥',catLabel:'Люкс'},
+  {id:'styliste',name:'Персональный стилист',floor:3,emoji:'✂️',catLabel:'Сервис'},
+  {id:'clinic',name:'Клиника красоты',floor:5,emoji:'🌿',catLabel:'Велнес'},
+  {id:'ushatava',name:'Ushatáva',floor:2,emoji:'👔',catLabel:'Мода',img:'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=600&q=85'},
+  {id:'henderson',name:'Henderson',floor:2,emoji:'👞',catLabel:'Мужская мода',img:'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=85'},
+  {id:'books',name:'Книжный',floor:1,emoji:'📚',catLabel:'Культура',img:'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=600&q=85'},
+  {id:'coffee',name:'Кофейня',floor:1,emoji:'☕',catLabel:'Кафе',img:'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=85'},
+  {id:'florist',name:'Цветочный бутик',floor:1,emoji:'💐',catLabel:'Сервисы',img:'https://images.unsplash.com/photo-1487530811015-780780baaec0?w=600&q=85'},
+];
+
+const UNIVERSAM_BRANDS=[
+  {emoji:'👗',name:'12 Storeez',cat:'Женская одежда'},
+  {emoji:'👔',name:'Ushatáva',cat:'Современная мода'},
+  {emoji:'🧥',name:'Brunello Cucinelli',cat:'Люкс'},
+  {emoji:'💍',name:'Lesyanebo',cat:'Ювелирные'},
+  {emoji:'👞',name:'Henderson',cat:'Мужская мода'},
+  {emoji:'✂️',name:'Персональный стилист',cat:'Сервис'},
+];
+
+function getParam(){
+  const p=new URLSearchParams(location.search);
+  return p.get('brand')||'universam';
+}
+
+function init(){
+  const id=getParam();
+  const b=BRANDS[id]||BRANDS.universam;
+
+  document.title=b.name+' — Венеция';
+  document.getElementById('breadcrumbCur').textContent=b.name;
+
+  // Hero
+  document.getElementById('heroImg').src=b.img;
+  document.getElementById('heroImg').alt=b.name;
+  document.getElementById('heroEyebrow').textContent=b.catLabel;
+  document.getElementById('heroTitle').innerHTML=b.name.includes('«')?b.name:'<em>'+b.name+'</em>';
+
+  const tagsEl=document.getElementById('heroTags');
+  tagsEl.innerHTML=b.tags.map((t,i)=>`<span class="hero-tag${i===0?' gold':''}">${t}</span>`).join('');
+
+  // Gallery
+  document.getElementById('galleryMain').src=b.img2||b.img;
+  document.getElementById('galleryThumb1').src=b.img2||b.img;
+  document.getElementById('galleryThumb2').src=b.img3||b.img;
+
+  // About
+  document.getElementById('aboutText').innerHTML=b.about;
+
+  // Services
+  document.getElementById('servicesEyebrow').textContent=b.servicesEyebrow;
+  document.getElementById('servicesList').innerHTML=b.services.map((s,i)=>`
+    <div class="svc-row">
+      <span class="svc-num">${['I','II','III','IV','V'][i]||i+1}</span>
+      <div class="svc-content">
+        <div class="svc-title">${s.title}</div>
+        <div class="svc-sub">${s.sub}</div>
+      </div>
+    </div>`).join('');
+
+  // Brands in universam
+  if(b.showBrands){
+    document.getElementById('brandsInBlock').style.display='block';
+    document.getElementById('brandsInGrid').innerHTML=UNIVERSAM_BRANDS.map(br=>`
+      <div class="brand-pill-card">
+        <div class="bpc-emoji">${br.emoji}</div>
+        <div class="bpc-name">${br.name}</div>
+        <div class="bpc-cat">${br.cat}</div>
+      </div>`).join('');
+  }
+
+  // Meta
+  const meta=b.meta;
+  document.getElementById('metaList').innerHTML=`
+    <div class="ml-row"><span class="ml-key">Часы</span><span class="ml-val">${meta.hours}</span></div>
+    <div class="ml-row"><span class="ml-key">Этаж</span><span class="ml-val">${meta.floor} <span class="ml-badge">В центре</span></span></div>
+    <div class="ml-row"><span class="ml-key">Телефон</span><span class="ml-val">${meta.phone}</span></div>
+    ${meta.area&&meta.area!=='—'?`<div class="ml-row"><span class="ml-key">Площадь</span><span class="ml-val">${meta.area}</span></div>`:''}
+    ${b.badge?`<div class="ml-row"><span class="ml-key">Статус</span><span class="ml-val"><span class="ml-badge">${b.badge==='excl'?'Эксклюзивно':'Новый'}</span></span></div>`:''}
+  `;
+
+  // Floor map highlight
+  document.querySelectorAll('.fm-floor').forEach(f=>{
+    f.classList.toggle('active',String(f.dataset.f)===String(b.floor));
+  });
+
+  // Action button
+  document.getElementById('btnAction').textContent=b.actionLabel||'Записаться';
+
+  // Nearby
+  const floorNum=b.floor;
+  const nearby=BRANDS_LIST.filter(x=>x.floor===floorNum&&x.id!==id).slice(0,4);
+  const nearbyGrid=document.getElementById('nearbyGrid');
+  if(nearby.length){
+    nearbyGrid.innerHTML=nearby.map(n=>`
+      <div class="nc" onclick="location.href='venecia_brand.html?brand=${n.id}'">
+        <div class="nc-img">${n.img?`<img src="${n.img}" alt="${n.name}" loading="lazy">`:`<div class="nc-img-ph">${n.emoji}</div>`}</div>
+        <div class="nc-body">
+          <div class="nc-cat">${n.catLabel}</div>
+          <div class="nc-name">${n.name}</div>
+          <div class="nc-floor">${n.floor} этаж</div>
+        </div>
+      </div>`).join('');
+  } else {
+    document.getElementById('nearbySection').style.display='none';
+  }
+}
+
+// Burger
+const bb=document.getElementById('burgerBtn'),bm=document.getElementById('burgerMenu'),ov=document.getElementById('overlay'),cb=document.getElementById('closeBurger');
+bb.addEventListener('click',()=>{bm.classList.add('active');ov.classList.add('active');document.body.style.overflow='hidden';});
+[cb,ov].forEach(el=>el.addEventListener('click',()=>{bm.classList.remove('active');ov.classList.remove('active');document.body.style.overflow='';}));
+document.querySelectorAll('.burger-menu a').forEach(a=>a.addEventListener('click',()=>{bm.classList.remove('active');ov.classList.remove('active');document.body.style.overflow='';}));
+
+init();
+</script>
+</body>
+</html>

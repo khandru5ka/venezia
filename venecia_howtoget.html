@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Как добраться — Венеция</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#0f0d0a;--muted:#7a6e62;--cream:#faf8f3;--sand:#f0e9dc;
+  --gold:#c6a15b;--gold-d:#a47c3e;--gold-p:#fdf6eb;
+  --bordo:#4A0B18;--deep:#1f3e48;--rule:rgba(198,161,91,0.18);--tr:.2s ease;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;}
+.ctr{max-width:1300px;margin:0 auto;padding:0 32px;}
+
+/* NAV */
+.nav{background:rgba(250,248,243,.97);backdrop-filter:blur(12px);position:sticky;top:0;z-index:200;border-bottom:1px solid var(--rule);}
+.navbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px;}
+.nav-l a,.nav-r-l a{font-size:13px;font-weight:500;letter-spacing:.05em;color:var(--muted);text-decoration:none;transition:var(--tr);padding:0 16px;}
+.nav-l a:hover,.nav-r-l a:hover{color:var(--bordo);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;letter-spacing:.18em;color:var(--bordo);text-decoration:none;text-align:center;}
+.nav-r{display:flex;justify-content:flex-end;align-items:center;}
+.burger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;width:26px;margin-left:8px;}
+.burger span{display:block;height:1.5px;background:var(--ink);border-radius:2px;}
+.side{position:fixed;top:0;right:-300px;width:270px;height:100%;background:#fffdf9;z-index:400;transition:right .35s cubic-bezier(.77,0,.18,1);padding:70px 0;box-shadow:-4px 0 32px rgba(0,0,0,.08);}
+.side.open{right:0;}
+.side a{display:block;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--bordo);text-decoration:none;padding:13px 28px;border-bottom:1px solid var(--rule);transition:var(--tr);}
+.side a:hover{padding-left:36px;}
+.side-close{position:absolute;top:18px;right:20px;background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted);}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:300;display:none;}
+.ov.open{display:block;}
+
+/* BREADCRUMB */
+.breadcrumb{display:flex;gap:8px;align-items:center;padding:18px 0 0;}
+.breadcrumb a{font-size:12px;color:var(--muted);text-decoration:none;}
+.breadcrumb a:hover{color:var(--bordo);}
+.breadcrumb span{font-size:12px;color:rgba(122,110,98,.35);}
+.breadcrumb .cur{font-size:12px;color:var(--ink);font-weight:500;}
+
+/* STATUS HERO */
+.status-hero{background:var(--bordo);padding:0;}
+.status-inner{display:grid;grid-template-columns:1fr auto;align-items:center;gap:32px;padding:36px 0;flex-wrap:wrap;}
+.status-left{}
+.status-eyebrow{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(198,161,91,.65);margin-bottom:10px;}
+.status-state{display:flex;align-items:center;gap:14px;margin-bottom:8px;}
+.status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.status-dot.open{background:#3d9970;box-shadow:0 0 0 3px rgba(61,153,112,.25);}
+.status-dot.closed{background:#c0392b;}
+.status-text{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,46px);font-weight:600;color:#fff;line-height:1;letter-spacing:-.01em;}
+.status-text em{font-style:italic;color:rgba(230,205,155,.9);}
+.status-countdown{font-size:13px;color:rgba(255,255,255,.55);font-weight:300;margin-top:6px;}
+.status-countdown strong{color:rgba(255,255,255,.8);}
+.status-right{display:flex;flex-direction:column;gap:0;border-left:1px solid rgba(255,255,255,.1);padding-left:40px;}
+.hours-row{display:flex;justify-content:space-between;gap:24px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.hours-row:last-child{border-bottom:none;}
+.hr-label{font-size:12px;color:rgba(255,255,255,.45);font-weight:300;white-space:nowrap;}
+.hr-val{font-size:12px;color:rgba(255,255,255,.75);font-weight:500;white-space:nowrap;}
+.hr-badge{font-size:10px;font-weight:600;letter-spacing:.06em;padding:1px 7px;border-radius:10px;}
+.hr-open{background:rgba(61,153,112,.2);color:#3d9970;}
+.hr-closed{background:rgba(192,57,43,.15);color:#c0392b;}
+
+/* MAP SECTION */
+.map-section{background:#fff;border-bottom:1px solid var(--rule);}
+.map-inner{display:grid;grid-template-columns:1fr 360px;gap:0;min-height:480px;}
+.map-embed{overflow:hidden;position:relative;background:var(--sand);}
+.map-placeholder{width:100%;height:100%;min-height:480px;background:linear-gradient(135deg,#e8e4dc 0%,#d8d2c8 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;position:relative;overflow:hidden;}
+/* streets pattern */
+.map-placeholder::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 38px,rgba(255,255,255,.5) 38px,rgba(255,255,255,.5) 42px),repeating-linear-gradient(90deg,transparent,transparent 55px,rgba(255,255,255,.5) 55px,rgba(255,255,255,.5) 59px);pointer-events:none;}
+.map-placeholder::after{content:'';position:absolute;bottom:0;left:0;right:0;height:90px;background:rgba(59,139,212,.2);border-top:2px solid rgba(59,139,212,.4);}
+.map-pin{width:48px;height:48px;background:var(--bordo);border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,11,24,.35);position:relative;z-index:2;}
+.map-pin-inner{transform:rotate(45deg);font-size:20px;}
+.map-label-box{background:rgba(250,248,243,.95);padding:10px 18px;font-size:13px;font-weight:500;color:var(--bordo);z-index:2;position:relative;letter-spacing:.02em;}
+.map-sublabel{font-size:11px;color:var(--muted);position:relative;z-index:2;}
+.map-cta-row{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:5;}
+.map-cta-btn{padding:10px 20px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:var(--tr);text-decoration:none;display:inline-block;white-space:nowrap;}
+.map-cta-btn.y{background:var(--bordo);color:#fff;border:none;}
+.map-cta-btn.y:hover{background:#6B1024;}
+.map-cta-btn.g{background:#fff;color:var(--bordo);border:1px solid var(--rule);}
+.map-cta-btn.g:hover{background:var(--gold-p);}
+
+/* address panel */
+.addr-panel{padding:40px 36px;border-left:1px solid var(--rule);display:flex;flex-direction:column;gap:24px;justify-content:center;}
+.addr-eyebrow{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-d);}
+.addr-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--bordo);line-height:1.05;}
+.addr-text{font-size:14px;color:var(--muted);font-weight:300;line-height:1.8;}
+.addr-copy-row{display:flex;align-items:center;gap:8px;}
+.addr-copy-val{font-size:13px;color:var(--ink);font-weight:500;flex:1;}
+.copy-btn{background:var(--sand);border:none;padding:6px 12px;font-family:'Raleway',sans-serif;font-size:11px;font-weight:600;letter-spacing:.06em;cursor:pointer;color:var(--gold-d);transition:var(--tr);}
+.copy-btn:hover{background:var(--gold-p);}
+.addr-contacts{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);}
+.contact-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule);}
+.contact-row:last-child{border-bottom:none;}
+.contact-icon{font-size:16px;width:24px;text-align:center;flex-shrink:0;}
+.contact-info{}
+.contact-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.contact-val{font-size:13px;color:var(--ink);}
+.contact-val a{color:var(--bordo);text-decoration:none;font-weight:500;}
+.contact-val a:hover{color:var(--gold-d);}
+
+/* TRANSPORT */
+.transport-section{padding:72px 0;background:var(--cream);}
+.section-eyebrow{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-d);margin-bottom:14px;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3.5vw,44px);font-weight:600;color:var(--deep);line-height:1;letter-spacing:-.01em;margin-bottom:40px;}
+.transport-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;background:var(--rule);}
+.tr-card{background:#fff;padding:32px 28px;cursor:pointer;transition:var(--tr);border-top:3px solid transparent;}
+.tr-card:hover,.tr-card.active{background:var(--gold-p);border-top-color:var(--gold);}
+.tr-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px;}
+.tr-icon-box{width:52px;height:52px;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.tr-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--bordo);line-height:1.1;margin-bottom:4px;}
+.tr-badge{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;margin-top:2px;}
+.tr-badge.green{background:rgba(61,153,112,.12);color:#0F6E56;}
+.tr-badge.amber{background:rgba(186,117,23,.12);color:#7a4d00;}
+.tr-body{font-size:13px;color:var(--muted);font-weight:300;line-height:1.8;}
+.tr-detail{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);margin-top:14px;padding-top:14px;}
+.tr-detail-row{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--rule);}
+.tr-detail-row:last-child{border-bottom:none;}
+.tdr-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);min-width:100px;}
+.tdr-val{font-size:12px;color:var(--ink);line-height:1.5;}
+.tr-action{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--bordo);text-decoration:none;border-bottom:1px solid rgba(74,11,24,.2);padding-bottom:2px;cursor:pointer;background:none;border-left:none;border-right:none;border-top:none;font-family:'Raleway',sans-serif;transition:var(--tr);}
+.tr-action:hover{color:var(--gold-d);}
+
+/* PARKING */
+.parking-section{background:var(--deep);padding:72px 0;}
+.park-layout{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.park-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3.5vw,46px);font-weight:600;color:#fff;line-height:1;letter-spacing:-.01em;margin-bottom:20px;}
+.park-title em{font-style:italic;color:rgba(230,205,155,.9);}
+.park-desc{font-size:14px;color:rgba(255,255,255,.55);font-weight:300;line-height:1.85;}
+.park-meta{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,.1);margin-top:24px;}
+.pm-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.07);}
+.pm-row:last-child{border-bottom:none;}
+.pm-label{font-size:12px;color:rgba(255,255,255,.45);font-weight:300;}
+.pm-val{font-size:13px;color:rgba(255,255,255,.8);font-weight:500;text-align:right;}
+.park-right{display:flex;flex-direction:column;gap:14px;}
+.park-card{background:rgba(255,255,255,.07);padding:24px;border-left:2px solid rgba(198,161,91,.4);}
+.park-card-title{font-size:13px;font-weight:600;color:rgba(255,255,255,.88);letter-spacing:.02em;margin-bottom:8px;}
+.park-card-body{font-size:12px;color:rgba(255,255,255,.5);font-weight:300;line-height:1.75;}
+.park-cta{margin-top:24px;}
+.btn-gold{background:var(--gold);color:#fff;border:none;padding:13px 28px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:var(--tr);}
+.btn-gold:hover{background:var(--gold-d);}
+
+/* ROUTE FROM METRO */
+.route-section{padding:72px 0;background:var(--cream);}
+.route-tabs{display:flex;gap:0;border-bottom:1px solid var(--rule);margin-bottom:40px;}
+.rtab{background:transparent;border:none;border-bottom:2px solid transparent;padding:12px 22px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;white-space:nowrap;margin-bottom:-1px;transition:var(--tr);}
+.rtab.active{color:var(--bordo);border-bottom-color:var(--gold);}
+.route-panel{display:none;}
+.route-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+.route-steps{display:flex;flex-direction:column;gap:0;}
+.route-step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--rule);}
+.route-step:last-child{border-bottom:none;}
+.rs-num{width:28px;height:28px;border-radius:50%;background:var(--bordo);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.rs-content{}
+.rs-text{font-size:13px;color:var(--ink);line-height:1.65;font-weight:400;}
+.rs-dist{font-size:11px;color:var(--muted);margin-top:3px;font-weight:300;}
+.route-visual{background:var(--sand);display:flex;align-items:center;justify-content:center;min-height:320px;position:relative;overflow:hidden;}
+.route-visual-map{width:100%;height:100%;min-height:320px;background:linear-gradient(135deg,#e4e0d8 0%,#d4cfc5 100%);position:relative;}
+.rv-street{position:absolute;background:rgba(255,255,255,.6);}
+.rv-metro{position:absolute;width:16px;height:16px;border-radius:50%;border:2px solid var(--bordo);background:#fff;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:600;color:var(--bordo);}
+.rv-dest{position:absolute;width:20px;height:20px;background:var(--bordo);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;}
+.rv-path{position:absolute;border-left:2px dashed rgba(198,161,91,.7);}
+.rv-label{position:absolute;font-family:'Raleway',sans-serif;font-size:10px;font-weight:500;color:rgba(15,12,8,.55);}
+
+/* ACCESSIBLE */
+.access-section{background:#fff;padding:64px 0;border-top:1px solid var(--rule);}
+.access-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--rule);margin-top:40px;}
+.access-card{background:#fff;padding:28px 24px;}
+.ac-icon{font-size:28px;margin-bottom:14px;}
+.ac-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--bordo);margin-bottom:10px;}
+.ac-body{font-size:13px;color:var(--muted);font-weight:300;line-height:1.75;}
+
+/* FAQ */
+.faq-section{padding:72px 0;background:var(--cream);}
+.faq-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:40px;}
+.faq-list{display:flex;flex-direction:column;gap:0;}
+.faq-item{border-bottom:1px solid var(--rule);}
+.faq-q{display:flex;justify-content:space-between;align-items:start;gap:12px;padding:16px 0;cursor:pointer;font-size:14px;font-weight:500;color:var(--ink);line-height:1.4;}
+.faq-q:hover{color:var(--bordo);}
+.faq-chv{font-size:14px;color:var(--muted);flex-shrink:0;transition:transform .2s;line-height:1.4;}
+.faq-chv.open{transform:rotate(180deg);}
+.faq-a{font-size:13px;color:var(--muted);font-weight:300;line-height:1.75;padding-bottom:16px;display:none;}
+.faq-a.open{display:block;}
+/* right col — mini schedule */
+.schedule-card{background:var(--deep);padding:32px;}
+.sc-eyebrow{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,161,91,.6);margin-bottom:14px;}
+.sc-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:#fff;margin-bottom:20px;}
+.sc-rows{display:flex;flex-direction:column;gap:0;}
+.sc-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07);}
+.sc-row:last-child{border-bottom:none;}
+.sc-zone{font-size:13px;color:rgba(255,255,255,.65);font-weight:300;}
+.sc-time{font-size:12px;color:rgba(255,255,255,.8);font-weight:500;}
+.sc-status{font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;}
+.sc-open{background:rgba(61,153,112,.2);color:#3d9970;}
+.sc-closed{background:rgba(192,57,43,.15);color:#c0392b;}
+
+/* SOCIAL */
+.social{background:var(--bordo);padding:52px 0;}
+.soc-inner{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;}
+.soc-eyebrow{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(198,161,91,.6);margin-bottom:10px;}
+.soc-title{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,32px);font-weight:600;color:#fff;line-height:1.05;}
+.soc-title em{font-style:italic;color:rgba(230,205,155,.9);}
+.soc-sub{font-size:13px;color:rgba(255,255,255,.4);font-weight:300;margin-top:8px;max-width:340px;line-height:1.7;}
+.soc-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.sb{display:flex;align-items:center;gap:9px;padding:11px 18px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.03em;transition:var(--tr);}
+.sb:hover{border-color:var(--gold);background:rgba(198,161,91,.1);color:#fff;}
+.sb svg{width:16px;height:16px;flex-shrink:0;}
+.sb-cnt{font-size:10px;color:rgba(255,255,255,.26);margin-left:2px;}
+.sb-pri{background:var(--gold);border-color:var(--gold);color:#fff;}
+.sb-pri:hover{background:var(--gold-d);}
+.soc-div{width:1px;height:46px;background:rgba(255,255,255,.08);align-self:center;}
+
+/* FOOTER */
+.footer{background:#0c1518;padding:52px 0 24px;}
+.ft-inner{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:24px;}
+.ft-logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--gold);letter-spacing:.16em;margin-bottom:8px;}
+.ft-desc{font-size:12px;color:rgba(255,255,255,.26);font-weight:300;line-height:1.8;max-width:200px;}
+.ft-col h4{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(198,161,91,.58);font-weight:600;margin-bottom:14px;}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.ft-col a{color:rgba(255,255,255,.33);font-size:13px;text-decoration:none;font-weight:300;transition:.15s;}
+.ft-col a:hover{color:var(--gold);}
+.ft-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.ft-bottom p{font-size:11px;color:rgba(255,255,255,.16);}
+
+@media(max-width:1024px){.map-inner{grid-template-columns:1fr;}.addr-panel{border-left:none;border-top:1px solid var(--rule);}.transport-grid{grid-template-columns:1fr;}.park-layout{grid-template-columns:1fr;gap:40px;}.faq-layout{grid-template-columns:1fr;}}
+@media(max-width:768px){.route-panel.active{grid-template-columns:1fr;}.access-grid{grid-template-columns:1fr;}.status-inner{grid-template-columns:1fr;}.status-right{border-left:none;padding-left:0;border-top:1px solid rgba(255,255,255,.1);padding-top:20px;}.soc-inner{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="ctr">
+    <div class="navbar">
+      <div class="nav-l"><a href="venecia_shops_v3.html">Универмаг</a></div>
+      <a href="/" class="logo">В Е Н Е Ц И Я</a>
+      <div class="nav-r">
+        <div class="nav-r-l"><a href="#">Велнес и СПА</a></div>
+        <button class="burger" id="bb"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="ov" id="ov"></div>
+<div class="side" id="side">
+  <button class="side-close" id="sc">✕</button>
+  <a href="venecia_shops_v3.html">Магазины и бренды</a>
+  <a href="venecia_restaurants.html">Рестораны и кафе</a>
+  <a href="#">Велнес и СПА</a>
+  <a href="#">Парк</a>
+  <a href="#">События</a>
+  <a href="venecia_floormap.html">Схема центра</a>
+  <a href="#" style="color:var(--bordo);">Как добраться</a>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="ctr"><div class="breadcrumb">
+  <a href="/">Главная</a><span>›</span><span class="cur">Как добраться</span>
+</div></div>
+
+<!-- STATUS HERO -->
+<div class="status-hero">
+  <div class="ctr">
+    <div class="status-inner">
+      <div class="status-left">
+        <div class="status-eyebrow">Режим работы сегодня</div>
+        <div class="status-state">
+          <div class="status-dot" id="statusDot"></div>
+          <div class="status-text" id="statusText"></div>
+        </div>
+        <div class="status-countdown" id="statusCountdown"></div>
+      </div>
+      <div class="status-right" id="hoursTable"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAP + ADDRESS -->
+<section class="map-section">
+  <div class="map-inner">
+    <!-- Map placeholder (replace iframe with Yandex Maps embed) -->
+    <div class="map-embed">
+      <div class="map-placeholder">
+        <div class="map-pin"><div class="map-pin-inner">📍</div></div>
+        <div class="map-label-box">МФК «Венеция»</div>
+        <div class="map-sublabel">Краснопресненская набережная · Москва-Сити</div>
+        <!-- Grid streets overlay -->
+        <div style="position:absolute;inset:0;pointer-events:none;">
+          <div style="position:absolute;top:60%;left:0;right:0;height:2px;background:rgba(255,255,255,.55);"></div>
+          <div style="position:absolute;top:25%;left:0;right:0;height:1.5px;background:rgba(255,255,255,.35);"></div>
+          <div style="position:absolute;top:0;bottom:0;left:40%;width:2px;background:rgba(255,255,255,.45);"></div>
+          <div style="position:absolute;top:0;bottom:0;left:70%;width:1.5px;background:rgba(255,255,255,.3);"></div>
+          <!-- River label -->
+          <div style="position:absolute;bottom:12px;right:20px;font-family:'Raleway',sans-serif;font-size:10px;color:rgba(59,139,212,.8);font-weight:500;letter-spacing:.06em;">МОСКВА-РЕКА</div>
+          <!-- Metro marks -->
+          <div style="position:absolute;top:26%;left:38%;width:12px;height:12px;border-radius:50%;background:var(--bordo);border:1.5px solid #fff;display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-weight:700;">М</div>
+          <div style="position:absolute;top:24%;left:66%;width:12px;height:12px;border-radius:50%;background:#003f8a;border:1.5px solid #fff;display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;font-weight:700;">М</div>
+          <!-- Street labels -->
+          <div style="position:absolute;top:61%;left:8px;font-family:'Raleway',sans-serif;font-size:9px;color:rgba(15,12,8,.45);">Краснопресненская наб.</div>
+        </div>
+        <div class="map-cta-row">
+          <a href="https://yandex.ru/maps/?pt=37.542,55.756&z=15&l=map" target="_blank" class="map-cta-btn y">Яндекс.Карты ↗</a>
+          <a href="https://2gis.ru/moscow" target="_blank" class="map-cta-btn g">2GIS ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Address panel -->
+    <div class="addr-panel">
+      <div>
+        <div class="addr-eyebrow">Адрес</div>
+        <div class="addr-name">МФК «Венеция»</div>
+      </div>
+      <div class="addr-text">Краснопресненская набережная, Москва<br>рядом с деловым центром Москва-Сити<br>и парком «Красная Пресня»</div>
+      <div>
+        <div class="addr-eyebrow" style="margin-bottom:10px;">Скопировать адрес</div>
+        <div class="addr-copy-row">
+          <span class="addr-copy-val">Краснопресненская наб., Москва</span>
+          <button class="copy-btn" onclick="copyAddr()">Копировать</button>
+        </div>
+      </div>
+      <div class="addr-contacts">
+        <div class="contact-row">
+          <div class="contact-icon">📞</div>
+          <div class="contact-info">
+            <div class="contact-label">Справочная служба</div>
+            <div class="contact-val"><a href="tel:+74950000000">+7 (495) 000-00-00</a></div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">✉</div>
+          <div class="contact-info">
+            <div class="contact-label">Электронная почта</div>
+            <div class="contact-val"><a href="mailto:info@venecia-mfc.ru">info@venecia-mfc.ru</a></div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">💬</div>
+          <div class="contact-info">
+            <div class="contact-label">Быстрые вопросы</div>
+            <div class="contact-val"><a href="#">Написать в Telegram</a> · <a href="#">WhatsApp</a></div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon">🌐</div>
+          <div class="contact-info">
+            <div class="contact-label">Сайт</div>
+            <div class="contact-val"><a href="/">venecia-mfc.ru</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSPORT -->
+<section class="transport-section">
+  <div class="ctr">
+    <div class="section-eyebrow">Способы добраться</div>
+    <div class="section-title">Выберите<br>удобный маршрут</div>
+    <div class="transport-grid">
+      <!-- Metro -->
+      <div class="tr-card active">
+        <div class="tr-header">
+          <div class="tr-icon-box">🚇</div>
+          <div>
+            <div class="tr-title">Метро</div>
+            <span class="tr-badge green">Рекомендуем</span>
+          </div>
+        </div>
+        <div class="tr-body">Три станции в пешей доступности. Самый быстрый и предсказуемый способ — без пробок, без поиска парковки.</div>
+        <div class="tr-detail">
+          <div class="tr-detail-row"><span class="tdr-label">Деловой центр</span><span class="tdr-val">МЦД-3, МЦК · Выход № 2 · 5 мин пешком</span></div>
+          <div class="tr-detail-row"><span class="tdr-label">Выставочная</span><span class="tdr-val">Филёвская линия · 7 мин пешком</span></div>
+          <div class="tr-detail-row"><span class="tdr-label">Международная</span><span class="tdr-val">Филёвская линия · 10 мин пешком</span></div>
+          <div class="tr-detail-row"><span class="tdr-label">Маршрут</span><span class="tdr-val">Выход к набережной → вдоль реки → МФК «Венеция»</span></div>
+        </div>
+        <button class="tr-action" onclick="setRouteTab('dc')">Показать маршрут от метро →</button>
+      </div>
+      <!-- Car -->
+      <div class="tr-card">
+        <div class="tr-header">
+          <div class="tr-icon-box">🚗</div>
+          <div>
+            <div class="tr-title">Автомобиль</div>
+            <span class="tr-badge amber">Платная парковка</span>
+          </div>
+        </div>
+        <div class="tr-body">Подземная парковка на 300 машиномест. Первые 30 минут — бесплатно. Для гостей ресторанов — льготный тариф.</div>
+        <div class="tr-detail">
+          <div class="tr-detail-row"><span class="tdr-label">Адрес для навигатора</span><span class="tdr-val">«МФК Венеция» или «Парк Красная Пресня, набережная»</span></div>
+          <div class="tr-detail-row"><span class="tdr-label">С ТТК</span><span class="tdr-val">Съезд на Мантулинскую ул. → набережная</span></div>
+          <div class="tr-detail-row"><span class="tdr-label">Въезд A</span><span class="tdr-val">Со стороны Москва-Сити</span></div>
+          <div class="tr-detail-row"><span class="tdr-label">Въезд B</span><span class="tdr-val">Со стороны парка «Красная Пресня»</span></div>
+        </div>
+        <button class="tr-action" onclick="document.getElementById('parking').scrollIntoView({behavior:'smooth'})">Тарифы и льготы парковки →</button>
+      </div>
+      <!-- Taxi -->
+      <div class="tr-card">
+        <div class="tr-header">
+          <div class="tr-icon-box">🚕</div>
+          <div>
+            <div class="tr-title">Такси и каршеринг</div>
+            <span class="tr-badge green">Удобно</span>
+          </div>
+        </div>
+        <div class="tr-body">Точка высадки — главный вход со стороны набережной. Для каршеринга — зоны возврата на прилегающей территории.</div>
+        <div class="tr-detail">
+          <div class="tr-detail-row"><span class="tdr-label">Яндекс.Такси</span><span class="tdr-val">Адрес: «МФК Венеция, Пресня»</span></div>
+          <div class="tr-detail-row"><span class="tdr-label">СитиДрайв</span><span class="tdr-val">Зона возврата у главного входа</span></div>
+          <div class="tr-detail-row"><span class="tdr-label">Делимобиль</span><span class="tdr-val">Парковочная зона набережной</span></div>
+        </div>
+        <a href="https://taxi.yandex.ru" target="_blank" class="tr-action">Заказать Яндекс.Такси ↗</a>
+      </div>
+      <!-- Scooter -->
+      <div class="tr-card">
+        <div class="tr-header">
+          <div class="tr-icon-box">🛵</div>
+          <div>
+            <div class="tr-title">Самокат и велосипед</div>
+            <span class="tr-badge green">Бесплатная парковка</span>
+          </div>
+        </div>
+        <div class="tr-body">Станции Яндекс.Самокатов и Whoosh прямо у входа. Велопарковка на 40 мест с навесом.</div>
+        <div class="tr-detail">
+          <div class="tr-detail-row"><span class="tdr-label">Яндекс.Самокат</span><span class="tdr-val">Станция у главного входа, 12 самокатов</span></div>
+          <div class="tr-detail-row"><span class="tdr-label">Whoosh</span><span class="tdr-val">Станция у набережной, 8 самокатов</span></div>
+          <div class="tr-detail-row"><span class="tdr-label">Велопарковка</span><span class="tdr-val">40 мест с навесом, 1 уровень</span></div>
+        </div>
+        <button class="tr-action">Карта точек проката ↗</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARKING -->
+<section class="parking-section" id="parking">
+  <div class="ctr">
+    <div class="park-layout">
+      <div>
+        <div class="section-eyebrow" style="color:rgba(198,161,91,.65);">Подземная парковка</div>
+        <div class="park-title">300 мест<br><em>под землёй</em></div>
+        <p class="park-desc">Два уровня подземного паркинга с прямым лифтом на все этажи центра. Первые 30 минут бесплатно для всех гостей.</p>
+        <div class="park-meta">
+          <div class="pm-row"><span class="pm-label">Первые 30 минут</span><span class="pm-val">Бесплатно</span></div>
+          <div class="pm-row"><span class="pm-label">До 3 часов</span><span class="pm-val">150 ₽ / час</span></div>
+          <div class="pm-row"><span class="pm-label">Более 3 часов</span><span class="pm-val">100 ₽ / час</span></div>
+          <div class="pm-row"><span class="pm-label">Ночь (22:00–8:00)</span><span class="pm-val">200 ₽ за период</span></div>
+          <div class="pm-row"><span class="pm-label">Гости ресторанов</span><span class="pm-val">−50% при чеке от 2 000 ₽</span></div>
+          <div class="pm-row"><span class="pm-label">Велнес-клуб</span><span class="pm-val">Бесплатно для членов</span></div>
+          <div class="pm-row"><span class="pm-label">МГН</span><span class="pm-val">15 мест, уровень −1, зона C — бесплатно</span></div>
+        </div>
+        <div class="park-cta" style="margin-top:24px;">
+          <button class="btn-gold">Забронировать место</button>
+        </div>
+      </div>
+      <div class="park-right">
+        <div class="park-card">
+          <div class="park-card-title">Въезды на паркинг</div>
+          <div class="park-card-body">
+            <strong style="color:rgba(255,255,255,.75);">Въезд A</strong> — со стороны Москва-Сити, с Краснопресненской набережной<br><br>
+            <strong style="color:rgba(255,255,255,.75);">Въезд B</strong> — со стороны парка «Красная Пресня», сквозной проезд
+          </div>
+        </div>
+        <div class="park-card">
+          <div class="park-card-title">Электрозарядка EV</div>
+          <div class="park-card-body">8 точек зарядки на уровнях −1 и −2. Поддержка Type 2, CCS, CHAdeMO. Мощность до 22 кВт. Оплата через мобильное приложение.</div>
+        </div>
+        <div class="park-card">
+          <div class="park-card-title">Автомойка</div>
+          <div class="park-card-body">Ручная мойка на уровне −1, зона D. Комплексная от 1 500 ₽. Химчистка по предварительной записи: +7 (495) 100-03-01.</div>
+        </div>
+        <div class="park-card">
+          <div class="park-card-title">Охрана и видеонаблюдение</div>
+          <div class="park-card-body">Круглосуточная охрана и полное видеонаблюдение на всех уровнях паркинга. Экстренная кнопка у каждого лифтового холла.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTE FROM METRO -->
+<section class="route-section">
+  <div class="ctr">
+    <div class="section-eyebrow">Пешеходный маршрут</div>
+    <div class="section-title">От метро до входа</div>
+    <div class="route-tabs" id="routeTabs">
+      <button class="rtab active" data-tab="dc" onclick="setRouteTab('dc')">ст. Деловой центр</button>
+      <button class="rtab" data-tab="vyst" onclick="setRouteTab('vyst')">ст. Выставочная</button>
+      <button class="rtab" data-tab="mezhd" onclick="setRouteTab('mezhd')">ст. Международная</button>
+    </div>
+
+    <!-- Tab: Деловой центр -->
+    <div class="route-panel active" id="tab-dc">
+      <div class="route-steps">
+        <div class="route-step">
+          <div class="rs-num">1</div>
+          <div class="rs-content"><div class="rs-text">Выйти из метро <strong>Деловой центр</strong> — Выход № 2 (в сторону набережной)</div><div class="rs-dist">Прямо по указателям «Набережная»</div></div>
+        </div>
+        <div class="route-step">
+          <div class="rs-num">2</div>
+          <div class="rs-content"><div class="rs-text">Повернуть <strong>налево</strong> и идти вдоль башен Москва-Сити в сторону реки</div><div class="rs-dist">≈ 200 м · 2–3 мин</div></div>
+        </div>
+        <div class="route-step">
+          <div class="rs-num">3</div>
+          <div class="rs-content"><div class="rs-text">Спуститься к <strong>Краснопресненской набережной</strong>. Впереди — парк «Красная Пресня»</div><div class="rs-dist">≈ 150 м</div></div>
+        </div>
+        <div class="route-step">
+          <div class="rs-num">4</div>
+          <div class="rs-content"><div class="rs-text">Идти вдоль набережной мимо парка. Впереди появится <strong>фасад «Венеции»</strong> с колоннами</div><div class="rs-dist">≈ 250 м · 3 мин</div></div>
+        </div>
+        <div class="route-step">
+          <div class="rs-num">5</div>
+          <div class="rs-content"><div class="rs-text"><strong>Главный вход</strong> со стороны набережной — стеклянные двери с вывеской «ВЕНЕЦИЯ»</div><div class="rs-dist">Итого: ≈ 600 м · 5–7 мин пешком</div></div>
+        </div>
+      </div>
+      <div class="route-visual">
+        <div class="route-visual-map">
+          <!-- Streets -->
+          <div class="rv-street" style="top:30%;left:0;right:0;height:3px;background:rgba(255,255,255,.6);"></div>
+          <div class="rv-street" style="top:0;bottom:0;left:25%;width:2px;background:rgba(255,255,255,.5);"></div>
+          <div class="rv-street" style="bottom:0;left:0;right:0;height:80px;background:rgba(59,139,212,.18);border-top:2px solid rgba(59,139,212,.35);"></div>
+          <!-- Labels -->
+          <div class="rv-label" style="top:32%;left:30%;">Краснопресненская наб.</div>
+          <div class="rv-label" style="bottom:20px;right:20px;color:rgba(59,139,212,.75);">Москва-река</div>
+          <!-- Metro -->
+          <div class="rv-metro" style="top:24%;left:22%;">М</div>
+          <div class="rv-label" style="top:17%;left:14%;">Деловой центр</div>
+          <!-- Path dashed -->
+          <div style="position:absolute;top:26%;left:24%;width:2px;height:20%;background:repeating-linear-gradient(to bottom,rgba(198,161,91,.8) 0,rgba(198,161,91,.8) 6px,transparent 6px,transparent 12px);"></div>
+          <div style="position:absolute;top:46%;left:24%;width:40%;height:2px;background:repeating-linear-gradient(to right,rgba(198,161,91,.8) 0,rgba(198,161,91,.8) 6px,transparent 6px,transparent 12px);"></div>
+          <!-- Destination -->
+          <div style="position:absolute;top:34%;left:60%;width:72px;height:54px;background:rgba(74,11,24,.15);border:1.5px solid rgba(74,11,24,.4);border-radius:2px;display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:10px;font-weight:600;color:rgba(74,11,24,.8);text-align:center;">ВЕНЕЦИЯ</span>
+          </div>
+          <div class="rv-label" style="top:27%;left:62%;">← главный вход</div>
+          <!-- Direction arrow -->
+          <div style="position:absolute;top:43%;left:55%;font-size:14px;color:rgba(198,161,91,.9);">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Выставочная -->
+    <div class="route-panel" id="tab-vyst">
+      <div class="route-steps">
+        <div class="route-step"><div class="rs-num">1</div><div class="rs-content"><div class="rs-text">Выйти из ст. <strong>Выставочная</strong> (Филёвская линия). Выход один — в сторону улицы.</div><div class="rs-dist">Следовать к набережной</div></div></div>
+        <div class="route-step"><div class="rs-num">2</div><div class="rs-content"><div class="rs-text">Выйти на <strong>Краснопресненскую набережную</strong>. Повернуть налево — в сторону Москва-Сити.</div><div class="rs-dist">≈ 300 м</div></div></div>
+        <div class="route-step"><div class="rs-num">3</div><div class="rs-content"><div class="rs-text">Идти вдоль набережной. Пройти Экспоцентр, далее появится <strong>фасад «Венеции»</strong>.</div><div class="rs-dist">≈ 400 м · 5 мин</div></div></div>
+        <div class="route-step"><div class="rs-num">4</div><div class="rs-content"><div class="rs-text"><strong>Главный вход</strong> — стеклянный фасад с вывеской ВЕНЕЦИЯ со стороны набережной.</div><div class="rs-dist">Итого: ≈ 700 м · 7–8 мин</div></div></div>
+      </div>
+      <div class="route-visual">
+        <div class="route-visual-map">
+          <div class="rv-street" style="top:35%;left:0;right:0;height:3px;background:rgba(255,255,255,.6);"></div>
+          <div class="rv-street" style="bottom:0;left:0;right:0;height:80px;background:rgba(59,139,212,.18);border-top:2px solid rgba(59,139,212,.35);"></div>
+          <div class="rv-label" style="top:37%;left:10%;">Краснопресненская наб.</div>
+          <div class="rv-label" style="bottom:20px;right:20px;color:rgba(59,139,212,.75);">Москва-река</div>
+          <div class="rv-metro" style="top:20%;left:10%;background:#003f8a;color:#fff;font-size:8px;border-color:#003f8a;">М</div>
+          <div class="rv-label" style="top:13%;left:2%;">Выставочная</div>
+          <div style="position:absolute;top:22%;left:11%;width:2px;height:30%;background:repeating-linear-gradient(to bottom,rgba(198,161,91,.8) 0,rgba(198,161,91,.8) 6px,transparent 6px,transparent 12px);"></div>
+          <div style="position:absolute;top:37%;left:11%;width:45%;height:2px;background:repeating-linear-gradient(to right,rgba(198,161,91,.8) 0,rgba(198,161,91,.8) 6px,transparent 6px,transparent 12px);"></div>
+          <div style="position:absolute;top:25%;left:52%;width:72px;height:54px;background:rgba(74,11,24,.15);border:1.5px solid rgba(74,11,24,.4);border-radius:2px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant Garamond',serif;font-size:10px;font-weight:600;color:rgba(74,11,24,.8);">ВЕНЕЦИЯ</span></div>
+          <div style="position:absolute;top:34%;left:46%;font-size:14px;color:rgba(198,161,91,.9);">→</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Международная -->
+    <div class="route-panel" id="tab-mezhd">
+      <div class="route-steps">
+        <div class="route-step"><div class="rs-num">1</div><div class="rs-content"><div class="rs-text">Выйти из ст. <strong>Международная</strong> (Филёвская линия). Направление — в сторону «Москва-Сити».</div></div></div>
+        <div class="route-step"><div class="rs-num">2</div><div class="rs-content"><div class="rs-text">Пройти через пешеходный переход и спуститься к <strong>Краснопресненской набережной</strong>.</div><div class="rs-dist">≈ 400 м</div></div></div>
+        <div class="route-step"><div class="rs-num">3</div><div class="rs-content"><div class="rs-text">Повернуть направо, идти вдоль реки. Пройти башни Москва-Сити — впереди парк и <strong>«Венеция»</strong>.</div><div class="rs-dist">≈ 500 м · 6 мин</div></div></div>
+        <div class="route-step"><div class="rs-num">4</div><div class="rs-content"><div class="rs-text"><strong>Главный вход</strong> слева от парка «Красная Пресня».</div><div class="rs-dist">Итого: ≈ 900 м · 10 мин</div></div></div>
+      </div>
+      <div class="route-visual">
+        <div class="route-visual-map">
+          <div class="rv-street" style="top:40%;left:0;right:0;height:3px;background:rgba(255,255,255,.6);"></div>
+          <div class="rv-street" style="bottom:0;left:0;right:0;height:80px;background:rgba(59,139,212,.18);border-top:2px solid rgba(59,139,212,.35);"></div>
+          <div class="rv-label" style="top:42%;left:10%;">Краснопресненская наб.</div>
+          <div class="rv-label" style="bottom:20px;right:20px;color:rgba(59,139,212,.75);">Москва-река</div>
+          <div class="rv-metro" style="top:15%;left:5%;background:#003f8a;color:#fff;font-size:7px;border-color:#003f8a;">М</div>
+          <div class="rv-label" style="top:8%;left:0%;">Международная</div>
+          <div style="position:absolute;top:17%;left:6%;width:2px;height:38%;background:repeating-linear-gradient(to bottom,rgba(198,161,91,.8) 0,rgba(198,161,91,.8) 6px,transparent 6px,transparent 12px);"></div>
+          <div style="position:absolute;top:40%;left:6%;width:50%;height:2px;background:repeating-linear-gradient(to right,rgba(198,161,91,.8) 0,rgba(198,161,91,.8) 6px,transparent 6px,transparent 12px);"></div>
+          <div style="position:absolute;top:26%;left:52%;width:72px;height:54px;background:rgba(74,11,24,.15);border:1.5px solid rgba(74,11,24,.4);border-radius:2px;display:flex;align-items:center;justify-content:center;"><span style="font-family:'Cormorant Garamond',serif;font-size:10px;font-weight:600;color:rgba(74,11,24,.8);">ВЕНЕЦИЯ</span></div>
+          <div style="position:absolute;top:37%;left:47%;font-size:14px;color:rgba(198,161,91,.9);">→</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESSIBLE -->
+<section class="access-section">
+  <div class="ctr">
+    <div class="section-eyebrow">Доступная среда</div>
+    <div class="section-title" style="margin-bottom:0;">Удобно для всех</div>
+    <div class="access-grid">
+      <div class="access-card">
+        <div class="ac-icon">♿</div>
+        <div class="ac-title">Безбарьерный вход</div>
+        <div class="ac-body">Пандусы и автоматические двери у всех входов. Специальный въезд для колясок с уровня набережной. Кнопка вызова сотрудника у каждого входа.</div>
+      </div>
+      <div class="access-card">
+        <div class="ac-icon">🛗</div>
+        <div class="ac-title">Лифты и навигация</div>
+        <div class="ac-body">Лифты с тактильными кнопками и звуковым сопровождением на всех этажах. Тактильные полосы на полу у входов и лифтов. Шрифт Брайля на указателях.</div>
+      </div>
+      <div class="access-card">
+        <div class="ac-icon">🅿</div>
+        <div class="ac-title">Парковка МГН</div>
+        <div class="ac-body">15 расширенных мест на уровне −1, зона C. Бесплатно. Прямой выход на лифт в здание. Разметка и указатели.</div>
+      </div>
+      <div class="access-card">
+        <div class="ac-icon">🚻</div>
+        <div class="ac-title">Санузлы</div>
+        <div class="ac-body">Туалеты для МГН на каждом этаже — просторные, с поручнями и кнопкой экстренного вызова. Пеленальные столики на 1-м и 4-м этажах.</div>
+      </div>
+      <div class="access-card">
+        <div class="ac-icon">🦽</div>
+        <div class="ac-title">Кресла-коляски</div>
+        <div class="ac-body">Кресла-коляски выдаются бесплатно на информационной стойке (1 этаж). Сопровождение по запросу. Помощь с покупками и навигацией.</div>
+      </div>
+      <div class="access-card">
+        <div class="ac-icon">👶</div>
+        <div class="ac-title">Комната матери и ребёнка</div>
+        <div class="ac-body">Тихая комната с пеленальным столиком, диваном для кормления и холодильником. Уровень 1, рядом с информационной стойкой.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="ctr">
+    <div class="section-eyebrow">Часто задают</div>
+    <div class="section-title">Вопросы и ответы</div>
+    <div class="faq-layout">
+      <div class="faq-list" id="faqList">
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Можно ли приехать с собакой?</span><span class="faq-chv">▾</span></div><div class="faq-a">Да, небольшие собаки на поводке или в переноске приветствуются. В ресторанах и супермаркете — только в переноске. В велнес-клубе — нет. На улице и в парке — без ограничений.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Есть ли бесплатный Wi-Fi?</span><span class="faq-chv">▾</span></div><div class="faq-a">Да, бесплатный Wi-Fi «Venecia-Free» доступен на всех этажах центра. Пароль не требуется — авторизация по SMS.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Как добраться от аэропорта?</span><span class="faq-chv">▾</span></div><div class="faq-a">Из Шереметьево: Аэроэкспресс до Белорусской → метро до Делового центра. Около 55 мин. Из Домодедово: метро до Деловой Центр через центр. Около 1 ч 20 мин. Такси — 40–60 мин в зависимости от пробок.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Есть ли камеры хранения?</span><span class="faq-chv">▾</span></div><div class="faq-a">Да, камеры хранения на 0-м этаже у зоны Перекрёстка. Хранение до 3 часов — бесплатно. Далее — 100 ₽ за каждый час. Крупногабаритные вещи принимаем у информационной стойки.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>До скольки работает в воскресенье?</span><span class="faq-chv">▾</span></div><div class="faq-a">Режим работы в воскресенье такой же: 10:00–22:00. Рестораны работают до 23:00. Перекрёсток Селект — до 23:00. Велнес-клуб для членов — с 07:00 до 23:00.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Где оставить велосипед?</span><span class="faq-chv">▾</span></div><div class="faq-a">Велопарковка на 40 мест с навесом у главного входа со стороны набережной. Есть кольца для замков. Велосипеды внутрь не проносим.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Где ближайший банкомат?</span><span class="faq-chv">▾</span></div><div class="faq-a">Банкоматы Сбербанка и ВТБ — 1 этаж у информационной стойки. Работают круглосуточно. Также банкоматы есть на 0-м этаже у Перекрёстка.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)"><span>Работаете ли в праздничные дни?</span><span class="faq-chv">▾</span></div><div class="faq-a">В большинство праздников работаем в обычном режиме. В 1 января — выходной. Накануне праздников (31 декабря, 7 января) режим сокращён до 20:00. Актуальное расписание — в нашем Telegram-канале.</div></div>
+      </div>
+      <!-- Schedule card -->
+      <div>
+        <div class="schedule-card">
+          <div class="sc-eyebrow">Сегодня</div>
+          <div class="sc-title">Расписание зон</div>
+          <div class="sc-rows" id="scheduleRows"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section class="social">
+  <div class="ctr">
+    <div class="soc-inner">
+      <div>
+        <div class="soc-eyebrow">Подпишитесь на нас</div>
+        <div class="soc-title">Будьте в <em>первом ряду</em><br>главных событий</div>
+        <p class="soc-sub">Новые открытия, события, акции — первыми в нашем канале</p>
+      </div>
+      <div class="soc-btns">
+        <a href="#" class="sb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>Instagram<span class="sb-cnt">12K</span></a>
+        <a href="#" class="sb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.96 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>Telegram<span class="sb-cnt">8.4K</span></a>
+        <div class="soc-div"></div>
+        <a href="#" class="sb sb-pri">Подписаться →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="ctr">
+    <div class="ft-inner">
+      <div><div class="ft-logo">ВЕНЕЦИЯ</div><div class="ft-desc">МФК на Краснопресненской набережной, рядом с Москва-Сити. Открытие — III кв. 2026.</div></div>
+      <div class="ft-col"><h4>Навигация</h4><ul>
+        <li><a href="venecia_shops_v3.html">Магазины и бренды</a></li>
+        <li><a href="venecia_restaurants.html">Рестораны</a></li>
+        <li><a href="#">Велнес и СПА</a></li>
+        <li><a href="venecia_floormap.html">Схема центра</a></li>
+        <li><a href="#">События</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>Контакты</h4><ul>
+        <li><a href="tel:+74950000000">+7 (495) 000-00-00</a></li>
+        <li><a href="mailto:info@venecia-mfc.ru">info@venecia-mfc.ru</a></li>
+        <li><a href="#">Telegram</a></li>
+        <li><a href="#">WhatsApp</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-bottom"><p>© 2026 МФК «Венеция». Все права защищены.</p><p>venecia-mfc.ru</p></div>
+  </div>
+</footer>
+
+<script>
+// ── STATUS WIDGET ──
+const ZONES_HOURS=[
+  {label:'Торговый центр',open:'10:00',close:'22:00',always:false},
+  {label:'Рестораны',open:'11:00',close:'23:00',always:false},
+  {label:'Велнес-клуб',open:'07:00',close:'23:00',always:false},
+  {label:'Перекрёсток',open:'08:00',close:'23:00',always:false},
+  {label:'Паркинг',open:'00:00',close:'24:00',always:true},
+];
+function pad(n){return String(n).padStart(2,'0');}
+function updateStatus(){
+  const now=new Date();
+  const h=now.getHours(),m=now.getMinutes();
+  const mainOpen=h>=10&&h<22;
+  const dot=document.getElementById('statusDot');
+  const txt=document.getElementById('statusText');
+  const cd=document.getElementById('statusCountdown');
+  dot.className='status-dot '+(mainOpen?'open':'closed');
+  if(mainOpen){
+    txt.innerHTML='Открыто · до <em>22:00</em>';
+    const total=(22-h-1)*60+(60-m);
+    cd.innerHTML=`До закрытия: <strong>${Math.floor(total/60)} ч ${total%60} мин</strong>`;
+  } else {
+    txt.innerHTML='<em>Закрыто</em> · открываемся в 10:00';
+    const minsToOpen=h<10?(10-h)*60-m:(24-h+10)*60-m;
+    cd.innerHTML=`До открытия: <strong>${Math.floor(minsToOpen/60)} ч ${minsToOpen%60} мин</strong>`;
+  }
+  // hours table
+  const tbl=document.getElementById('hoursTable');
+  tbl.innerHTML=ZONES_HOURS.map(z=>{
+    const oh=parseInt(z.open);const cl=parseInt(z.close);
+    const isOpen=z.always||(h>=oh&&h<(cl===24?24:cl));
+    return`<div class="hours-row">
+      <span class="hr-label">${z.label}</span>
+      <span class="hr-val">${z.always?'Круглосуточно':z.open+'–'+z.close}</span>
+      <span class="hr-badge ${isOpen?'hr-open':'hr-closed'}">${isOpen?'Открыто':'Закрыто'}</span>
+    </div>`;}).join('');
+  // schedule card
+  const sr=document.getElementById('scheduleRows');
+  if(sr) sr.innerHTML=ZONES_HOURS.map(z=>{
+    const oh=parseInt(z.open);const cl=parseInt(z.close);
+    const isOpen=z.always||(h>=oh&&h<(cl===24?24:cl));
+    return`<div class="sc-row">
+      <span class="sc-zone">${z.label}</span>
+      <span class="sc-time">${z.always?'24/7':z.open+'–'+z.close}</span>
+      <span class="sc-status ${isOpen?'sc-open':'sc-closed'}">${isOpen?'Открыто':'Закрыто'}</span>
+    </div>`;}).join('');
+}
+updateStatus();setInterval(updateStatus,60000);
+
+// ── COPY ADDRESS ──
+function copyAddr(){
+  navigator.clipboard?.writeText('Краснопресненская набережная, Москва, МФК Венеция').then(()=>alert('Адрес скопирован!'));
+}
+
+// ── ROUTE TABS ──
+function setRouteTab(id){
+  document.querySelectorAll('.rtab').forEach(t=>t.classList.toggle('active',t.dataset.tab===id));
+  document.querySelectorAll('.route-panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+id));
+}
+
+// ── FAQ ──
+function toggleFaq(el){
+  const a=el.nextElementSibling;
+  const chv=el.querySelector('.faq-chv');
+  const open=a.classList.contains('open');
+  a.classList.toggle('open',!open);
+  chv.classList.toggle('open',!open);
+}
+
+// ── BURGER ──
+const bb=document.getElementById('bb'),ov=document.getElementById('ov'),sd=document.getElementById('side'),sc=document.getElementById('sc');
+bb.addEventListener('click',()=>{sd.classList.add('open');ov.classList.add('open');document.body.style.overflow='hidden';});
+[sc,ov].forEach(el=>el.addEventListener('click',()=>{sd.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}));
+document.querySelectorAll('.side a').forEach(a=>a.addEventListener('click',()=>{sd.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}));
+</script>
+</body>
+</html>
