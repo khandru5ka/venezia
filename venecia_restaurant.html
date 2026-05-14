@@ -145,24 +145,7 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
 .nr-price{font-size:11px;color:var(--muted);}
 
 /* ── SIDEBAR ── */
-.sb-book{background:var(--bordo);padding:28px;margin-bottom:14px;}
-.sb-book-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:#fff;margin-bottom:18px;letter-spacing:-.01em;}
-.bw-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:5px;}
-.bw-field{margin-bottom:10px;}
-.bw-sel,.bw-inp{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);padding:10px 13px;font-family:'Raleway',sans-serif;font-size:13px;color:#fff;outline:none;transition:var(--tr);appearance:none;-webkit-appearance:none;}
-.bw-sel:focus,.bw-inp:focus{border-color:rgba(198,161,91,.55);}
-.bw-sel option{background:var(--bordo);}
 .bw-row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.bw-submit{width:100%;background:var(--gold);color:#fff;border:none;padding:13px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:var(--tr);margin-top:4px;}
-.bw-submit:hover{background:var(--gold-d);}
-.bw-slots-wrap{margin-top:14px;display:none;}
-.bw-slots-wrap.visible{display:block;}
-.bw-sl-label{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.06em;margin-bottom:8px;}
-.sl-row{display:flex;gap:5px;flex-wrap:wrap;}
-.sl{padding:6px 11px;border:1px solid rgba(255,255,255,.16);font-size:11px;color:rgba(255,255,255,.65);cursor:pointer;transition:var(--tr);}
-.sl:hover{border-color:var(--gold);color:var(--gold);}
-.sl.busy{opacity:.3;cursor:not-allowed;text-decoration:line-through;}
-.sl.sel{background:var(--gold);border-color:var(--gold);color:#fff;}
 /* meta card */
 .sb-card{background:var(--sand);padding:24px;margin-bottom:14px;}
 .sc-title{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
@@ -245,11 +228,7 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
 .ft-bottom p{font-size:11px;color:rgba(255,255,255,.16);}
 
 /* mobile sticky CTA */
-.sticky-cta{position:fixed;bottom:0;left:0;right:0;background:var(--bordo);padding:14px 20px;z-index:150;display:none;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(198,161,91,.2);}
-.sticky-cta-text{font-size:13px;color:rgba(255,255,255,.75);font-weight:300;}
 .sticky-cta-text strong{color:#fff;font-weight:600;}
-.sticky-cta-btn{background:var(--gold);color:#fff;border:none;padding:11px 22px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;}
-
 /* lightbox */
 .lb{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:600;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
 .lb.open{opacity:1;pointer-events:all;}
@@ -260,11 +239,29 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
 .lb-prev{left:20px;} .lb-next{right:20px;}
 .lb-prev:hover,.lb-next:hover{background:rgba(198,161,91,.3);color:#fff;}
 
-@media(max-width:1100px){.layout{grid-template-columns:1fr;}.sidebar{position:static;padding:0;border-top:1px solid var(--rule);}.main-col{padding:48px 0 0;border-right:none;}.sticky-cta{display:flex;} body{padding-bottom:70px;}}
+@media(max-width:1100px){.layout{grid-template-columns:1fr;}.sidebar{position:static;padding:0;border-top:1px solid var(--rule);}.main-col{padding:48px 0 0;border-right:none;}}
 @media(max-width:768px){.gal-grid{grid-template-columns:1fr;height:auto;}.gal-thumbs{display:none;}.rv-inner{grid-template-columns:1fr;}.ev-grid{grid-template-columns:1fr;}.nearby-grid{grid-template-columns:1fr 1fr;}.formats-grid{grid-template-columns:1fr;}.menu-grid{grid-template-columns:1fr;}.soc-inner{flex-direction:column;}}
 
 .menu-pdf-btn{display:inline-flex;align-items:center;gap:10px;background:var(--bordo);color:#fff;padding:14px 32px;font-family:'Raleway',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:.2s;}
 .menu-pdf-btn:hover{background:var(--bordo-m,#6B1024);}
+
+/* ── HOURS BAR ── */
+.hours-bar{background:#fff;border-bottom:2px solid var(--rule);padding:0;}
+.hours-bar-inner{display:flex;align-items:stretch;flex-wrap:wrap;}
+.hb-status{display:flex;align-items:center;gap:12px;padding:18px 32px;background:var(--bordo);min-width:220px;}
+.hb-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.hb-dot.open{background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.25);}
+.hb-dot.closed{background:#f87171;}
+.hb-status-text{font-size:14px;font-weight:600;color:#fff;letter-spacing:.02em;}
+.hb-time{font-size:12px;color:rgba(255,255,255,.6);margin-top:2px;}
+.hb-items{display:flex;align-items:center;flex-wrap:wrap;flex:1;}
+.hb-item{display:flex;align-items:center;gap:8px;padding:18px 28px;border-right:1px solid var(--rule);font-size:13px;color:var(--ink);}
+.hb-item:last-child{border-right:none;}
+.hb-item-icon{font-size:16px;flex-shrink:0;}
+.hb-item-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;}
+.hb-item-val{font-size:13px;font-weight:500;color:var(--ink);}
+@media(max-width:768px){.hb-status{min-width:unset;width:100%;}.hb-item{padding:12px 16px;}.hb-item-icon{display:none;}}
+
 </style>
 </head>
 <body>
@@ -298,6 +295,20 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
   <a href="#">Как добраться</a>
 </div>
 
+<!-- HOURS BAR -->
+<div class="hours-bar" id="hoursBar">
+  <div class="hours-bar-inner">
+    <div class="hb-status">
+      <div class="hb-dot" id="hbDot"></div>
+      <div>
+        <div class="hb-status-text" id="hbStatusText"></div>
+        <div class="hb-time" id="hbHours"></div>
+      </div>
+    </div>
+    <div class="hb-items" id="hbItems"></div>
+  </div>
+</div>
+
 <!-- BREADCRUMB -->
 <div class="ctr"><div class="breadcrumb">
   <a href="/">Главная</a><span>›</span>
@@ -317,7 +328,7 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
     <div class="hero-tags" id="heroTags"></div>
     <div class="hero-meta" id="heroMeta"></div>
     <div class="hero-actions">
-      <a href="#booking" class="btn-gold">Забронировать стол</a>
+      
       <a href="#menu" class="btn-ghost-w">Смотреть меню ↓</a>
     </div>
   </div></div>
@@ -378,51 +389,6 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
 
     <!-- SIDEBAR -->
     <div class="sidebar">
-
-      <!-- BOOKING FORM -->
-      <div class="sb-book" id="booking">
-        <div class="sb-book-title">Забронировать стол</div>
-        <div class="bw-field">
-          <div class="bw-label">Дата</div>
-          <input class="bw-inp" type="date" id="sbDate">
-        </div>
-        <div class="bw-row2">
-          <div class="bw-field">
-            <div class="bw-label">Время</div>
-            <select class="bw-sel" id="sbTime">
-              <option>12:00</option><option>13:00</option><option>14:00</option>
-              <option>18:00</option><option>19:00</option><option selected>19:30</option>
-              <option>20:00</option><option>20:30</option><option>21:00</option>
-            </select>
-          </div>
-          <div class="bw-field">
-            <div class="bw-label">Гостей</div>
-            <select class="bw-sel" id="sbGuests">
-              <option>1</option><option selected>2</option><option>3</option>
-              <option>4</option><option>5–6</option><option>7+</option>
-            </select>
-          </div>
-        </div>
-        <div class="bw-field">
-          <div class="bw-label">Имя</div>
-          <input class="bw-inp" type="text" placeholder="Ваше имя">
-        </div>
-        <div class="bw-field">
-          <div class="bw-label">Телефон</div>
-          <input class="bw-inp" type="tel" placeholder="+7 (___) ___-__-__">
-        </div>
-        <div class="bw-field" id="commentField" style="display:none;">
-          <div class="bw-label">Пожелания</div>
-          <input class="bw-inp" type="text" placeholder="Столик у окна, повод...">
-        </div>
-        <div style="margin-bottom:8px;"><a href="#" onclick="document.getElementById('commentField').style.display='block';this.style.display='none';return false;" style="font-size:11px;color:rgba(255,255,255,.4);text-decoration:none;letter-spacing:.04em;">+ Добавить пожелания</a></div>
-        <button class="bw-submit" onclick="showSbSlots()">Проверить наличие →</button>
-        <div class="bw-slots-wrap" id="sbSlots">
-          <div class="bw-sl-label">Свободные столики</div>
-          <div class="sl-row" id="sbSlotRow"></div>
-          <button class="bw-submit" style="margin-top:10px;" id="confirmBtn" onclick="confirmBook()">Подтвердить бронь</button>
-        </div>
-      </div>
 
       <!-- META INFO -->
       <div class="sb-card">
@@ -530,9 +496,7 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
   </div>
 </footer>
 
-<!-- MOBILE STICKY CTA -->
-<div class="sticky-cta">
-  <div class="sticky-cta-text"><strong id="stickyName"></strong> · 4 этаж</div>
+
   <button class="sticky-cta-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Забронировать стол</button>
 </div>
 
@@ -701,7 +665,7 @@ function init(){
     </a>`).join('');
 
   // date
-  document.getElementById('sbDate').valueAsDate=new Date();
+  
 }
 
 function renderMenu(restoId,cat){
@@ -718,21 +682,6 @@ function renderMenu(restoId,cat){
     </div>`).join('');
 }
 
-function showSbSlots(){
-  const slots=['12:00','13:00','18:30','19:00','19:30','20:00','20:30','21:00'];
-  const busy=['19:00','20:30'];
-  document.getElementById('sbSlotRow').innerHTML=slots.map(s=>`<div class="sl${busy.includes(s)?' busy':''}" onclick="selSlot(this)">${s}</div>`).join('');
-  document.getElementById('sbSlots').classList.add('visible');
-}
-function selSlot(el){
-  if(el.classList.contains('busy'))return;
-  document.querySelectorAll('.sl').forEach(s=>s.classList.remove('sel'));
-  el.classList.add('sel');
-}
-function confirmBook(){
-  alert('Бронь подтверждена! SMS придёт на указанный номер.');
-  document.getElementById('sbSlots').classList.remove('visible');
-}
 
 // lightbox
 function openLb(i){lbIdx=i;document.getElementById('lbImg').src=lbImgs[i];document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden';}
@@ -748,6 +697,38 @@ bb.addEventListener('click',()=>{sd.classList.add('open');ov.classList.add('open
 document.querySelectorAll('.side a').forEach(a=>a.addEventListener('click',()=>{sd.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}));
 
 init();
+
+// Populate hours bar
+function initHoursBar(){
+  const id = getParam();
+  const d = DATA[id] || DATA.alba;
+  const now = new Date().getHours();
+  const metaArr = Array.isArray(d.meta) ? d.meta : [];
+  const getM = (key) => { const row = metaArr.find(m => m[0] === key); return row ? row[1] : ''; };
+  const hoursStr = getM('Часы') || d.hours || '12:00–23:00';
+  const openH = parseInt(hoursStr.split(':')[0]) || 12;
+  const closeH = parseInt((hoursStr.split('–')[1] || '23').split(':')[0]) || 23;
+  const isOpen = now >= openH && now < closeH;
+
+  const dot = document.getElementById('hbDot');
+  if(dot) dot.className = 'hb-dot ' + (isOpen ? 'open' : 'closed');
+  const statusEl = document.getElementById('hbStatusText');
+  if(statusEl) statusEl.textContent = isOpen ? 'Открыто сейчас' : 'Сейчас закрыто';
+  const hoursEl = document.getElementById('hbHours');
+  if(hoursEl) hoursEl.textContent = hoursStr;
+
+  const items = [
+    {icon:'📍', label:'Этаж', val: getM('Этаж') || '4 этаж'},
+    {icon:'📞', label:'Телефон', val: getM('Телефон') || '+7 (495) 100-02-01'},
+    {icon:'💰', label:'Средний чек', val: getM('Средний чек') || 'от 2 000 ₽/чел.'},
+  ];
+  const itemsEl = document.getElementById('hbItems');
+  if(itemsEl) itemsEl.innerHTML = items.map(it =>
+    `<div class="hb-item"><span class="hb-item-icon">${it.icon}</span><div><span class="hb-item-label">${it.label}</span><span class="hb-item-val">${it.val}</span></div></div>`
+  ).join('');
+}
+initHoursBar();
+
 </script>
 </body>
 </html>

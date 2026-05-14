@@ -68,24 +68,6 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
 .ht-btn.active{background:rgba(198,161,91,.35);border-color:var(--gold);color:rgba(230,205,155,.95);}
 
 /* ── BOOKING WIDGET ── */
-.booking-wrap{background:var(--bordo);padding:28px 0;}
-.booking-inner{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;}
-.bw-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:6px;}
-.bw-field{display:flex;flex-direction:column;flex:1;min-width:130px;}
-.bw-select,.bw-input{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:11px 14px;font-family:'Raleway',sans-serif;font-size:13px;color:#fff;outline:none;transition:var(--tr);appearance:none;-webkit-appearance:none;}
-.bw-select:focus,.bw-input:focus{border-color:rgba(198,161,91,.6);}
-.bw-select option{background:var(--bordo);color:#fff;}
-.bw-btn{background:var(--gold);color:#fff;border:none;padding:12px 28px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:var(--tr);white-space:nowrap;flex-shrink:0;align-self:flex-end;}
-.bw-btn:hover{background:var(--gold-d);}
-.bw-slots{margin-top:16px;display:none;}
-.bw-slots.visible{display:block;}
-.bw-slots-label{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:8px;letter-spacing:.06em;}
-.slot-row{display:flex;gap:6px;flex-wrap:wrap;}
-.slot{padding:6px 14px;border:1px solid rgba(255,255,255,.18);font-size:12px;color:rgba(255,255,255,.7);cursor:pointer;transition:var(--tr);}
-.slot:hover{border-color:var(--gold);color:var(--gold);}
-.slot.busy{opacity:.35;cursor:not-allowed;text-decoration:line-through;}
-.slot.sel{background:var(--gold);border-color:var(--gold);color:#fff;}
-
 /* ── OCCASION FILTERS ── */
 .occasions{padding:36px 0 0;}
 .occ-label{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
@@ -310,7 +292,7 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
     </div>
   </div>
   <div class="pano-cta">
-    <a href="#booking" class="btn-gold">Забронировать столик с видом</a>
+    
   </div>
 </section>
 
@@ -425,7 +407,7 @@ function renderRestos(){
         </div>
         <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;">
           <span style="font-size:11px;color:var(--muted);font-weight:300;">4 этаж · ${r.view}</span>
-          <span class="rc-book">Забронировать →</span>
+          
         </div>
       </div>
     </a>`).join('');
@@ -437,23 +419,10 @@ document.getElementById('occRow').addEventListener('click',e=>{
   btn.classList.add('active');activeOcc=btn.dataset.occ;renderRestos();
 });
 
-function showSlots(){
-  const d=document.getElementById('bwDate').value;
-  const slots=['18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00'];
-  const busy=['19:00','20:00'];
-  document.getElementById('slotRow').innerHTML=slots.map(s=>`<div class="slot${busy.includes(s)?' busy':''}" onclick="selectSlot(this,'${s}')">${s}</div>`).join('');
-  document.getElementById('slotsDate').textContent=d?new Date(d).toLocaleDateString('ru',{day:'numeric',month:'long'}):'сегодня';
-  document.getElementById('bwSlots').classList.add('visible');
-}
-function selectSlot(el,t){
-  if(el.classList.contains('busy'))return;
-  document.querySelectorAll('.slot').forEach(s=>s.classList.remove('sel'));
-  el.classList.add('sel');
-}
 
 // Set today's date
 const today=new Date();
-document.getElementById('bwDate').valueAsDate=today;
+
 const h=today.getHours();
 document.getElementById('heroOpenStatus').textContent=h>=22||h<10?'Закрыто · Открываемся в 12:00':h>=12&&h<23?`Открыто до 23:00`:'Открывается в 12:00';
 
