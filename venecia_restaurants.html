@@ -258,53 +258,13 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
         <span class="hero-meta-item" id="heroOpenStatus">Открыто до 23:00</span>
       </div>
       <div class="hero-actions">
-        <a href="#booking" class="btn-gold">Забронировать стол</a>
+        
         <a href="#restaurants" class="btn-ghost">Смотреть рестораны ↓</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- BOOKING WIDGET -->
-<div class="booking-wrap" id="booking">
-  <div class="ctr">
-    <div class="booking-inner">
-      <div class="bw-field" style="max-width:200px;">
-        <div class="bw-label">Ресторан</div>
-        <select class="bw-select" id="bwResto">
-          <option value="">Любой</option>
-          <option value="alba">Панорамный (Alba Group)</option>
-          <option value="ribambelle">Семейный (Ribambelle)</option>
-          <option value="rappoport">Классический (Раппопорта)</option>
-          <option value="wrf">Гастробар (WRF)</option>
-        </select>
-      </div>
-      <div class="bw-field" style="max-width:160px;">
-        <div class="bw-label">Дата</div>
-        <input class="bw-input" type="date" id="bwDate">
-      </div>
-      <div class="bw-field" style="max-width:110px;">
-        <div class="bw-label">Время</div>
-        <select class="bw-select" id="bwTime">
-          <option>19:00</option><option>19:30</option><option>20:00</option>
-          <option>20:30</option><option>21:00</option><option>21:30</option>
-        </select>
-      </div>
-      <div class="bw-field" style="max-width:100px;">
-        <div class="bw-label">Гостей</div>
-        <select class="bw-select" id="bwGuests">
-          <option>1</option><option selected>2</option><option>3</option>
-          <option>4</option><option>5–6</option><option>7+</option>
-        </select>
-      </div>
-      <button class="bw-btn" onclick="showSlots()">Найти столик →</button>
-    </div>
-    <div class="bw-slots" id="bwSlots">
-      <div class="bw-slots-label">Доступные столики — <span id="slotsDate">сегодня</span></div>
-      <div class="slot-row" id="slotRow"></div>
-    </div>
-  </div>
-</div>
 
 <!-- OCCASION FILTERS -->
 <div class="occasions ctr" id="restaurants">
@@ -325,33 +285,7 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
   <div class="resto-grid" id="restoGrid"></div>
 </div>
 
-<!-- BUSINESS LUNCH -->
-<section class="lunch-section">
-  <div class="ctr">
-    <div class="lunch-inner">
-      <div>
-        <div class="lunch-eyebrow">Ежедневно пн–пт</div>
-        <h2 class="lunch-title">Бизнес-<br><em>ланч</em></h2>
-        <p class="lunch-desc">Рабочий обед в 5 минутах от Москва-Сити. Три блюда с видом на реку — пока конкуренты едят в кофейне у лифта.</p>
-        <div class="lunch-details">
-          <div class="ld-row"><span class="ld-key">Время</span><span class="ld-val">12:00–15:00, пн–пт</span></div>
-          <div class="ld-row"><span class="ld-key">Формат</span><span class="ld-val">Суп + основное + напиток</span></div>
-          <div class="ld-row"><span class="ld-key">Цена</span><span class="ld-val">от 890 руб./чел.</span></div>
-          <div class="ld-row"><span class="ld-key">Рестораны</span><span class="ld-val">Alba Group, Рестораны Раппопорта</span></div>
-        </div>
-        <div style="margin-top:24px;display:flex;gap:10px;">
-          <a href="venecia_restaurant.html?resto=alba" class="btn-gold" style="font-size:12px;">Забронировать</a>
-        </div>
-      </div>
-      <div class="lunch-right">
-        <div class="lunch-img"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=85" alt="Бизнес-ланч вид"></div>
-        <div class="lunch-img"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=85" alt="Бизнес-ланч блюда"></div>
-        <div class="lunch-img"><img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=600&q=85" alt="Интерьер"></div>
-        <div class="lunch-img"><img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&q=85" alt="Стол"></div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- PANORAMA GALLERY -->
 <section class="pano-section">

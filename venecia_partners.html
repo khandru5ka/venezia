@@ -271,6 +271,26 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
 
 @media(max-width:1024px){.form-layout{grid-template-columns:1fr;}.form-left{padding-right:0;border-right:none;border-bottom:1px solid var(--rule);padding-bottom:48px;margin-bottom:48px;}.form-right{padding-left:0;}.loc-layout{grid-template-columns:1fr;}.aud-header{grid-template-columns:1fr;gap:16px;}.aud-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:768px){.formats-inner{grid-template-columns:repeat(2,1fr);}.type-grid{grid-template-columns:1fr;}.hero-stats{flex-direction:column;gap:16px;}.aud-grid{grid-template-columns:1fr;}.res-grid{grid-template-columns:1fr;}.floor-table .fl-desc,.floor-table .fl-area{display:none;}.cb-inner{flex-direction:column;}.floor-table{display:block;}}
+
+/* ── CONTENT GATE ── */
+.gate-wrapper{position:relative;}
+.gate-locked{filter:blur(6px);pointer-events:none;user-select:none;overflow:hidden;max-height:340px;}
+.gate-overlay{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(to bottom,rgba(250,248,242,0) 0%,rgba(250,248,242,0.96) 38%,rgba(250,248,242,1) 100%);}
+.gate-box{background:#fff;border:1px solid var(--rule);padding:40px 48px;text-align:center;max-width:480px;box-shadow:0 20px 60px rgba(0,0,0,0.08);}
+.gate-icon{font-size:32px;margin-bottom:16px;}
+.gate-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--bordo);line-height:1;margin-bottom:10px;}
+.gate-sub{font-size:14px;color:var(--muted);font-weight:300;line-height:1.75;margin-bottom:24px;}
+.gate-form{display:flex;flex-direction:column;gap:10px;}
+.gate-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.gate-inp{background:var(--cream);border:1px solid var(--rule);padding:11px 14px;font-family:'Raleway',sans-serif;font-size:13px;color:var(--ink);outline:none;transition:.2s;width:100%;}
+.gate-inp:focus{border-color:rgba(201,169,110,.5);}
+.gate-inp::placeholder{color:rgba(122,110,98,.4);}
+.gate-btn{background:var(--gold);color:#fff;border:none;padding:13px;font-family:'Raleway',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.2s;width:100%;}
+.gate-btn:hover{background:var(--gold-d);}
+.gate-note{font-size:11px;color:var(--muted);margin-top:6px;}
+.hidden-content{display:none;}
+.hidden-content.unlocked{display:block;}
+
 </style>
 </head>
 <body>
@@ -441,6 +461,29 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
   </div>
 </section>
 
+<!-- GATE WRAPPER -->
+<div id="gateWrapper">
+  <!-- Blurred preview -->
+  <div id="gateLocked" class="gate-locked"><div style="padding:60px 0 20px;background:var(--cream);"><div class="ctr" style="opacity:.35;display:flex;flex-direction:column;gap:16px;"><div style="height:14px;background:rgba(74,11,24,.25);width:160px;border-radius:2px;"></div><div style="height:40px;background:rgba(74,11,24,.15);width:300px;border-radius:2px;"></div><div style="height:10px;background:var(--rule);border-radius:2px;"></div><div style="height:10px;background:var(--rule);width:80%;border-radius:2px;"></div><div style="height:10px;background:var(--rule);width:60%;border-radius:2px;"></div></div></div></div>
+  <!-- Gate form overlay -->
+  <div id="gateOverlay" class="gate-overlay">
+    <div class="gate-box">
+      <div class="gate-icon">🔐</div>
+      <div class="gate-title">Материалы для партнёров</div>
+      <div class="gate-sub">Планы этажей, свободные площади и условия аренды — после короткой регистрации.</div>
+      <div class="gate-form">
+        <div class="gate-row">
+          <input class="gate-inp" id="gateName" type="text" placeholder="Ваше имя">
+          <input class="gate-inp" id="gateCompany" type="text" placeholder="Компания / бренд">
+        </div>
+        <input class="gate-inp" id="gateEmail" type="email" placeholder="Email">
+        <button class="gate-btn" onclick="unlockContent()">Получить доступ →</button>
+        <div class="gate-note">Без спама. Только актуальная информация об объекте.</div>
+      </div>
+    </div>
+  </div>
+  <!-- Revealed content -->
+  <div id="hiddenContent" class="hidden-content">
 <!-- LOCATION -->
 <section class="location-section" id="location">
   <div class="loc-layout">
@@ -563,29 +606,6 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
     </div>
   </div>
 </section>
-
-<!-- CONTACTS BAND -->
-<div class="contacts-band">
-  <div class="ctr">
-    <div class="cb-inner">
-      <div class="cb-left">
-        <div class="cb-eyebrow">Директор по аренде</div>
-        <div class="cb-name">Мария Соколова</div>
-        <div class="cb-role">Отвечает в течение 24 часов</div>
-        <div class="cb-links">
-          <a href="tel:+74951000300" class="cb-link"><span>📞</span> +7 (495) 100-03-00</a>
-          <a href="mailto:lease@venecia-mfc.ru" class="cb-link"><span>✉</span> lease@venecia-mfc.ru</a>
-          <a href="#" class="cb-link"><span>💬</span> Telegram: @venecia_lease</a>
-        </div>
-      </div>
-      <div class="cb-right">
-        <a href="#form" class="cb-btn gold">Оставить заявку</a>
-        <a href="#" class="cb-btn outline" onclick="downloadKit();return false;">Скачать презентацию ↓</a>
-        <a href="#" class="cb-btn outline">Записаться на тур ↗</a>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- FORM SECTION -->
 <section class="form-section" id="form">
@@ -792,6 +812,514 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
   </div>
 </section>
 
+  </div>
+</div>
+</header>
+<div class="ov" id="ov"></div>
+<div class="side" id="side">
+  <button class="side-close" id="sc">✕</button>
+  <a href="#formats">Форматы аренды</a>
+  <a href="#audience">Наша аудитория</a>
+  <a href="#location">Локация</a>
+  <a href="#floors">Свободные площади</a>
+  <a href="#residents">Резиденты</a>
+  <a href="#form">Оставить заявку</a>
+  <a href="/">Сайт для посетителей</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-bg" src="https://images.unsplash.com/photo-1513326738677-b964603b136d?w=1920&q=85" alt="МФК Венеция">
+  <div class="hero-grad"></div>
+  <div class="hero-body">
+    <div class="ctr">
+      <div class="hero-content">
+        <div class="hero-eyebrow">МФК «Венеция» · Аренда и партнёрство</div>
+        <h1 class="hero-h1">Ваш бренд —<br>перед <em>300 000</em><br>гостей ежедневно</h1>
+        <p class="hero-sub">Новая точка притяжения на Краснопресненской набережной. Премиальная аудитория Москва-Сити, уникальная архитектура, кураторский отбор резидентов.</p>
+        <div class="hero-stats">
+          <div class="hs-item">
+            <div class="hs-num">~1 млн</div>
+            <div class="hs-label">Жителей в зоне охвата</div>
+          </div>
+          <div class="hs-item">
+            <div class="hs-num">300 тыс.</div>
+            <div class="hs-label">Офисный трафик ежедневно</div>
+          </div>
+          <div class="hs-item">
+            <div class="hs-num">23 000 м²</div>
+            <div class="hs-label">Арендопригодной площади</div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a href="#form" class="btn-gold-lg">Оставить заявку</a>
+          <a href="#" class="btn-ghost-lg" onclick="downloadKit()">Скачать презентацию ↓</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATS -->
+<section class="formats-section" id="formats">
+  <div class="formats-inner">
+    <div class="fmt-tab active" onclick="selectFmt(this,'retail')" data-fmt="retail">
+      <div class="fmt-icon">🛍</div>
+      <div class="fmt-name">Долгосрочная аренда</div>
+      <div class="fmt-desc">Якорные и boutique-позиции от 50 до 2 000 м² на 2–5 лет. Кураторский отбор.</div>
+      <span class="fmt-tag">От 50 м²</span>
+    </div>
+    <div class="fmt-tab" onclick="selectFmt(this,'resto')" data-fmt="resto">
+      <div class="fmt-icon">🍽</div>
+      <div class="fmt-name">Ресторан или кафе</div>
+      <div class="fmt-desc">Видовые позиции на 4-м этаже. Вечерний трафик, деловая аудитория.</div>
+      <span class="fmt-tag">4 этаж · Панорама</span>
+    </div>
+    <div class="fmt-tab" onclick="selectFmt(this,'popup')" data-fmt="popup">
+      <div class="fmt-icon">⚡</div>
+      <div class="fmt-name">Поп-ап формат</div>
+      <div class="fmt-desc">От 2 недель до 3 месяцев. Торговая галерея, 1 этаж. Фиксированная ставка.</div>
+      <span class="fmt-tag">От 2 недель</span>
+    </div>
+    <div class="fmt-tab" onclick="selectFmt(this,'partner')" data-fmt="partner">
+      <div class="fmt-icon">🤝</div>
+      <div class="fmt-name">Партнёрство</div>
+      <div class="fmt-desc">Спонсорство, брендинг зон, совместные события. Не аренда — стратегия.</div>
+      <span class="fmt-tag">Нестандарт</span>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="audience-section" id="audience">
+  <div class="ctr">
+    <div class="aud-header">
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(198,161,91,.6);margin-bottom:12px;">Наша аудитория</div>
+        <h2 class="aud-title">Ваш покупатель<br>уже <em>здесь</em></h2>
+      </div>
+      <p class="aud-sub">Ценители брендов и качества, персонализированного подхода и уникальных впечатлений. Средний доход — 300–700 тыс. ₽/мес. Частота визитов — 2–4 раза в неделю.</p>
+    </div>
+    <div class="aud-grid">
+      <div class="aud-card">
+        <div class="ac-pct ac-c1">35%</div>
+        <div class="ac-name">Премиальное ядро</div>
+        <div class="ac-detail">
+          <div class="acd-row"><span class="acd-k">Возраст</span><span class="acd-v">35–55 лет</span></div>
+          <div class="acd-row"><span class="acd-k">Доход</span><span class="acd-v">500+ тыс. ₽/мес</span></div>
+          <div class="acd-row"><span class="acd-k">Откуда</span><span class="acd-v">Жители Capital Towers, RedSide, Lucky</span></div>
+          <div class="acd-row"><span class="acd-k">Шоппинг</span><span class="acd-v">2–3 раза в месяц</span></div>
+          <div class="acd-row"><span class="acd-k">Фитнес</span><span class="acd-v">2–3 раза в неделю</span></div>
+        </div>
+      </div>
+      <div class="aud-card">
+        <div class="ac-pct ac-c2">30%</div>
+        <div class="ac-name">Офисные сотрудники</div>
+        <div class="ac-detail">
+          <div class="acd-row"><span class="acd-k">Возраст</span><span class="acd-v">30–45 лет</span></div>
+          <div class="acd-row"><span class="acd-k">Доход</span><span class="acd-v">300–700 тыс. ₽/мес</span></div>
+          <div class="acd-row"><span class="acd-k">Откуда</span><span class="acd-v">Москва-Сити, топ-менеджмент</span></div>
+          <div class="acd-row"><span class="acd-k">Ланч</span><span class="acd-v">5 раз в неделю</span></div>
+          <div class="acd-row"><span class="acd-k">Шоппинг</span><span class="acd-v">2–3 раза в месяц</span></div>
+        </div>
+      </div>
+      <div class="aud-card">
+        <div class="ac-pct ac-c3">20%</div>
+        <div class="ac-name">Жители района</div>
+        <div class="ac-detail">
+          <div class="acd-row"><span class="acd-k">Возраст</span><span class="acd-v">25–45 лет</span></div>
+          <div class="acd-row"><span class="acd-k">Доход</span><span class="acd-v">200+ тыс. ₽/мес</span></div>
+          <div class="acd-row"><span class="acd-k">Откуда</span><span class="acd-v">Семьи, творческая среда</span></div>
+          <div class="acd-row"><span class="acd-k">Визиты</span><span class="acd-v">1–2 раза в неделю</span></div>
+          <div class="acd-row"><span class="acd-k">Фокус</span><span class="acd-v">Продукты, сервисы, кафе</span></div>
+        </div>
+      </div>
+      <div class="aud-card">
+        <div class="ac-pct ac-c4">15%</div>
+        <div class="ac-name">Туристы и гости</div>
+        <div class="ac-detail">
+          <div class="acd-row"><span class="acd-k">Профиль</span><span class="acd-v">Гости столицы у Москва-Сити</span></div>
+          <div class="acd-row"><span class="acd-k">Интерес</span><span class="acd-v">Рестораны, шоппинг, виды</span></div>
+          <div class="acd-row"><span class="acd-k">Чек</span><span class="acd-v">Высокий разовый</span></div>
+          <div class="acd-row"><span class="acd-k">Канал</span><span class="acd-v">Рекомендации, карты</span></div>
+          <div class="acd-row"><span class="acd-k">Пик</span><span class="acd-v">Сб–Вс, праздники</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="aud-bottom">
+      <div class="ab-item">
+        <div class="ab-num">2 500 ₽</div>
+        <div class="ab-label">Средний чек<br>в ресторанах</div>
+      </div>
+      <div class="ab-item">
+        <div class="ab-num">35%</div>
+        <div class="ab-label">Выше средний чек<br>vs другие точки у резидентов</div>
+      </div>
+      <div class="ab-item">
+        <div class="ab-num">3×/нед</div>
+        <div class="ab-label">Возвратный трафик<br>от велнес-клуба</div>
+      </div>
+      <div class="ab-item">
+        <div class="ab-num">70%</div>
+        <div class="ab-label">Женщины<br>в основной аудитории</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GATE WRAPPER -->
+<div id="gateWrapper">
+  <!-- Blurred preview -->
+  <div id="gateLocked" class="gate-locked"><div style="padding:60px 0 20px;background:var(--cream);"><div class="ctr" style="opacity:.35;display:flex;flex-direction:column;gap:16px;"><div style="height:14px;background:rgba(74,11,24,.25);width:160px;border-radius:2px;"></div><div style="height:40px;background:rgba(74,11,24,.15);width:300px;border-radius:2px;"></div><div style="height:10px;background:var(--rule);border-radius:2px;"></div><div style="height:10px;background:var(--rule);width:80%;border-radius:2px;"></div><div style="height:10px;background:var(--rule);width:60%;border-radius:2px;"></div></div></div></div>
+  <!-- Gate form overlay -->
+  <div id="gateOverlay" class="gate-overlay">
+    <div class="gate-box">
+      <div class="gate-icon">🔐</div>
+      <div class="gate-title">Материалы для партнёров</div>
+      <div class="gate-sub">Планы этажей, свободные площади и условия аренды — после короткой регистрации.</div>
+      <div class="gate-form">
+        <div class="gate-row">
+          <input class="gate-inp" id="gateName" type="text" placeholder="Ваше имя">
+          <input class="gate-inp" id="gateCompany" type="text" placeholder="Компания / бренд">
+        </div>
+        <input class="gate-inp" id="gateEmail" type="email" placeholder="Email">
+        <button class="gate-btn" onclick="unlockContent()">Получить доступ →</button>
+        <div class="gate-note">Без спама. Только актуальная информация об объекте.</div>
+      </div>
+    </div>
+  </div>
+  <!-- Revealed content -->
+  <div id="hiddenContent" class="hidden-content">
+<!-- LOCATION -->
+<section class="location-section" id="location">
+  <div class="loc-layout">
+    <!-- Map -->
+    <div class="loc-map">
+      <div class="loc-map-inner">
+        <!-- Streets -->
+        <div class="loc-street" style="top:38%;left:0;right:0;height:3px;background:rgba(255,255,255,.6);"></div>
+        <div class="loc-street" style="top:0;bottom:0;left:35%;width:2px;background:rgba(255,255,255,.5);"></div>
+        <div class="loc-street" style="top:0;bottom:0;left:65%;width:1.5px;background:rgba(255,255,255,.4);"></div>
+        <!-- River -->
+        <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:rgba(59,139,212,.2);border-top:2px solid rgba(59,139,212,.4);z-index:1;"></div>
+        <!-- Street labels -->
+        <div style="position:absolute;top:40%;left:10px;font-family:'Raleway',sans-serif;font-size:9px;color:rgba(15,12,8,.5);z-index:2;">Краснопресненская наб.</div>
+        <!-- Metro marks -->
+        <div class="loc-metro" style="top:28%;left:32%;z-index:3;"></div>
+        <div class="loc-metro-label" style="top:20%;left:24%;">Деловой центр</div>
+        <div class="loc-metro" style="top:25%;left:62%;background:#003f8a;z-index:3;"></div>
+        <div class="loc-metro-label" style="top:18%;left:56%;">Выставочная</div>
+        <!-- Destination -->
+        <div style="position:absolute;top:30%;left:42%;z-index:5;">
+          <div class="loc-pin"><div class="loc-pin-inner">📍</div></div>
+        </div>
+        <div style="position:absolute;top:23%;left:34%;font-family:'Cormorant Garamond',serif;font-size:11px;font-weight:600;color:var(--bordo);background:rgba(250,248,243,.9);padding:4px 10px;z-index:5;">ВЕНЕЦИЯ</div>
+        <div class="loc-river-label" style="z-index:3;">МОСКВА-РЕКА</div>
+        <!-- Park -->
+        <div style="position:absolute;top:42%;left:42%;right:15%;height:28%;background:rgba(61,153,112,.15);border:1px solid rgba(61,153,112,.3);z-index:1;display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:'Raleway',sans-serif;font-size:9px;color:rgba(15,80,41,.6);font-weight:500;letter-spacing:.06em;">Парк</span>
+        </div>
+      </div>
+    </div>
+    <!-- Content -->
+    <div class="loc-content">
+      <div>
+        <div class="loc-eyebrow">Локация с гарантированным спросом</div>
+        <h2 class="loc-title">Краснопресненская набережная — незанятая ниша</h2>
+      </div>
+      <div class="loc-args">
+        <div class="la-row">
+          <div class="la-icon">🚇</div>
+          <div class="la-content">
+            <div class="la-title">3 станции метро в 5–10 минутах</div>
+            <div class="la-desc">Деловой центр (МЦД), Выставочная, Международная — максимальная транспортная доступность без автомобиля.</div>
+          </div>
+        </div>
+        <div class="la-row">
+          <div class="la-icon">🏢</div>
+          <div class="la-content">
+            <div class="la-title">Москва-Сити — ежедневный трафик топ-менеджеров</div>
+            <div class="la-desc">300 000 офисных сотрудников ищут обеды, шоппинг и велнес в пешей доступности. Этой инфраструктуры не было.</div>
+          </div>
+        </div>
+        <div class="la-row">
+          <div class="la-icon">🏠</div>
+          <div class="la-content">
+            <div class="la-title">Премиальное жильё в зоне охвата</div>
+            <div class="la-desc">Capital Towers, RedSide, Бадаевский — более 15 ЖК премиум-класса вокруг. Покупательная способность выше среднего по Москве.</div>
+          </div>
+        </div>
+        <div class="la-row">
+          <div class="la-icon">🚫</div>
+          <div class="la-content">
+            <div class="la-title">Нет конкурентного ТЦ рядом</div>
+            <div class="la-desc">Ближайший сопоставимый ТЦ — Афимолл, 15 минут езды. Вы заходите в незанятую нишу первым.</div>
+          </div>
+        </div>
+        <div class="la-row">
+          <div class="la-icon">💎</div>
+          <div class="la-content">
+            <div class="la-title">Кураторский отбор = монополия в своём сегменте</div>
+            <div class="la-desc">Один бренд в категории — никакой внутренней конкуренции. Ваш сегмент аудитории принадлежит только вам.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLOOR AVAILABILITY -->
+<section class="floors-section" id="floors">
+  <div class="ctr">
+    <div class="floors-header">
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);margin-bottom:12px;">Свободные площади</div>
+        <h2 class="floors-title">Выберите<br>свой этаж</h2>
+      </div>
+      <p class="floors-sub">Нажмите на этаж, чтобы увидеть доступные зоны. Ставки — по запросу, индивидуально.</p>
+    </div>
+    <div class="floor-table" id="floorTable">
+      <!-- rows injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- RESIDENTS -->
+<section class="residents-section" id="residents">
+  <div class="ctr">
+    <div style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);margin-bottom:12px;">Уже в Венеции</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.5vw,44px);font-weight:600;color:var(--bordo);line-height:1;letter-spacing:-.01em;margin-bottom:8px;">Правильное соседство<br>брендов</h2>
+    <p style="font-size:14px;color:var(--muted);font-weight:300;max-width:540px;line-height:1.8;">Мы строим экосистему, где каждый резидент усиливает соседей. Brunello Cucinelli поднимает статус этажа. Золотое яблоко генерирует женский трафик. Велнес-клуб создаёт возвратный поток.</p>
+    <div class="res-grid">
+      <div class="res-card">
+        <div class="res-logo-area"><div class="res-logo">Brunello Cucinelli</div></div>
+        <div class="res-cat">Премиум мода · 3 этаж</div>
+        <div class="res-quote">Единственный бутик в районе Москва-Сити. Для нас «Венеция» — это правильная аудитория в правильном месте.</div>
+        <div class="res-author">— Директор по развитию Brunello Cucinelli в России</div>
+      </div>
+      <div class="res-card">
+        <div class="res-logo-area"><div class="res-logo">Alba Group</div></div>
+        <div class="res-cat">Рестораны · 4 этаж</div>
+        <div class="res-quote">Вид на Москву-реку и ежедневный трафик деловой аудитории — это то, чего не хватало нашему формату. Средний чек здесь на 35% выше других точек.</div>
+        <div class="res-author">— Операционный директор Alba Group</div>
+      </div>
+      <div class="res-card">
+        <div class="res-logo-area"><div class="res-logo">Золотое яблоко</div></div>
+        <div class="res-cat">Красота · 1 этаж</div>
+        <div class="res-quote">Поп-ап формат дал нам возможность тестировать эксклюзивную коллекцию без риска. Результат превзошёл ожидания — продлили до постоянного формата.</div>
+        <div class="res-author">— Менеджер по развитию сети</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM SECTION -->
+<section class="form-section" id="form">
+  <div class="ctr">
+    <div class="form-layout">
+      <!-- Left: pitch -->
+      <div class="form-left">
+        <div class="form-eyebrow">Стать резидентом</div>
+        <h2 class="form-title">Расскажите<br>о вашем<br><em>бренде</em></h2>
+        <p class="form-desc">Мы отвечаем на все заявки в течение 24 часов. После — звонок, очный тур по объекту и персональное коммерческое предложение.</p>
+        <div class="promises">
+          <div class="promise-row">
+            <div class="pr-icon">⚡</div>
+            <div class="pr-content">
+              <div class="pr-title">Ответ в течение 24 часов</div>
+              <div class="pr-desc">Менеджер позвонит лично — не автоответчик, не шаблонное письмо.</div>
+            </div>
+          </div>
+          <div class="promise-row">
+            <div class="pr-icon">🏛</div>
+            <div class="pr-content">
+              <div class="pr-title">Тур по объекту</div>
+              <div class="pr-desc">Покажем пространство вживую, познакомим с командой и соседними резидентами.</div>
+            </div>
+          </div>
+          <div class="promise-row">
+            <div class="pr-icon">📊</div>
+            <div class="pr-content">
+              <div class="pr-title">Персональный трафик-анализ</div>
+              <div class="pr-desc">Подготовим данные по вашей целевой аудитории в зоне охвата — до переговоров.</div>
+            </div>
+          </div>
+          <div class="promise-row">
+            <div class="pr-icon">🔒</div>
+            <div class="pr-content">
+              <div class="pr-title">Конфиденциальность</div>
+              <div class="pr-desc">Данные заявки и переговоры — строго между нами. NDA по запросу.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div class="form-right">
+        <div class="form-widget">
+          <!-- Step indicator -->
+          <div class="step-indicator" id="stepIndicator">
+            <div class="si-item">
+              <div class="si-dot active" id="si1">1</div>
+              <div class="si-label active" id="sl1">Формат</div>
+            </div>
+            <div class="si-line" id="sl-line1"></div>
+            <div class="si-item">
+              <div class="si-dot" id="si2">2</div>
+              <div class="si-label" id="sl2">О бренде</div>
+            </div>
+            <div class="si-line" id="sl-line2"></div>
+            <div class="si-item">
+              <div class="si-dot" id="si3">3</div>
+              <div class="si-label" id="sl3">Контакты</div>
+            </div>
+          </div>
+
+          <!-- STEP 1: Format -->
+          <div class="step-panel active" id="step1">
+            <div class="step-title">Выберите формат</div>
+            <div class="step-sub">Расскажите, какой вид присутствия вас интересует</div>
+            <div class="type-grid" id="typeGrid">
+              <div class="type-tile" data-type="retail" onclick="selectType(this)">
+                <div class="tt-icon">🛍</div>
+                <div class="tt-name">Долгосрочная аренда</div>
+                <div class="tt-desc">От 50 м², от 2 лет. Якорные и boutique-позиции.</div>
+              </div>
+              <div class="type-tile" data-type="resto" onclick="selectType(this)">
+                <div class="tt-icon">🍽</div>
+                <div class="tt-name">Ресторан или кафе</div>
+                <div class="tt-desc">4-й этаж с панорамой. Вечерний трафик.</div>
+              </div>
+              <div class="type-tile" data-type="popup" onclick="selectType(this)">
+                <div class="tt-icon">⚡</div>
+                <div class="tt-name">Поп-ап</div>
+                <div class="tt-desc">От 2 недель. Торговая галерея, 1 этаж.</div>
+              </div>
+              <div class="type-tile" data-type="partner" onclick="selectType(this)">
+                <div class="tt-icon">🤝</div>
+                <div class="tt-name">Партнёрство</div>
+                <div class="tt-desc">Спонсорство, события, брендинг зон.</div>
+              </div>
+            </div>
+            <div class="form-nav">
+              <span></span>
+              <button class="btn-next" onclick="goStep(2)">Далее →</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Brand -->
+          <div class="step-panel" id="step2">
+            <div class="step-title">О вашем бренде</div>
+            <div class="step-sub">Это поможет нам подготовить персональное предложение</div>
+            <div class="field-group">
+              <div class="field">
+                <label class="fl-label">Название бренда *</label>
+                <input class="fl-input" id="f_brand" type="text" placeholder="Название компании или бренда">
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label class="fl-label">Категория *</label>
+                  <select class="fl-select" id="f_cat">
+                    <option value="" disabled selected>Выберите...</option>
+                    <option>Женская мода</option>
+                    <option>Мужская мода</option>
+                    <option>Аксессуары и ювелирные</option>
+                    <option>Косметика и парфюмерия</option>
+                    <option>Продукты и гастрономия</option>
+                    <option>Ресторан / кафе / бар</option>
+                    <option>Велнес и красота</option>
+                    <option>Спорт и активный отдых</option>
+                    <option>Сервисы и услуги</option>
+                    <option>Другое</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="fl-label">Желаемый этаж</label>
+                  <select class="fl-select" id="f_floor">
+                    <option value="" disabled selected>Не важно</option>
+                    <option>0 этаж — продукты и сервисы</option>
+                    <option>1 этаж — торговая галерея</option>
+                    <option>2–3 этаж — универмаг</option>
+                    <option>4 этаж — рестораны</option>
+                    <option>5 этаж — велнес</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label class="fl-label">Площадь: <span id="areaVal">100 м²</span></label>
+                <div class="slider-wrap">
+                  <input class="area-slider" type="range" min="20" max="2000" step="10" value="100" id="areaSlider" oninput="updateArea(this.value)">
+                  <div class="slider-labels"><span class="sl-label">20 м²</span><span class="sl-label">500 м²</span><span class="sl-label">2 000 м²</span></div>
+                </div>
+              </div>
+              <div class="field">
+                <label class="fl-label">Сайт или Instagram</label>
+                <input class="fl-input" id="f_url" type="text" placeholder="https:// или @brand_name">
+              </div>
+            </div>
+            <div class="form-nav">
+              <button class="btn-back" onclick="goStep(1)">← Назад</button>
+              <button class="btn-next" onclick="goStep(3)">Далее →</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Contacts -->
+          <div class="step-panel" id="step3">
+            <div class="step-title">Контактные данные</div>
+            <div class="step-sub">Менеджер свяжется с вами в течение 24 часов</div>
+            <div class="field-group">
+              <div class="field-row">
+                <div class="field">
+                  <label class="fl-label">Имя *</label>
+                  <input class="fl-input" id="f_name" type="text" placeholder="Ваше имя">
+                </div>
+                <div class="field">
+                  <label class="fl-label">Должность</label>
+                  <input class="fl-input" id="f_role" type="text" placeholder="Директор, менеджер...">
+                </div>
+              </div>
+              <div class="field">
+                <label class="fl-label">Email *</label>
+                <input class="fl-input" id="f_email" type="email" placeholder="your@company.ru">
+              </div>
+              <div class="field">
+                <label class="fl-label">Телефон</label>
+                <input class="fl-input" id="f_phone" type="tel" placeholder="+7 (___) ___-__-__">
+              </div>
+              <div class="field">
+                <label class="fl-label">Кратко о концепции</label>
+                <textarea class="fl-input fl-textarea" id="f_concept" placeholder="Несколько слов о вашем формате или пожелании к пространству (необязательно)"></textarea>
+              </div>
+              <div class="form-note">Нажимая «Отправить», вы соглашаетесь с обработкой персональных данных. Мы не передаём данные третьим лицам.</div>
+            </div>
+            <div class="form-nav">
+              <button class="btn-back" onclick="goStep(2)">← Назад</button>
+            </div>
+            <button class="btn-submit" style="margin-top:12px;" onclick="submitForm()">Отправить заявку →</button>
+          </div>
+
+          <!-- SUCCESS -->
+          <div class="form-success" id="formSuccess">
+            <div class="fs-icon">✅</div>
+            <div class="fs-title">Заявка принята!</div>
+            <div class="fs-sub">Спасибо, <strong id="successName">имя</strong>. Ваша заявка для <strong id="successBrand">бренда</strong> передана нашему менеджеру.</div>
+            <a href="#" onclick="downloadKit();return false;" style="display:inline-block;background:var(--bordo);color:#fff;padding:12px 24px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;margin-bottom:4px;">Скачать презентацию ↓</a>
+            <div class="fs-manager">
+              <div class="fsm-avatar">МС</div>
+              <div>
+                <div class="fsm-name">Мария Соколова</div>
+                <div class="fsm-role">Свяжется с вами в течение 24 часов</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  </div>
+</div>
 <!-- FOOTER -->
 <footer class="footer">
   <div class="ctr">
@@ -805,8 +1333,8 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
         <li><a href="#" onclick="downloadKit();return false;">Скачать презентацию</a></li>
       </ul></div>
       <div class="ft-col"><h4>Контакты</h4><ul>
-        <li><a href="tel:+74951000300">+7 (495) 100-03-00</a></li>
-        <li><a href="mailto:lease@venecia-mfc.ru">lease@venecia-mfc.ru</a></li>
+        <li></li>
+        <li></li>
         <li><a href="#">Telegram: @venecia_lease</a></li>
       </ul></div>
       <div class="ft-col"><h4>Для посетителей</h4><ul>
@@ -994,6 +1522,25 @@ document.querySelectorAll('.side a').forEach(a=>a.addEventListener('click',()=>{
 
 // Init
 renderFloors();
+
+function unlockContent() {
+  const name = document.getElementById('gateName').value.trim();
+  const email = document.getElementById('gateEmail').value.trim();
+  const company = document.getElementById('gateCompany').value.trim();
+  if (!name || !email || !email.includes('@')) {
+    const inp = !name ? document.getElementById('gateName') : document.getElementById('gateEmail');
+    inp.style.borderColor = '#c0392b';
+    setTimeout(() => inp.style.borderColor = '', 2000);
+    return;
+  }
+  document.getElementById('gateWrapper').classList.add('unlocked');
+  document.getElementById('gateLocked').style.display = 'none';
+  document.getElementById('gateOverlay').style.display = 'none';
+  document.getElementById('hiddenContent').classList.add('unlocked');
+  // Scroll to revealed content
+  setTimeout(() => document.getElementById('hiddenContent').scrollIntoView({behavior:'smooth'}), 100);
+}
+
 </script>
 </body>
 </html>

@@ -262,6 +262,9 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
 
 @media(max-width:1100px){.layout{grid-template-columns:1fr;}.sidebar{position:static;padding:0;border-top:1px solid var(--rule);}.main-col{padding:48px 0 0;border-right:none;}.sticky-cta{display:flex;} body{padding-bottom:70px;}}
 @media(max-width:768px){.gal-grid{grid-template-columns:1fr;height:auto;}.gal-thumbs{display:none;}.rv-inner{grid-template-columns:1fr;}.ev-grid{grid-template-columns:1fr;}.nearby-grid{grid-template-columns:1fr 1fr;}.formats-grid{grid-template-columns:1fr;}.menu-grid{grid-template-columns:1fr;}.soc-inner{flex-direction:column;}}
+
+.menu-pdf-btn{display:inline-flex;align-items:center;gap:10px;background:var(--bordo);color:#fff;padding:14px 32px;font-family:'Raleway',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:.2s;}
+.menu-pdf-btn:hover{background:var(--bordo-m,#6B1024);}
 </style>
 </head>
 <body>
@@ -348,7 +351,12 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
         <div class="section-eyebrow">Меню</div>
         <div class="menu-cats" id="menuCats"></div>
         <div class="menu-grid" id="menuGrid"></div>
-        <div class="menu-footer"><a href="#" class="menu-pdf">Полное меню PDF ↓</a></div>
+        <div class="menu-footer" style="padding:24px 0;text-align:center;border-top:1px solid var(--rule);">
+  <a href="#" class="menu-pdf-btn" onclick="alert('В реальном проекте: открывается PDF-меню');return false;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0;"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="12" y1="13" x2="12" y2="17"/><line x1="10" y1="15" x2="14" y2="15"/></svg>
+    Открыть полное меню в PDF
+  </a>
+</div>
       </div>
 
       <!-- FORMATS -->
