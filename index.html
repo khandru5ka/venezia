@@ -2,253 +2,404 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>МФК Венеция | Навигация по сайту</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>МФК «Венеция» — Макеты сайта</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Inter',sans-serif;background:#ffffff;color:#1e2a32;line-height:1.5;scroll-behavior:smooth;}
 :root{
-  --sand:#f5efe7;
-  --gold:#c6a15b;
-  --gold-dark:#a47c3e;
-  --deep-blue:#1f3e48;
-  --cream:#fef9f0;
-  --shadow-sm:0 12px 30px rgba(0,0,0,0.05);
-  --transition:all 0.3s ease;
-  --bordo:#6B1024;
-  --bordo-deep:#4A0B18;
+  --ivory:#FAF8F2;--cream:#F5EFE5;--sand:#EDE4D4;
+  --gold:#C9A96E;--gold-d:#A47C3E;--gold-p:#FBF5EA;
+  --bordo:#4A0B18;--bordo-m:#6B1024;--ink:#1A1208;--muted:#8A7E72;
+  --rule:rgba(201,169,110,0.18);--deep:#1f3e48;
 }
-.container{max-width:1280px;margin:0 auto;padding:0 24px;}
+html{scroll-behavior:smooth;}
+body{font-family:'Raleway',sans-serif;background:var(--ivory);color:var(--ink);line-height:1.5;}
 
-.site-header{background:rgba(255,253,248,0.97);backdrop-filter:blur(10px);box-shadow:0 2px 20px rgba(0,0,0,0.03);position:sticky;top:0;z-index:1000;border-bottom:1px solid rgba(198,161,91,0.18);}
-.navbar{display:flex;align-items:center;justify-content:space-between;padding:20px 0;gap:32px;flex-wrap:wrap;}
-.nav-links{display:flex;gap:28px;flex-wrap:wrap;}
-.nav-links a{text-decoration:none;font-weight:500;font-size:14px;color:#4a5c62;transition:var(--transition);letter-spacing:0.02em;}
-.nav-links a:hover{color:var(--gold-dark);}
-.logo{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;letter-spacing:0.12em;color:var(--deep-blue);text-decoration:none;white-space:nowrap;}
+/* HEADER */
+.header{background:var(--bordo);padding:52px 0 56px;text-align:center;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a96e' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+.header-inner{position:relative;z-index:1;}
+.header-eyebrow{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:rgba(198,161,91,.65);margin-bottom:14px;}
+.header-logo{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:600;letter-spacing:.18em;color:#fff;line-height:1;margin-bottom:8px;}
+.header-sub{font-size:13px;color:rgba(255,255,255,.45);font-weight:300;letter-spacing:.06em;margin-bottom:24px;}
+.header-meta{display:inline-flex;gap:0;border:1px solid rgba(255,255,255,.15);overflow:hidden;}
+.hm-item{padding:8px 20px;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);border-right:1px solid rgba(255,255,255,.12);}
+.hm-item:last-child{border-right:none;}
+.hm-item span{color:rgba(198,161,91,.85);font-weight:600;}
 
-.hero-mini{background:linear-gradient(105deg, #f5efe7 0%, #fef9f0 100%);padding:72px 0 56px;text-align:center;border-bottom:1px solid rgba(198,161,91,0.2);}
-.hero-mini h1{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,58px);font-weight:600;color:var(--deep-blue);line-height:1.1;margin-bottom:16px;}
-.hero-mini p{font-size:16px;color:#6a7c84;max-width:620px;margin:0 auto;font-weight:300;}
+/* MAIN */
+.main{max-width:1200px;margin:0 auto;padding:60px 32px 80px;}
 
-.pages-section{padding:72px 0 88px;background:#fff;}
-.section-title{font-size:clamp(28px,3.5vw,44px);font-family:'Playfair Display',serif;margin-bottom:12px;color:var(--deep-blue);text-align:center;}
-.section-sub{text-align:center;color:#6a7c84;max-width:640px;margin:0 auto 48px;font-size:15px;line-height:1.75;}
-.pages-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
-.page-card{background:#fff;border:1px solid rgba(198,161,91,0.2);border-radius:0px;transition:var(--transition);position:relative;overflow:hidden;}
-.page-card:hover{transform:translateY(-6px);box-shadow:0 20px 35px rgba(0,0,0,0.05);border-color:rgba(198,161,91,0.5);}
-/* выделение главной страницы */
-.page-card.featured{border:2px solid var(--gold);background:linear-gradient(135deg, #fffdf9, #fff9f0);}
-.page-card.featured .page-icon{color:var(--gold-dark);}
-.page-card-inner{display:block;text-decoration:none;padding:32px 28px 28px;}
-.page-icon{font-size:32px;margin-bottom:20px;display:inline-block;}
-.page-card h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:600;color:var(--deep-blue);margin-bottom:10px;}
-.page-card p{font-size:13px;color:#6a7c84;line-height:1.6;margin-bottom:20px;}
-.page-link{font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold-dark);display:inline-flex;align-items:center;gap:6px;}
-.page-link::after{content:"→";transition:transform 0.2s;}
-.page-card:hover .page-link::after{transform:translateX(4px);}
+/* SECTION */
+.section-title{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-d);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.section-title::after{content:'';flex:1;height:1px;background:var(--rule);}
 
-.footer{background:#0f1a1f;color:#cfdde3;padding:56px 0 24px;margin-top:0;}
-.footer-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:48px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,0.06);}
-.footer-logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:600;color:var(--gold);letter-spacing:0.14em;margin-bottom:12px;}
-.footer-desc{font-size:13px;color:rgba(255,255,255,0.35);font-weight:300;line-height:1.85;max-width:220px;}
-.footer-col h4{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(198,161,91,0.7);font-weight:600;margin-bottom:18px;}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
-.footer-col ul a{color:rgba(255,255,255,0.42);font-size:13px;text-decoration:none;font-weight:300;transition:.15s;}
-.footer-col ul a:hover{color:var(--gold);}
-.footer-col p{font-size:13px;color:rgba(255,255,255,0.42);font-weight:300;margin-bottom:5px;line-height:1.8;}
-.footer-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-.footer-bottom p{font-size:11px;color:rgba(255,255,255,0.2);}
+/* PAGES GRID */
+.pages-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;background:var(--rule);margin-bottom:3px;}
 
-@media(max-width:1024px){.pages-grid{grid-template-columns:repeat(3,1fr);gap:20px;}}
-@media(max-width:768px){.pages-grid{grid-template-columns:repeat(2,1fr);}.navbar{flex-direction:column;gap:16px;}.nav-links{justify-content:center;}}
-@media(max-width:560px){.pages-grid{grid-template-columns:1fr;}.page-card-inner{padding:24px;}}
+.page-card{background:var(--ivory);display:flex;flex-direction:column;overflow:hidden;text-decoration:none;color:inherit;transition:background .2s;}
+.page-card:hover{background:#fff;}
+.page-card:hover .pc-arrow{transform:translateX(3px);}
+
+/* preview area */
+.pc-preview{height:180px;overflow:hidden;position:relative;background:var(--sand);}
+.pc-preview-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform .5s ease;}
+.page-card:hover .pc-preview-img{transform:scale(1.04);}
+/* color preview for pages without good screenshot */
+.pc-preview-color{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+.pc-preview-icon{font-size:52px;opacity:.3;}
+/* floor badge on preview */
+.pc-tag{position:absolute;top:12px;left:12px;font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;}
+.pc-tag-main{background:var(--bordo);color:#fff;}
+.pc-tag-b2c{background:var(--gold);color:#fff;}
+.pc-tag-b2b{background:var(--deep);color:#fff;}
+.pc-tag-new{background:var(--bordo-m);color:#fff;}
+
+/* card body */
+.pc-body{padding:20px 22px;flex:1;display:flex;flex-direction:column;}
+.pc-section{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-d);margin-bottom:6px;}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--bordo);line-height:1.05;margin-bottom:6px;}
+.pc-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.65;flex:1;}
+.pc-footer{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid var(--rule);}
+.pc-url{font-size:10px;font-weight:600;letter-spacing:.06em;color:var(--muted);font-family:monospace;}
+.pc-arrow{font-size:14px;color:var(--gold);transition:transform .2s;}
+
+/* special cards */
+.page-card.featured .pc-preview{height:240px;}
+.page-card.featured .pc-name{font-size:28px;}
+
+/* brand examples row */
+.brand-examples{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--rule);margin-bottom:3px;}
+.be-card{background:var(--ivory);padding:16px 18px;display:flex;flex-direction:column;gap:6px;cursor:pointer;transition:background .2s;text-decoration:none;color:inherit;}
+.be-card:hover{background:var(--gold-p);}
+.be-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--bordo);}
+.be-url{font-size:10px;color:var(--muted);font-family:monospace;}
+.be-arrow{font-size:11px;color:var(--gold);align-self:flex-end;}
+
+/* stats bar */
+.stats-bar{background:var(--deep);padding:28px 32px;display:flex;gap:0;margin-bottom:48px;}
+.stat-item{flex:1;padding:0 24px;border-right:1px solid rgba(255,255,255,.08);text-align:center;}
+.stat-item:first-child{padding-left:0;}
+.stat-item:last-child{border-right:none;}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:var(--gold);line-height:1;}
+.stat-l{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-top:3px;}
+
+/* legend */
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:16px 0;border-bottom:1px solid var(--rule);margin-bottom:28px;}
+.leg-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);}
+.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+
+/* footer note */
+.footer-note{text-align:center;padding:32px;border-top:1px solid var(--rule);margin-top:48px;}
+.fn-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--bordo);margin-bottom:8px;}
+.fn-sub{font-size:12px;color:var(--muted);font-weight:300;line-height:1.7;}
+
+@media(max-width:900px){.pages-grid,.brand-examples{grid-template-columns:1fr 1fr;}.stats-bar{flex-wrap:wrap;gap:16px;}.stat-item{border-right:none;}}
+@media(max-width:560px){.pages-grid,.brand-examples{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="container">
-    <div class="navbar">
-      <a href="index.html" class="logo">В Е Н Е Ц И Я</a>
-      <div class="nav-links">
-        <a href="venecia_shops.html">Магазины</a>
-        <a href="venecia_restaurants.html">Рестораны</a>
-        <a href="venecia_universam.html">Универмаг</a>
-        <a href="venecia_floormap.html">Схема</a>
-        <a href="venecia_howtoget.html">Как добраться</a>
-        <a href="venecia_news.html">Новости</a>
-      </div>
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-eyebrow">Проектная документация</div>
+    <div class="header-logo">ВЕНЕЦИЯ</div>
+    <div class="header-sub">Многофункциональный центр · Краснопресненская набережная · Открытие III кв. 2026</div>
+    <div class="header-meta">
+      <div class="hm-item">Страниц: <span>10</span></div>
+      <div class="hm-item">Статус: <span>Макеты готовы</span></div>
+      <div class="hm-item">Версия: <span>HTML</span></div>
+      <div class="hm-item">Дата: <span>Май 2026</span></div>
     </div>
   </div>
-</header>
+</div>
 
-<section class="hero-mini">
-  <div class="container">
-    <h1>Многофункциональный центр «Венеция»</h1>
-    <p>Навигация по всем разделам сайта — выберите интересующую страницу и узнайте больше о пространстве, брендах, ресторанах и сервисах.</p>
+<div class="main">
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-n">10</div><div class="stat-l">Страниц создано</div></div>
+    <div class="stat-item"><div class="stat-n">8</div><div class="stat-l">B2C страниц</div></div>
+    <div class="stat-item"><div class="stat-n">1</div><div class="stat-l">B2B страница</div></div>
+    <div class="stat-item"><div class="stat-n">4</div><div class="stat-l">Раздела по брендам</div></div>
   </div>
-</section>
 
-<section class="pages-section">
-  <div class="container">
-    <h2 class="section-title">Все страницы проекта</h2>
-    <div class="section-sub">Универмаг, рестораны с панорамой, велнес-клуб, события и полезная информация</div>
-    <div class="pages-grid">
-      
-      <!-- ГЛАВНАЯ СТРАНИЦА (выделена) -->
-      <div class="page-card featured">
-        <a href="venecia_v3%20%284%29.html" class="page-card-inner">
-          <div class="page-icon">🏠</div>
-          <h3>Главная страница</h3>
-          <p>Полноценный лендинг МФК «Венеция»: карусель, схема этажей, рестораны и велнес-зона.</p>
-          <span class="page-link">Открыть</span>
-        </a>
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:var(--bordo);"></div>Главная</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--gold);"></div>Для покупателей (B2C)</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--deep);"></div>Для арендаторов (B2B)</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--bordo-m);"></div>Актуальная версия</div>
+  </div>
+
+  <!-- B2C MAIN -->
+  <div class="section-title">Основные страницы для посетителей</div>
+  <div class="pages-grid">
+
+    <a class="page-card featured" href="venecia_v3.html" target="_blank">
+      <div class="pc-preview">
+        <img class="pc-preview-img" src="https://images.unsplash.com/photo-1513326738677-b964603b136d?w=600&q=85" alt="Главная">
+        <span class="pc-tag pc-tag-main">Главная</span>
       </div>
-      
-      <div class="page-card">
-        <a href="venecia_brand.html" class="page-card-inner">
-          <div class="page-icon">🏷️</div>
-          <h3>Бренды</h3>
-          <p>Список премиальных марок и дизайнерских брендов, представленных в универмаге.</p>
-          <span class="page-link">Подробнее</span>
-        </a>
+      <div class="pc-body">
+        <div class="pc-section">Фаза 1 · К запуску</div>
+        <div class="pc-name">Главная страница</div>
+        <div class="pc-desc">Hero-карусель, блок «Четыре мира», рестораны, велнес, новости, схема центра, транспорт и футер.</div>
+        <div class="pc-footer">
+          <span class="pc-url">venecia_v3.html</span>
+          <span class="pc-arrow">→</span>
+        </div>
       </div>
-      
-      <div class="page-card">
-        <a href="venecia_floormap.html" class="page-card-inner">
-          <div class="page-icon">🗺️</div>
-          <h3>Схема этажей</h3>
-          <p>Детальная карта центра: магазины, рестораны, велнес-зона и паркинг.</p>
-          <span class="page-link">Подробнее</span>
-        </a>
+    </a>
+
+    <a class="page-card" href="venecia_universam.html" target="_blank">
+      <div class="pc-preview">
+        <img class="pc-preview-img" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=85" alt="Универмаг">
+        <span class="pc-tag pc-tag-new">Новый макет</span>
       </div>
-      
-      <div class="page-card">
-        <a href="venecia_howtoget.html" class="page-card-inner">
-          <div class="page-icon">🚇</div>
-          <h3>Как добраться</h3>
-          <p>Маршруты на метро, МЦК, автомобиле — адрес и парковка.</p>
-          <span class="page-link">Подробнее</span>
-        </a>
+      <div class="pc-body">
+        <div class="pc-section">Фаза 1 · Якорный раздел</div>
+        <div class="pc-name">Универмаг «Венеция»</div>
+        <div class="pc-desc">Поп-ап корнеры на 2–3 этажах. Новинки недели, фильтр по поводу, 60+ брендов, обратный отсчёт поп-апа, запись к стилисту.</div>
+        <div class="pc-footer">
+          <span class="pc-url">venecia_universam.html</span>
+          <span class="pc-arrow">→</span>
+        </div>
       </div>
-      
-      <div class="page-card">
-        <a href="venecia_news.html" class="page-card-inner">
-          <div class="page-icon">📰</div>
-          <h3>Новости</h3>
-          <p>Акции, открытия, гастроужины и события прямо сейчас.</p>
-          <span class="page-link">Подробнее</span>
-        </a>
+    </a>
+
+    <a class="page-card" href="venecia_shops_v3.html" target="_blank">
+      <div class="pc-preview">
+        <img class="pc-preview-img" src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85" alt="Магазины">
+        <span class="pc-tag pc-tag-b2c">v3 — актуальная</span>
       </div>
-      
-      <div class="page-card">
-        <a href="venecia_partners%20%281%29.html" class="page-card-inner">
-          <div class="page-icon">🤝</div>
-          <h3>Партнёры</h3>
-          <p>Наши резиденты, арендаторы и стратегические партнёры.</p>
-          <span class="page-link">Подробнее</span>
-        </a>
+      <div class="pc-body">
+        <div class="pc-section">Фаза 1 · Каталог</div>
+        <div class="pc-name">Магазины и бренды</div>
+        <div class="pc-desc">Каталог всех арендаторов с фильтрами. Поиск, фильтр по этажу, «Только в Венеции», блок событий и соцсети.</div>
+        <div class="pc-footer">
+          <span class="pc-url">venecia_shops_v3.html</span>
+          <span class="pc-arrow">→</span>
+        </div>
       </div>
-      
-      <div class="page-card">
-        <a href="venecia_restaurant.html" class="page-card-inner">
-          <div class="page-icon">🍽️</div>
-          <h3>Ресторан</h3>
-          <p>Авторская кухня, интерьеры и особенности одного из ресторанов.</p>
-          <span class="page-link">Подробнее</span>
-        </a>
+    </a>
+
+    <a class="page-card" href="venecia_restaurants.html" target="_blank">
+      <div class="pc-preview">
+        <img class="pc-preview-img" src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=85" alt="Рестораны">
+        <span class="pc-tag pc-tag-b2c">B2C</span>
       </div>
-      
-      <div class="page-card">
-        <a href="venecia_restaurants.html" class="page-card-inner">
-          <div class="page-icon">🍷</div>
-          <h3>Рестораны</h3>
-          <p>Все гастрономические пространства центра: концепции, шеф-повара, панорамы.</p>
-          <span class="page-link">Подробнее</span>
-        </a>
+      <div class="pc-body">
+        <div class="pc-section">Фаза 1 · Гастрономия</div>
+        <div class="pc-name">Рестораны с видом на Москву</div>
+        <div class="pc-desc">4 ресторана, переключатель день/вечер, виджет бронирования, фильтр по поводу, бизнес-ланч, галерея панорам Москвы.</div>
+        <div class="pc-footer">
+          <span class="pc-url">venecia_restaurants.html</span>
+          <span class="pc-arrow">→</span>
+        </div>
       </div>
-      
-      <div class="page-card">
-        <a href="venecia_shops.html" class="page-card-inner">
-          <div class="page-icon">🛍️</div>
-          <h3>Магазины</h3>
-          <p>Обзор торговой галереи и ключевых бутиков.</p>
-          <span class="page-link">Подробнее</span>
-        </a>
+    </a>
+
+    <a class="page-card" href="venecia_floormap.html" target="_blank">
+      <div class="pc-preview">
+        <div class="pc-preview-color" style="background:var(--cream);">
+          <div style="display:grid;grid-template-columns:40px 1fr;gap:4px;width:180px;">
+            <div style="background:rgba(74,11,24,.12);height:100px;border-radius:3px;"></div>
+            <div style="display:flex;flex-direction:column;gap:3px;">
+              <div style="background:rgba(201,169,110,.2);height:22px;border-radius:2px;"></div>
+              <div style="background:rgba(53,107,165,.15);height:22px;border-radius:2px;"></div>
+              <div style="background:rgba(15,110,86,.15);height:22px;border-radius:2px;"></div>
+              <div style="background:rgba(201,169,110,.12);height:22px;border-radius:2px;"></div>
+            </div>
+          </div>
+        </div>
+        <span class="pc-tag pc-tag-b2c">Интерактивная</span>
       </div>
-      
-      <div class="page-card">
-        <a href="venecia_shops_v2.html" class="page-card-inner">
-          <div class="page-icon">👗</div>
-          <h3>Магазины v2</h3>
-          <p>Расширенный каталог магазинов с фильтрацией по категориям.</p>
-          <span class="page-link">Подробнее</span>
-        </a>
+      <div class="pc-body">
+        <div class="pc-section">Фаза 1 · Навигация</div>
+        <div class="pc-name">Схема центра</div>
+        <div class="pc-desc">SVG-планы 10 этажей с кликабельными зонами. Живой поиск, фильтры слоёв, боковая панель бренда, кнопка «Я здесь».</div>
+        <div class="pc-footer">
+          <span class="pc-url">venecia_floormap.html</span>
+          <span class="pc-arrow">→</span>
+        </div>
       </div>
-      
-      <div class="page-card">
-        <a href="venecia_shops_v3.html" class="page-card-inner">
-          <div class="page-icon">💎</div>
-          <h3>Магазины v3</h3>
-          <p>Актуальная версия списка брендов с новыми поступлениями.</p>
-          <span class="page-link">Подробнее</span>
-        </a>
+    </a>
+
+    <a class="page-card" href="venecia_howtoget.html" target="_blank">
+      <div class="pc-preview">
+        <div class="pc-preview-color" style="background:linear-gradient(135deg,#e8e4dc,#d8d2c8);">
+          <div style="width:60px;height:60px;background:var(--bordo);border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,11,24,.4);">
+            <span style="transform:rotate(45deg);font-size:24px;">📍</span>
+          </div>
+        </div>
+        <span class="pc-tag pc-tag-b2c">B2C</span>
       </div>
-      
-      <div class="page-card">
-        <a href="venecia_universam.html" class="page-card-inner">
-          <div class="page-icon">🏛️</div>
-          <h3>Универмаг</h3>
-          <p>Флагманское пространство: концепция, сервисы и атмосфера.</p>
-          <span class="page-link">Подробнее</span>
-        </a>
+      <div class="pc-body">
+        <div class="pc-section">Фаза 1 · Практическое</div>
+        <div class="pc-name">Как добраться</div>
+        <div class="pc-desc">Живой статус работы с таймером, карта, 4 вида транспорта, детали парковки, пешеходные маршруты от метро, доступная среда, FAQ.</div>
+        <div class="pc-footer">
+          <span class="pc-url">venecia_howtoget.html</span>
+          <span class="pc-arrow">→</span>
+        </div>
       </div>
-      
+    </a>
+
+    <a class="page-card" href="venecia_news.html" target="_blank">
+      <div class="pc-preview">
+        <img class="pc-preview-img" src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=85" alt="Новости">
+        <span class="pc-tag pc-tag-b2c">4 вкладки</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-section">Фаза 2 · Контент</div>
+        <div class="pc-name">Новости, события, акции</div>
+        <div class="pc-desc">Четыре вкладки: Новости · События (с мини-календарём) · Акции (с бегущей строкой) · Пресс-центр. Таймер до открытия, форма подписки.</div>
+        <div class="pc-footer">
+          <span class="pc-url">venecia_news.html</span>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- DETAIL PAGES -->
+  <div class="section-title" style="margin-top:48px;">Детальные страницы (динамические по URL-параметру)</div>
+  <div class="pages-grid">
+
+    <a class="page-card" href="venecia_brand.html?brand=universam" target="_blank">
+      <div class="pc-preview">
+        <img class="pc-preview-img" src="https://images.unsplash.com/photo-1467043237213-65f2da53396f?w=600&q=85" alt="Бренд">
+        <span class="pc-tag pc-tag-b2c">?brand=ID</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-section">Динамическая · По бренду</div>
+        <div class="pc-name">Страница бренда/магазина</div>
+        <div class="pc-desc">Hero, галерея с лайтбоксом, описание, часы, телефон, схема этажей, сервисы. Меняется по параметру ?brand= в URL.</div>
+        <div class="pc-footer">
+          <span class="pc-url">venecia_brand.html</span>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="page-card" href="venecia_restaurant.html?resto=alba" target="_blank">
+      <div class="pc-preview">
+        <img class="pc-preview-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=85" alt="Ресторан">
+        <span class="pc-tag pc-tag-b2c">?resto=ID</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-section">Динамическая · По ресторану</div>
+        <div class="pc-name">Страница ресторана</div>
+        <div class="pc-desc">Hero с живым статусом, галерея, вкладки меню с фото блюд, форматы, рейтинги, форма брони в сайдбаре. Sticky CTA на мобайле.</div>
+        <div class="pc-footer">
+          <span class="pc-url">venecia_restaurant.html</span>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="page-card" href="venecia_partners.html" target="_blank">
+      <div class="pc-preview">
+        <img class="pc-preview-img" src="https://images.unsplash.com/photo-1513326738677-b964603b136d?w=600&q=85" alt="Арендаторам">
+        <span class="pc-tag pc-tag-b2b">B2B</span>
+      </div>
+      <div class="pc-body">
+        <div class="pc-section">B2B · Лидогенерация</div>
+        <div class="pc-name">Арендаторам и партнёрам</div>
+        <div class="pc-desc">Тёмный дизайн. Цифры аудитории, 4 формата аренды, портреты сегментов, локация, свободные площади. 3-шаговая форма заявки.</div>
+        <div class="pc-footer">
+          <span class="pc-url">venecia_partners.html</span>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- BRAND EXAMPLES -->
+  <div class="section-title" style="margin-top:48px;">Примеры страниц брендов (?brand=ID)</div>
+  <div class="brand-examples">
+    <a class="be-card" href="venecia_brand.html?brand=universam" target="_blank">
+      <div class="be-name">Универмаг «Венеция»</div>
+      <div class="be-url">?brand=universam</div>
+      <div class="be-arrow">→</div>
+    </a>
+    <a class="be-card" href="venecia_brand.html?brand=zolotoe" target="_blank">
+      <div class="be-name">Золотое яблоко</div>
+      <div class="be-url">?brand=zolotoe</div>
+      <div class="be-arrow">→</div>
+    </a>
+    <a class="be-card" href="venecia_brand.html?brand=wellness" target="_blank">
+      <div class="be-name">Велнес-клуб</div>
+      <div class="be-url">?brand=wellness</div>
+      <div class="be-arrow">→</div>
+    </a>
+    <a class="be-card" href="venecia_brand.html?brand=brunello" target="_blank">
+      <div class="be-name">Brunello Cucinelli</div>
+      <div class="be-url">?brand=brunello</div>
+      <div class="be-arrow">→</div>
+    </a>
+    <a class="be-card" href="venecia_brand.html?brand=12storeez" target="_blank">
+      <div class="be-name">12 Storeez</div>
+      <div class="be-url">?brand=12storeez</div>
+      <div class="be-arrow">→</div>
+    </a>
+    <a class="be-card" href="venecia_brand.html?brand=styliste" target="_blank">
+      <div class="be-name">Персональный стилист</div>
+      <div class="be-url">?brand=styliste</div>
+      <div class="be-arrow">→</div>
+    </a>
+    <a class="be-card" href="venecia_brand.html?brand=perekrestok" target="_blank">
+      <div class="be-name">Перекрёсток Селект</div>
+      <div class="be-url">?brand=perekrestok</div>
+      <div class="be-arrow">→</div>
+    </a>
+    <a class="be-card" href="venecia_brand.html?brand=clinic" target="_blank">
+      <div class="be-name">Клиника красоты</div>
+      <div class="be-url">?brand=clinic</div>
+      <div class="be-arrow">→</div>
+    </a>
+  </div>
+
+  <!-- RESTO EXAMPLES -->
+  <div class="section-title" style="margin-top:32px;">Примеры страниц ресторанов (?resto=ID)</div>
+  <div class="brand-examples">
+    <a class="be-card" href="venecia_restaurant.html?resto=alba" target="_blank">
+      <div class="be-name">Alba Group</div>
+      <div class="be-url">?resto=alba</div>
+      <div class="be-arrow">→</div>
+    </a>
+    <a class="be-card" href="venecia_restaurant.html?resto=ribambelle" target="_blank">
+      <div class="be-name">Ribambelle</div>
+      <div class="be-url">?resto=ribambelle</div>
+      <div class="be-arrow">→</div>
+    </a>
+    <a class="be-card" href="venecia_restaurant.html?resto=rappoport" target="_blank">
+      <div class="be-name">Рестораны Раппопорта</div>
+      <div class="be-url">?resto=rappoport</div>
+      <div class="be-arrow">→</div>
+    </a>
+    <a class="be-card" href="venecia_restaurant.html?resto=wrf" target="_blank">
+      <div class="be-name">WRF Гастробар</div>
+      <div class="be-url">?resto=wrf</div>
+      <div class="be-arrow">→</div>
+    </a>
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div class="footer-note">
+    <div class="fn-title">МФК «Венеция» · Макеты сайта</div>
+    <div class="fn-sub">
+      Все страницы на чистом HTML/CSS/JS без фреймворков.<br>
+      Навигация через URL-параметры: <code style="font-family:monospace;font-size:11px;background:var(--sand);padding:2px 6px;">?brand=ID</code> и <code style="font-family:monospace;font-size:11px;background:var(--sand);padding:2px 6px;">?resto=ID</code><br><br>
+      Краснопресненская набережная · venecia-mfc.ru · Открытие III кв. 2026
     </div>
   </div>
-</section>
 
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-logo">ВЕНЕЦИЯ</div>
-        <div class="footer-desc">Многофункциональный центр на Краснопресненской набережной, рядом с Москва-Сити. Открытие — III кв. 2026.</div>
-      </div>
-      <div class="footer-col">
-        <h4>Навигация</h4>
-        <ul>
-          <li><a href="venecia_shops.html">Магазины и бренды</a></li>
-          <li><a href="venecia_restaurants.html">Рестораны и кафе</a></li>
-          <li><a href="venecia_floormap.html">Схема этажей</a></li>
-          <li><a href="venecia_howtoget.html">Как добраться</a></li>
-          <li><a href="venecia_news.html">События</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Контакты</h4>
-        <p>+7 (495) 000-00-00</p>
-        <p>info@venecia-mfc.ru</p>
-        <p style="margin-top:10px;">Ежедн. 10:00–22:00</p>
-        <p>venecia-mfc.ru</p>
-      </div>
-      <div class="footer-col">
-        <h4>Проект</h4>
-        <ul>
-          <li><a href="venecia_universam.html">Универмаг</a></li>
-          <li><a href="venecia_partners%20%281%29.html">Партнёры</a></li>
-          <li><a href="venecia_v3%20%284%29.html">Главная страница</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 МФК «Венеция». Все права защищены.</p>
-      <p>venecia-mfc.ru</p>
-    </div>
-  </div>
-</footer>
-
+</div>
 </body>
 </html>
