@@ -228,7 +228,7 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
 .ft-bottom p{font-size:11px;color:rgba(255,255,255,.16);}
 
 /* mobile sticky CTA */
-.sticky-cta-text strong{color:#fff;font-weight:600;}
+
 /* lightbox */
 .lb{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:600;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
 .lb.open{opacity:1;pointer-events:all;}
@@ -495,9 +495,6 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
     <div class="ft-bottom"><p>© 2026 МФК «Венеция». Все права защищены.</p><p>venecia-mfc.ru</p></div>
   </div>
 </footer>
-
-
-  <button class="sticky-cta-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Забронировать стол</button>
 </div>
 
 <!-- LIGHTBOX -->
@@ -597,7 +594,6 @@ function init(){
 
   document.title=d.name+' — Венеция';
   document.getElementById('bcCur').textContent=d.name;
-  document.getElementById('stickyName').textContent=d.name;
 
   // hero
   document.getElementById('heroBg').src=d.hero;

@@ -327,6 +327,13 @@ body{font-family:'Raleway',sans-serif;background:var(--ivory);color:var(--ink);l
 @media(max-width:1100px){.hero{grid-template-columns:1fr;min-height:auto;}.hero-left{height:55vh;}.hero-right{padding:48px 40px;}.drops-grid{grid-template-columns:1fr 1fr;}.drop-cell.tall{grid-row:span 1;}.stylist-grid{grid-template-columns:1fr;}.st-photo{height:280px;}.floor-panel.active{grid-template-columns:1fr;}.fp-photos{height:220px;}.popup-featured{grid-template-columns:1fr;}.pf-hero{min-height:320px;}.occ-grid{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:768px){.brand-grid,.wear-grid,.ev-grid{grid-template-columns:1fr 1fr;}.svc-grid{grid-template-columns:1fr 1fr;}.occ-grid{grid-template-columns:1fr 1fr;}.drops-grid{grid-template-columns:1fr;}.soc-in{flex-direction:column;}.pf-side{flex-direction:row;}}
 @media(max-width:480px){.brand-grid,.wear-grid,.ev-grid,.svc-grid,.occ-grid{grid-template-columns:1fr;}}
+
+.utp-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);margin-top:4px;}
+.utp-item{display:flex;align-items:flex-start;gap:16px;padding:16px 0;border-bottom:1px solid var(--rule);}
+.utp-item:last-child{border-bottom:none;}
+.utp-icon{font-size:20px;flex-shrink:0;margin-top:2px;width:28px;text-align:center;}
+.utp-title{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px;letter-spacing:.01em;}
+.utp-desc{font-size:12px;color:var(--muted);font-weight:300;line-height:1.6;}
 </style>
 </head>
 <body>
@@ -338,7 +345,7 @@ body{font-family:'Raleway',sans-serif;background:var(--ivory);color:var(--ink);l
     <a href="/" class="logo">В Е Н Е Ц И Я<span>Универмаг</span></a>
     <div class="nav-r">
       <a href="#brands">Бренды</a>
-      <a href="#stylist" class="nav-cta">Записаться к стилисту</a>
+      
       <button class="burger" id="bb"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -346,10 +353,8 @@ body{font-family:'Raleway',sans-serif;background:var(--ivory);color:var(--ink);l
 <div class="ov" id="ov"></div>
 <div class="side" id="side">
   <button class="side-close" id="sc">✕</button>
-  <a href="#new">Новинки недели</a>
   <a href="#occasions">Подобрать по поводу</a>
   <a href="#brands">Все бренды</a>
-  <a href="#popups">Поп-ап корнеры</a>
   <a href="#stylist">Персональный стилист</a>
   <a href="#floors">2 и 3 этаж</a>
   <a href="venecia_shops_v3.html">Все магазины ТЦ</a>
@@ -368,33 +373,47 @@ body{font-family:'Raleway',sans-serif;background:var(--ivory);color:var(--ink);l
     </div>
     <div class="hero-dots" id="heroDots"></div>
   </div>
-  <!-- right: customer CTA -->
+  <!-- right: UTP info -->
   <div class="hero-right">
-    <div class="hr-eyebrow">60+ брендов · 2 и 3 этаж</div>
-    <h1 class="hero-h1">Найдите<br>свой <em>стиль</em><br>сегодня</h1>
-    <div class="occasion-label">Что ищете?</div>
-    <div class="occasion-tabs" id="heroOccTabs">
-      <button class="ot active" data-occ="all" onclick="setHeroOcc(this)">Всё сразу</button>
-      <button class="ot" data-occ="work" onclick="setHeroOcc(this)">На работу</button>
-      <button class="ot" data-occ="evening" onclick="setHeroOcc(this)">На вечер</button>
-      <button class="ot" data-occ="casual" onclick="setHeroOcc(this)">На каждый день</button>
-      <button class="ot" data-occ="gift" onclick="setHeroOcc(this)">Подарок</button>
+    <div class="hr-eyebrow">Универмаг «Венеция» · 2 и 3 этаж</div>
+    <h1 class="hero-h1">Модный<br>якорь<br><em>города</em></h1>
+    <div class="utp-list">
+      <div class="utp-item">
+        <div class="utp-icon">🏛</div>
+        <div class="utp-content">
+          <div class="utp-title">60+ брендов на двух уровнях</div>
+          <div class="utp-desc">Кураторский отбор — актуальные дизайнерские марки и сильные коммерческие бренды. Один бренд в категории.</div>
+        </div>
+      </div>
+      <div class="utp-item">
+        <div class="utp-icon">⚡</div>
+        <div class="utp-content">
+          <div class="utp-title">Поп-ап корнеры каждые 6 недель</div>
+          <div class="utp-desc">Пространство постоянно меняется. Новый бренд — новый повод вернуться. Эксклюзивные дропы только здесь.</div>
+        </div>
+      </div>
+      <div class="utp-item">
+        <div class="utp-icon">✂️</div>
+        <div class="utp-content">
+          <div class="utp-title">Персональный стилист — бесплатно</div>
+          <div class="utp-desc">Первая консультация ничего не стоит. Стилист знает поставки наперёд и подберёт образ к любому поводу.</div>
+        </div>
+      </div>
+      <div class="utp-item">
+        <div class="utp-icon">🏆</div>
+        <div class="utp-content">
+          <div class="utp-title">Концепция от создателя Trendisland</div>
+          <div class="utp-desc">Универмаг создан по модели лучших российских модных универмагов — с редакционным подходом к каждому бренду.</div>
+        </div>
+      </div>
     </div>
-    <div class="hero-btns">
+    <div class="hero-btns" style="margin-top:24px;">
       <a href="#brands" class="btn-b">Смотреть бренды</a>
-      <a href="#stylist" class="btn-g">Хочу к стилисту</a>
     </div>
   </div>
 </section>
 
-<!-- POPUP COUNTDOWN STRIP -->
-<div class="popup-strip">
-  <div class="ctr">
-    <div class="ps-inner">
-      <div class="ps-left">
-        <span class="ps-badge">Поп-ап сейчас</span>
-        <span class="ps-text"><strong>Gate 31</strong> — монохромные капсулы. Уходит через:</span>
-      </div>
+
       <div class="ps-timer" id="psTimer"></div>
       <a href="#popups" class="ps-cta">Успеть до закрытия →</a>
     </div>
@@ -405,72 +424,15 @@ body{font-family:'Raleway',sans-serif;background:var(--ivory);color:var(--ink);l
 <div class="ticker"><div class="ticker-track">
   <span class="ti">Новинки этой недели</span><span class="ti">12 Storeez</span><span class="ti">Brunello Cucinelli</span>
   <span class="ti">Ushatáva</span><span class="ti">Gate 31 — поп-ап</span><span class="ti">Henderson</span>
-  <span class="ti">Lesyanebo</span><span class="ti">Post Post Scriptum</span><span class="ti">Персональный стилист</span>
+  <span class="ti">Lesyanebo</span><span class="ti">Post Post Scriptum</span>
   <span class="ti">Примерочные Premium</span><span class="ti">Tax Free</span><span class="ti">Scenture Coffee · 3 эт.</span>
   <span class="ti">Новинки этой недели</span><span class="ti">12 Storeez</span><span class="ti">Brunello Cucinelli</span>
   <span class="ti">Ushatáva</span><span class="ti">Gate 31 — поп-ап</span><span class="ti">Henderson</span>
-  <span class="ti">Lesyanebo</span><span class="ti">Post Post Scriptum</span><span class="ti">Персональный стилист</span>
+  <span class="ti">Lesyanebo</span><span class="ti">Post Post Scriptum</span>
   <span class="ti">Примерочные Premium</span><span class="ti">Tax Free</span><span class="ti">Scenture Coffee · 3 эт.</span>
 </div></div>
 
-<!-- NEW THIS WEEK -->
-<section class="new-section ctr" id="new">
-  <div class="section-hd">
-    <div>
-      <div class="s-eyebrow">Только появилось</div>
-      <h2 class="s-title">Новинки этой недели</h2>
-    </div>
-    <a href="#brands" class="s-link">Все бренды →</a>
-  </div>
-  <div class="drops-grid">
-    <div class="drop-cell tall">
-      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85" alt="12 Storeez">
-      <div class="drop-overlay"></div>
-      <div class="drop-body">
-        <span class="drop-badge db-new">Новая коллекция</span>
-        <div class="drop-brand">12 Storeez</div>
-        <div class="drop-cat">12 новых историй · Весна–Лето 2026 · 2 этаж</div>
-        <div class="drop-cta">Смотреть коллекцию →</div>
-      </div>
-    </div>
-    <div class="drop-cell small">
-      <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=85" alt="Lesyanebo">
-      <div class="drop-overlay"></div>
-      <div class="drop-body">
-        <span class="drop-badge db-drop">Drop</span>
-        <div class="drop-brand">Lesyanebo</div>
-        <div class="drop-cat">Украшения · 3 этаж</div>
-      </div>
-    </div>
-    <div class="drop-cell small">
-      <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=85" alt="Gate 31">
-      <div class="drop-overlay"></div>
-      <div class="drop-body">
-        <span class="drop-badge db-popup">Поп-ап</span>
-        <div class="drop-brand">Gate 31</div>
-        <div class="drop-cat">Монохромные капсулы · 2 этаж</div>
-      </div>
-    </div>
-    <div class="drop-cell small">
-      <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=85" alt="Henderson">
-      <div class="drop-overlay"></div>
-      <div class="drop-body">
-        <span class="drop-badge db-new">Обновление</span>
-        <div class="drop-brand">Henderson</div>
-        <div class="drop-cat">Мужская коллекция · 2 этаж</div>
-      </div>
-    </div>
-    <div class="drop-cell small">
-      <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85" alt="Ushatava">
-      <div class="drop-overlay"></div>
-      <div class="drop-body">
-        <span class="drop-badge db-new">Пополнение</span>
-        <div class="drop-brand">Ushatáva</div>
-        <div class="drop-cat">Женская одежда · 2 этаж</div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- BY OCCASION -->
 <section class="occasions-section" id="occasions">
@@ -540,56 +502,7 @@ body{font-family:'Raleway',sans-serif;background:var(--ivory);color:var(--ink);l
   </div>
 </section>
 
-<!-- STYLIST -->
-<section class="stylist-section" id="stylist">
-  <div class="ctr">
-    <div class="stylist-grid">
-      <div class="st-photo">
-        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=900&q=85" alt="Стилист">
-        <div class="st-photo-caption">
-          <div class="stpc-name">Наши стилисты</div>
-          <div class="stpc-role">3 этаж · По записи</div>
-        </div>
-      </div>
-      <div class="st-content">
-        <div class="st-ey">Бесплатная первая консультация</div>
-        <h2 class="st-tit">Не знаете,<br><em>что надеть?</em><br>Мы поможем.</h2>
-        <div class="st-what">
-          <div class="st-what-row">
-            <div class="st-what-icon">👗</div>
-            <div class="st-what-text"><strong>Шопинг-сессия 2–4 часа</strong> — обход универмага вместе со стилистом. Он знает поставки наперёд.</div>
-          </div>
-          <div class="st-what-row">
-            <div class="st-what-icon">🧳</div>
-            <div class="st-what-text"><strong>Аудит гардероба</strong> — разберём, что уже есть, и добавим только нужное.</div>
-          </div>
-          <div class="st-what-row">
-            <div class="st-what-icon">🌟</div>
-            <div class="st-what-text"><strong>Образ к событию</strong> — свадьба, деловая встреча, отпуск. Один визит — готовый образ.</div>
-          </div>
-        </div>
-        <div class="st-form">
-          <div class="st-row">
-            <input class="st-inp" type="text" placeholder="Ваше имя">
-            <input class="st-inp" type="tel" placeholder="Телефон">
-          </div>
-          <div class="st-row">
-            <select class="st-sel">
-              <option disabled selected>Что нужно?</option>
-              <option>Шопинг-сессия 2 ч</option>
-              <option>Шопинг-сессия 4 ч</option>
-              <option>Аудит гардероба</option>
-              <option>Образ к событию</option>
-            </select>
-            <input class="st-inp" type="date" id="stDate">
-          </div>
-          <button class="st-submit">Записаться — это бесплатно</button>
-          <div class="st-note">Первая консультация бесплатная. Шопинг-сессия от 3 500 ₽.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- WHAT TO WEAR editorial -->
 <section class="wear-section">
@@ -660,62 +573,7 @@ body{font-family:'Raleway',sans-serif;background:var(--ivory);color:var(--ink);l
   </div>
 </section>
 
-<!-- POP-UP CORNERS -->
-<section class="popup-section" id="popups">
-  <div class="ctr">
-    <div class="section-hd">
-      <div>
-        <div class="s-eyebrow">Поп-ап корнеры</div>
-        <h2 class="s-title">Успейте — они<br>уходят навсегда</h2>
-      </div>
-      <a href="#" class="s-link">Архив поп-апов →</a>
-    </div>
-    <div class="popup-featured">
-      <div class="pf-hero">
-        <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1000&q=85" alt="Gate 31">
-        <div class="pf-overlay"></div>
-        <div class="pf-body">
-          <span class="pf-badge">Открыт сейчас · 2 этаж</span>
-          <h3 class="pf-title">Gate 31<br>«Монохромная капсула»</h3>
-          <p class="pf-desc">Оверсайз-силуэты в чистом чёрном, белом и сером. Дроп создан специально для «Венеции» — в других магазинах этого нет.</p>
-          <div class="pf-meta">
-            <div class="pf-meta-item">📅 До 15 июня 2026</div>
-            <div class="pf-meta-item">📍 2 этаж, корнер B4</div>
-          </div>
-          <div class="pf-countdown">
-            <span class="pfc-label">До закрытия:</span>
-            <div class="pfc-timer" id="pfCountdown"></div>
-          </div>
-          <a href="#brands" class="btn-b">Смотреть коллекцию</a>
-        </div>
-      </div>
-      <div class="pf-side">
-        <div class="pf-side-card">
-          <div class="pfs-img">
-            <img class="pfs-img-i" src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=500&q=85" alt="Siguiente">
-            <span class="pfs-badge s-new">Скоро</span>
-          </div>
-          <div class="pfs-body">
-            <div class="pfs-cat">Ювелирные украшения</div>
-            <div class="pfs-brand">Siguiente</div>
-            <div class="pfs-dates">📅 С 20 июня · 3 этаж</div>
-          </div>
-        </div>
-        <div class="pf-side-card">
-          <div class="pfs-img">
-            <img class="pfs-img-i" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&q=85" alt="FEELS">
-            <span class="pfs-badge" style="background:rgba(95,94,90,.7);color:rgba(255,255,255,.8);backdrop-filter:blur(4px);">Завершён</span>
-          </div>
-          <div class="pfs-body">
-            <div class="pfs-cat">Дизайнерская мода</div>
-            <div class="pfs-brand">FEELS</div>
-            <div class="pfs-dates">📅 1–30 апреля · Распродан</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- FLOORS -->
 <section class="floors-section" id="floors">
@@ -874,11 +732,8 @@ body{font-family:'Raleway',sans-serif;background:var(--ivory);color:var(--ink);l
         <div class="ft-desc">60+ брендов, поп-ап корнеры, персональный стилист. Краснопресненская набережная.</div>
       </div>
       <div class="ft-col"><h4>Универмаг</h4><ul>
-        <li><a href="#new">Новинки недели</a></li>
         <li><a href="#occasions">Подобрать по поводу</a></li>
         <li><a href="#brands">Все бренды</a></li>
-        <li><a href="#popups">Поп-ап корнеры</a></li>
-        <li><a href="#stylist">Персональный стилист</a></li>
       </ul></div>
       <div class="ft-col"><h4>МФК «Венеция»</h4><ul>
         <li><a href="venecia_restaurants.html">Рестораны</a></li>
@@ -958,10 +813,6 @@ buildDots();
 setInterval(()=>{curSlide=(curSlide+1)%SLIDES.length;goSlide(curSlide);},5500);
 
 /* ── HERO OCC ── */
-function setHeroOcc(btn){
-  document.querySelectorAll('#heroOccTabs .ot').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-}
 
 /* ── POPUP STRIP TIMER ── */
 function updateStripTimer(){
