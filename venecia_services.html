@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Сервисы — Венеция</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ivory:#FAF8F2;--cream:#F5EFE5;--sand:#EDE4D4;
+  --gold:#C9A96E;--gold-d:#A47C3E;--gold-p:#FBF5EA;
+  --bordo:#4A0B18;--bordo-m:#6B1024;--ink:#1A1208;--muted:#8A7E72;
+  --deep:#1f3e48;--rule:rgba(201,169,110,0.2);--tr:.22s ease;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Raleway',sans-serif;background:var(--ivory);color:var(--ink);line-height:1.5;}
+.ctr{max-width:1300px;margin:0 auto;padding:0 32px;}
+
+/* NAV */
+.nav{background:rgba(250,248,242,.97);backdrop-filter:blur(14px);position:sticky;top:0;z-index:300;border-bottom:1px solid var(--rule);}
+.navbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:66px;max-width:1300px;margin:0 auto;padding:0 32px;}
+.nav-l a{font-size:12px;font-weight:500;letter-spacing:.06em;color:var(--muted);text-decoration:none;padding:0 14px;transition:var(--tr);}
+.nav-l a:hover{color:var(--bordo);}
+.logo{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:500;letter-spacing:.2em;color:var(--bordo);text-decoration:none;text-align:center;line-height:1.1;}
+.logo span{display:block;font-family:'Raleway',sans-serif;font-size:8px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-d);font-weight:600;margin-top:2px;}
+.nav-r{display:flex;justify-content:flex-end;align-items:center;gap:8px;}
+.nav-pill{display:inline-flex;align-items:center;padding:7px 16px;font-size:12px;font-weight:600;letter-spacing:.06em;text-decoration:none;transition:.2s;white-space:nowrap;border:1px solid rgba(74,11,24,.18);background:rgba(74,11,24,.07);color:var(--bordo);}
+.nav-pill:hover{background:var(--bordo);color:#fff;}
+.nav-pill-wellness{background:rgba(15,78,64,.07);color:#0f4e40;border-color:rgba(15,78,64,.2);}
+.nav-pill-wellness:hover{background:#0f4e40;color:#fff;}
+.burger{background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;width:26px;margin-left:8px;}
+.burger span{height:1.5px;background:var(--ink);border-radius:2px;display:block;}
+.side{position:fixed;top:0;right:-310px;width:280px;height:100%;background:var(--ivory);z-index:500;transition:right .35s cubic-bezier(.77,0,.18,1);padding:70px 0;box-shadow:-4px 0 40px rgba(0,0,0,.08);}
+.side.open{right:0;}
+.side a{display:block;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--bordo);text-decoration:none;padding:13px 28px;border-bottom:1px solid var(--rule);transition:var(--tr);}
+.side a:hover{padding-left:36px;}
+.side-close{position:absolute;top:18px;right:20px;background:none;border:none;font-size:18px;cursor:pointer;color:var(--muted);}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.22);z-index:400;display:none;}
+.ov.open{display:block;}
+
+/* HERO */
+.hero{background:var(--bordo);padding:64px 0 52px;}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;}
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(198,161,91,.65);margin-bottom:14px;}
+.hero-h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,5.5vw,72px);font-weight:400;color:#fff;line-height:.9;letter-spacing:-.02em;margin-bottom:16px;}
+.hero-h1 em{font-style:italic;color:rgba(230,205,155,.9);}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.52);font-weight:300;line-height:1.85;max-width:420px;}
+.hero-right{display:flex;flex-direction:column;gap:0;border-left:1px solid rgba(255,255,255,.1);padding-left:48px;}
+.hr-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.07);}
+.hr-row:last-child{border-bottom:none;}
+.hr-label{font-size:12px;color:rgba(255,255,255,.45);}
+.hr-val{font-size:12px;font-weight:600;color:rgba(255,255,255,.8);}
+
+/* QUICK ANCHORS */
+.anchors{background:#fff;border-bottom:1px solid var(--rule);overflow-x:auto;scrollbar-width:none;}
+.anchors::-webkit-scrollbar{display:none;}
+.anchors-inner{display:flex;gap:0;max-width:1300px;margin:0 auto;padding:0 32px;}
+.anchor-btn{background:none;border:none;border-bottom:2px solid transparent;padding:14px 22px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);cursor:pointer;white-space:nowrap;transition:var(--tr);margin-bottom:-1px;}
+.anchor-btn:hover,.anchor-btn.active{color:var(--bordo);border-bottom-color:var(--gold);}
+
+/* SECTION */
+.service-section{padding:72px 0;border-bottom:1px solid var(--rule);}
+.service-section:last-of-type{border-bottom:none;}
+.section-eyebrow{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);margin-bottom:12px;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,48px);font-weight:600;color:var(--bordo);line-height:1;margin-bottom:0;}
+.section-title em{font-style:italic;}
+
+/* SERVICE LAYOUT */
+.svc-layout{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--rule);margin-top:40px;}
+.svc-photo{overflow:hidden;min-height:440px;}
+.svc-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.svc-content{background:#fff;padding:52px 48px;display:flex;flex-direction:column;justify-content:center;gap:20px;}
+.svc-content.cream{background:var(--cream);}
+.svc-content.dark{background:var(--deep);}
+
+/* Form */
+.form-eyebrow{font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-d);margin-bottom:8px;}
+.svc-content.dark .form-eyebrow{color:rgba(198,161,91,.6);}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--bordo);line-height:1;margin-bottom:8px;}
+.svc-content.dark .form-title{color:#fff;}
+.form-desc{font-size:13px;color:var(--muted);font-weight:300;line-height:1.75;margin-bottom:4px;}
+.svc-content.dark .form-desc{color:rgba(255,255,255,.5);}
+.svc-what{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);margin-bottom:4px;}
+.svc-content.dark .svc-what{border-color:rgba(255,255,255,.1);}
+.svc-what-row{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--rule);}
+.svc-content.dark .svc-what-row{border-color:rgba(255,255,255,.07);}
+.svc-what-row:last-child{border-bottom:none;}
+.svc-what-icon{font-size:16px;flex-shrink:0;width:22px;text-align:center;}
+.svc-what-text{font-size:13px;color:var(--ink);font-weight:300;line-height:1.55;}
+.svc-content.dark .svc-what-text{color:rgba(255,255,255,.65);}
+.svc-what-text strong{font-weight:600;color:var(--ink);}
+.svc-content.dark .svc-what-text strong{color:rgba(255,255,255,.88);}
+.inp,.sel{background:var(--cream);border:1px solid var(--rule);padding:11px 14px;font-family:'Raleway',sans-serif;font-size:13px;color:var(--ink);outline:none;transition:.2s;width:100%;appearance:none;-webkit-appearance:none;}
+.svc-content.dark .inp,.svc-content.dark .sel{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;}
+.svc-content.dark .inp::placeholder{color:rgba(255,255,255,.28);}
+.inp:focus,.sel:focus{border-color:rgba(201,169,110,.5);}
+.sel option{background:#fff;color:var(--ink);}
+.svc-content.dark .sel option{background:var(--deep);}
+.inp-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.fld{display:flex;flex-direction:column;gap:6px;}
+.fld-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.svc-content.dark .fld-label{color:rgba(255,255,255,.4);}
+.btn-sub{background:var(--bordo);color:#fff;border:none;padding:13px;font-family:'Raleway',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.2s;width:100%;}
+.btn-sub:hover{background:var(--bordo-m,#6B1024);}
+.btn-sub.gold{background:var(--gold);}
+.btn-sub.gold:hover{background:var(--gold-d);}
+.form-note{font-size:11px;color:var(--muted);font-weight:300;}
+.svc-content.dark .form-note{color:rgba(255,255,255,.28);}
+.success-msg{display:none;background:rgba(61,153,112,.1);border:1px solid rgba(61,153,112,.25);padding:14px 18px;font-size:13px;color:#0F6E56;font-weight:500;}
+
+/* VALET SPECIAL */
+.valet-hero{background:linear-gradient(135deg,var(--deep) 0%,#0f2a32 100%);padding:52px 0;}
+.valet-inner{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(255,255,255,.08);margin-top:36px;}
+.valet-card{background:rgba(255,255,255,.04);padding:32px 28px;border-top:2px solid transparent;transition:.2s;}
+.valet-card:hover{background:rgba(255,255,255,.08);border-top-color:var(--gold);}
+.vc-step{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:rgba(198,161,91,.2);line-height:1;margin-bottom:8px;}
+.vc-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:8px;}
+.vc-body{font-size:12px;color:rgba(255,255,255,.5);font-weight:300;line-height:1.7;}
+.valet-cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;}
+.btn-valet{background:var(--gold);color:#fff;border:none;padding:14px 32px;font-family:'Raleway',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.2s;text-decoration:none;display:inline-block;}
+.btn-valet:hover{background:var(--gold-d);}
+.btn-valet-ghost{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.25);padding:13px 28px;font-family:'Raleway',sans-serif;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.2s;text-decoration:none;display:inline-block;}
+.btn-valet-ghost:hover{border-color:var(--gold);color:var(--gold);}
+.valet-price{display:flex;gap:32px;margin-top:12px;flex-wrap:wrap;}
+.vp-item{text-align:center;}
+.vp-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:600;color:var(--gold);line-height:1;}
+.vp-label{font-size:11px;color:rgba(255,255,255,.45);margin-top:3px;letter-spacing:.06em;}
+
+/* OTHER SERVICES */
+.other-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--rule);margin-top:40px;}
+.other-card{background:var(--ivory);padding:28px 24px;border-top:3px solid transparent;transition:.2s;}
+.other-card:hover{background:var(--gold-p);border-top-color:var(--gold);}
+.oc-icon{font-size:28px;margin-bottom:14px;}
+.oc-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--bordo);margin-bottom:8px;}
+.oc-body{font-size:12px;color:var(--muted);font-weight:300;line-height:1.75;margin-bottom:16px;}
+.oc-detail{font-size:11px;color:var(--muted);border-top:1px solid var(--rule);padding-top:10px;}
+.oc-detail span{display:block;padding:4px 0;border-bottom:1px solid var(--rule);}
+.oc-detail span:last-child{border-bottom:none;}
+
+/* SOCIAL */
+.social{background:var(--bordo);padding:52px 0;}
+.soc-in{display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;}
+.soc-ey{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(198,161,91,.6);margin-bottom:10px;}
+.soc-tit{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,30px);font-weight:600;color:#fff;}
+.soc-tit em{font-style:italic;color:rgba(230,205,155,.9);}
+.soc-btns{display:flex;gap:8px;}
+.sb{display:flex;align-items:center;gap:8px;padding:11px 18px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;transition:.2s;}
+.sb:hover{border-color:var(--gold);color:#fff;}
+.sb-pri{background:var(--gold);border-color:var(--gold);color:#fff;}
+.sb-pri:hover{background:var(--gold-d);}
+
+/* FOOTER */
+.footer{background:#0f0a06;padding:48px 0 24px;}
+.ft-in{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:20px;}
+.ft-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--gold);letter-spacing:.2em;margin-bottom:8px;}
+.ft-desc{font-size:12px;color:rgba(255,255,255,.24);font-weight:300;line-height:1.8;max-width:190px;}
+.ft-col h4{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(198,161,91,.55);font-weight:600;margin-bottom:14px;}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.ft-col a{color:rgba(255,255,255,.3);font-size:13px;text-decoration:none;transition:.15s;}
+.ft-col a:hover{color:var(--gold);}
+.ft-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.ft-bot p{font-size:11px;color:rgba(255,255,255,.15);}
+
+@media(max-width:1024px){.hero-inner,.svc-layout{grid-template-columns:1fr;}.hero-right{border-left:none;padding-left:0;border-top:1px solid rgba(255,255,255,.1);padding-top:20px;}.svc-photo{min-height:260px;}.valet-inner{grid-template-columns:1fr;}.other-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){.other-grid{grid-template-columns:1fr;}.soc-in{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="navbar">
+    <div class="nav-l"><a href="/">← На главную</a></div>
+    <a href="/" class="logo">В Е Н Е Ц И Я<span>Сервисы</span></a>
+    <div class="nav-r">
+      <a href="venecia_universam.html" class="nav-pill">Универмаг</a>
+      <a href="#" class="nav-pill nav-pill-wellness">Клуб Велнес и СПА</a>
+      <button class="burger" id="bb"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="ov" id="ov"></div>
+<div class="side" id="side">
+  <button class="side-close" id="sc">✕</button>
+  <a href="venecia_restaurants.html">Рестораны</a>
+  <a href="venecia_universam.html">Универмаг</a>
+  <a href="#">Велнес и СПА</a>
+  <a href="venecia_floormap.html">Схема центра</a>
+  <a href="venecia_howtoget.html">Как добраться</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="ctr">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-eyebrow">Для гостей центра</div>
+        <h1 class="hero-h1">Сервисы,<br>которые делают<br>шопинг <em>удовольствием</em></h1>
+        <p class="hero-sub">Персональный стилист, премиальные примерочные, valet-парковка — всё, чтобы каждый визит в «Венецию» был безупречным.</p>
+      </div>
+      <div class="hero-right">
+        <div class="hr-row"><span class="hr-label">Стилист — первая консультация</span><span class="hr-val">Бесплатно</span></div>
+        <div class="hr-row"><span class="hr-label">Valet Parking</span><span class="hr-val">500 ₽ / посещение</span></div>
+        <div class="hr-row"><span class="hr-label">Примерочные Premium</span><span class="hr-val">На каждом уровне</span></div>
+        <div class="hr-row"><span class="hr-label">Подарочная упаковка</span><span class="hr-val">Бесплатно</span></div>
+        <div class="hr-row"><span class="hr-label">Доставка по Москве</span><span class="hr-val">В день покупки</span></div>
+        <div class="hr-row"><span class="hr-label">Tax Free</span><span class="hr-val">Для иностранных гостей</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK ANCHORS -->
+<div class="anchors">
+  <div class="anchors-inner">
+    <button class="anchor-btn active" onclick="scrollTo('#stylist',this)">Стилист</button>
+    <button class="anchor-btn" onclick="scrollTo('#fitting',this)">Примерочные</button>
+    <button class="anchor-btn" onclick="scrollTo('#valet',this)">Valet Parking</button>
+    <button class="anchor-btn" onclick="scrollTo('#giftwrap',this)">Упаковка и доставка</button>
+    <button class="anchor-btn" onclick="scrollTo('#other',this)">Другие сервисы</button>
+  </div>
+</div>
+
+<!-- ═══ СТИЛИСТ ═══ -->
+<section class="service-section" id="stylist">
+  <div class="ctr">
+    <div class="section-eyebrow">3 этаж · По записи</div>
+    <h2 class="section-title">Персональный<br><em>стилист</em></h2>
+    <div class="svc-layout">
+      <div class="svc-photo">
+        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=900&q=85" alt="Стилист">
+      </div>
+      <div class="svc-content">
+        <div>
+          <div class="form-eyebrow">Для кого</div>
+          <div class="svc-what">
+            <div class="svc-what-row"><div class="svc-what-icon">👗</div><div class="svc-what-text"><strong>Шопинг-сессия 2 или 4 часа</strong> — обход универмага вместе со стилистом. Он знает поставки наперёд.</div></div>
+            <div class="svc-what-row"><div class="svc-what-icon">🧳</div><div class="svc-what-text"><strong>Аудит гардероба</strong> — разберём что есть, добавим только нужное.</div></div>
+            <div class="svc-what-row"><div class="svc-what-icon">🌟</div><div class="svc-what-text"><strong>Образ к событию</strong> — свадьба, деловая встреча, отпуск. Один визит — готовый образ.</div></div>
+            <div class="svc-what-row"><div class="svc-what-icon">💰</div><div class="svc-what-text"><strong>Первая консультация — бесплатно.</strong> Шопинг-сессия от 3 500 ₽.</div></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;" id="stylistForm">
+          <div class="inp-row">
+            <div class="fld"><label class="fld-label">Имя</label><input class="inp" type="text" placeholder="Ваше имя" id="stName"></div>
+            <div class="fld"><label class="fld-label">Телефон</label><input class="inp" type="tel" placeholder="+7 (___) ___-__-__" id="stPhone"></div>
+          </div>
+          <div class="fld">
+            <label class="fld-label">Формат</label>
+            <select class="sel" id="stFormat">
+              <option disabled selected>Выберите...</option>
+              <option>Первая консультация (бесплатно)</option>
+              <option>Шопинг-сессия 2 ч — 3 500 ₽</option>
+              <option>Шопинг-сессия 4 ч — 6 000 ₽</option>
+              <option>Аудит гардероба — 5 000 ₽</option>
+              <option>Образ к событию — 4 500 ₽</option>
+            </select>
+          </div>
+          <div class="fld"><label class="fld-label">Желаемая дата</label><input class="inp" type="date" id="stDate"></div>
+          <button class="btn-sub" onclick="submitForm('stylistForm','stSuccess','stName','stPhone')">Записаться к стилисту</button>
+          <div class="form-note">Подтвердим звонком в течение 2 часов</div>
+          <div class="success-msg" id="stSuccess">✓ Заявка принята! Свяжемся для подтверждения.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ПРИМЕРОЧНЫЕ ═══ -->
+<section class="service-section" id="fitting" style="background:var(--cream);">
+  <div class="ctr">
+    <div class="section-eyebrow">2 и 3 этаж · Универмаг</div>
+    <h2 class="section-title">Примерочные<br><em>Premium</em></h2>
+    <div class="svc-layout" style="margin-top:40px;">
+      <div class="svc-content cream" style="padding:52px 48px;background:var(--ivory);">
+        <div>
+          <div class="form-eyebrow">Особенности</div>
+          <div class="svc-what">
+            <div class="svc-what-row"><div class="svc-what-icon">💡</div><div class="svc-what-text"><strong>Студийное освещение</strong> — тёплый свет, который показывает одежду в лучшем виде. Без неприятных сюрпризов.</div></div>
+            <div class="svc-what-row"><div class="svc-what-icon">🪞</div><div class="svc-what-text"><strong>Зеркала в полный рост</strong> со всех сторон. Вы видите образ целиком.</div></div>
+            <div class="svc-what-row"><div class="svc-what-icon">🔔</div><div class="svc-what-text"><strong>Кнопка вызова ассистента</strong> — принесут другой размер, цвет или фасон без очереди.</div></div>
+            <div class="svc-what-row"><div class="svc-what-icon">🛋</div><div class="svc-what-text"><strong>Lounge-зона рядом</strong> — Scenture Coffee на 3-м этаже, мягкие кресла, зона ожидания для спутника.</div></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;" id="fittingForm">
+          <div class="fld"><label class="fld-label">Забронировать время</label>
+            <select class="sel" id="ftTime">
+              <option disabled selected>Выберите время</option>
+              <option>11:00 – 11:30</option><option>12:00 – 12:30</option>
+              <option>13:00 – 13:30</option><option>14:00 – 14:30</option>
+              <option>15:00 – 15:30</option><option>16:00 – 16:30</option>
+              <option>17:00 – 17:30</option><option>18:00 – 18:30</option>
+              <option>19:00 – 19:30</option>
+            </select>
+          </div>
+          <div class="inp-row">
+            <div class="fld"><label class="fld-label">Дата</label><input class="inp" type="date" id="ftDate"></div>
+            <div class="fld"><label class="fld-label">Этаж</label>
+              <select class="sel" id="ftFloor">
+                <option>2 этаж</option><option>3 этаж (Premium)</option>
+              </select>
+            </div>
+          </div>
+          <input class="inp" type="text" placeholder="Ваше имя" id="ftName">
+          <button class="btn-sub gold" onclick="submitForm('fittingForm','ftSuccess','ftName')">Забронировать примерочную</button>
+          <div class="form-note">Примерочные доступны с 10:00. Бронирование — бесплатно.</div>
+          <div class="success-msg" id="ftSuccess">✓ Примерочная забронирована!</div>
+        </div>
+      </div>
+      <div class="svc-photo">
+        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=900&q=85" alt="Примерочная">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VALET PARKING ═══ -->
+<section class="service-section valet-hero" id="valet" style="padding:72px 0;background:linear-gradient(135deg,var(--deep) 0%,#0f2a32 100%);">
+  <div class="ctr">
+    <div style="font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(198,161,91,.65);margin-bottom:12px;">Паркинг · У главного входа</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.5vw,60px);font-weight:400;color:#fff;line-height:.9;letter-spacing:-.02em;margin-bottom:0;">Valet<br><em style="font-style:italic;color:rgba(230,205,155,.9);">Parking</em></h2>
+    <p style="font-size:14px;color:rgba(255,255,255,.5);font-weight:300;line-height:1.8;max-width:500px;margin-top:16px;">Передайте ключи у входа — мы позаботимся об остальном. Заберите автомобиль когда удобно, прямо у двери.</p>
+
+    <div class="valet-price" style="margin-top:24px;">
+      <div class="vp-item"><div class="vp-num">500 ₽</div><div class="vp-label">Стоимость услуги<br>(включая парковку)</div></div>
+      <div class="vp-item"><div class="vp-num">5 мин</div><div class="vp-label">Время ожидания<br>при сдаче</div></div>
+      <div class="vp-item"><div class="vp-num">10 мин</div><div class="vp-label">Подача авто<br>при выезде</div></div>
+    </div>
+
+    <div class="valet-inner">
+      <div class="valet-card"><div class="vc-step">1</div><div class="vc-title">Подъезжаете к главному входу</div><div class="vc-body">Остановитесь у знака Valet Parking. Сотрудник встретит вас у автомобиля.</div></div>
+      <div class="valet-card"><div class="vc-step">2</div><div class="vc-title">Передаёте ключи</div><div class="vc-body">Получите талон с номером. Оплата — при получении авто. Никаких предоплат.</div></div>
+      <div class="valet-card"><div class="vc-step">3</div><div class="vc-title">Наслаждаетесь визитом</div><div class="vc-body">Когда будете готовы — звоните или пишите. Авто подадут к выходу через 10 минут.</div></div>
+    </div>
+
+    <div style="background:rgba(255,255,255,.05);padding:28px 32px;margin-top:3px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(198,161,91,.55);margin-bottom:10px;">Предзаказ Valet</div>
+        <div style="display:flex;flex-direction:column;gap:10px;" id="valetForm">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <input class="inp" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;" type="text" placeholder="Имя" id="vlName">
+            <input class="inp" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;" type="tel" placeholder="Телефон" id="vlPhone">
+          </div>
+          <input class="inp" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;" type="datetime-local" id="vlTime">
+          <button class="btn-sub gold" onclick="submitForm('valetForm','vlSuccess','vlName','vlPhone')">Заказать Valet Parking</button>
+          <div class="form-note" style="color:rgba(255,255,255,.3);">Подтвердим за 30 минут до приезда</div>
+          <div class="success-msg" id="vlSuccess">✓ Заявка принята!</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;color:rgba(255,255,255,.45);font-weight:300;line-height:1.8;">
+          <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,.65);margin-bottom:10px;">Также доступна стандартная парковка</div>
+          Первые 30 минут — бесплатно · 150 ₽/час · Ночь (22–8) — 200 ₽<br>
+          Для гостей ресторанов — скидка 50% при чеке от 2 000 ₽<br>
+          МГН: 15 мест, уровень −1, бесплатно · EV-зарядки: 8 точек
+        </div>
+        <a href="venecia_howtoget.html#parking" style="display:inline-block;margin-top:16px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(198,161,91,.8);text-decoration:none;border-bottom:1px solid rgba(198,161,91,.3);padding-bottom:2px;">Подробнее о парковке →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ УПАКОВКА И ДОСТАВКА ═══ -->
+<section class="service-section" id="giftwrap">
+  <div class="ctr">
+    <div class="section-eyebrow">Бесплатно для всех гостей</div>
+    <h2 class="section-title">Упаковка<br>и <em>доставка</em></h2>
+    <div class="svc-layout" style="margin-top:40px;">
+      <div class="svc-photo"><img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=900&q=85" alt="Упаковка"></div>
+      <div class="svc-content">
+        <div class="svc-what">
+          <div class="svc-what-row"><div class="svc-what-icon">🎁</div><div class="svc-what-text"><strong>Фирменная подарочная упаковка</strong> с символикой «Венеции» — бесплатно для любой покупки в универмаге.</div></div>
+          <div class="svc-what-row"><div class="svc-what-icon">🚗</div><div class="svc-what-text"><strong>Доставка по Москве</strong> — курьером в день покупки. В пределах МКАД — 500 ₽. За МКАД — по тарифу.</div></div>
+          <div class="svc-what-row"><div class="svc-what-icon">🔄</div><div class="svc-what-text"><strong>Обмен и возврат</strong> — единая стойка на 2-м этаже. Возврат в течение 30 дней. Никаких очередей.</div></div>
+          <div class="svc-what-row"><div class="svc-what-icon">🌐</div><div class="svc-what-text"><strong>Tax Free</strong> — оформление возврата налога для иностранных покупателей. Стойка на 1-м этаже у информационной стойки.</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;" id="deliveryForm">
+          <div class="form-eyebrow" style="margin-top:8px;">Заказать доставку</div>
+          <input class="inp" type="text" placeholder="Адрес доставки" id="dlAddr">
+          <div class="inp-row">
+            <input class="inp" type="text" placeholder="Ваше имя" id="dlName">
+            <input class="inp" type="tel" placeholder="Телефон" id="dlPhone">
+          </div>
+          <button class="btn-sub" onclick="submitForm('deliveryForm','dlSuccess','dlName','dlPhone')">Оформить доставку</button>
+          <div class="success-msg" id="dlSuccess">✓ Доставка оформлена! Курьер свяжется с вами.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ДРУГИЕ СЕРВИСЫ ═══ -->
+<section class="service-section" id="other" style="background:var(--cream);">
+  <div class="ctr">
+    <div class="section-eyebrow">Дополнительно</div>
+    <h2 class="section-title">Другие <em>сервисы</em></h2>
+    <div class="other-grid">
+      <div class="other-card">
+        <div class="oc-icon">🧵</div>
+        <div class="oc-title">Ателье подгонки</div>
+        <div class="oc-body">Подгонка купленной вещи по фигуре прямо в универмаге. Партнёрское ателье — сдача и получение в тот же день.</div>
+        <div class="oc-detail">
+          <span>📍 3 этаж · У зоны стилиста</span>
+          <span>🕙 11:00 – 20:00 · Пн–Сб</span>
+          <span>💰 от 800 ₽</span>
+        </div>
+      </div>
+      <div class="other-card">
+        <div class="oc-icon">💳</div>
+        <div class="oc-title">Карта лояльности</div>
+        <div class="oc-body">Единая карта гостя «Венеция» объединяет бонусы от всех брендов универмага и даёт ранний доступ к поп-апам.</div>
+        <div class="oc-detail">
+          <span>📍 Оформление — 1 этаж, инфостойка</span>
+          <span>🎁 Бонус при оформлении</span>
+          <span>⚡ Ранний доступ к новым поп-апам</span>
+        </div>
+      </div>
+      <div class="other-card">
+        <div class="oc-icon">🌿</div>
+        <div class="oc-title">Химчистка VIP</div>
+        <div class="oc-body">Экспресс-химчистка на 0-м этаже. Готово за 4 часа. Деликатные ткани, кожа, пуховики — принимаем всё.</div>
+        <div class="oc-detail">
+          <span>📍 0 этаж · Рядом с Перекрёстком</span>
+          <span>🕙 08:00 – 22:00 ежедневно</span>
+          <span>⚡ Экспресс 4 ч — +30%</span>
+        </div>
+      </div>
+      <div class="other-card">
+        <div class="oc-icon">📦</div>
+        <div class="oc-title">Камеры хранения</div>
+        <div class="oc-body">Ячейки хранения на 0-м этаже. До 3 часов — бесплатно. Удобно при посещении нескольких этажей.</div>
+        <div class="oc-detail">
+          <span>📍 0 этаж · Рядом с лифтом</span>
+          <span>🕙 Доступны в часы работы центра</span>
+          <span>💰 Бесплатно до 3 ч</span>
+        </div>
+      </div>
+      <div class="other-card">
+        <div class="oc-icon">♿</div>
+        <div class="oc-title">Кресла-коляски</div>
+        <div class="oc-body">Кресла-коляски для гостей — бесплатно на информационной стойке. Сопровождение по запросу.</div>
+        <div class="oc-detail">
+          <span>📍 1 этаж · Инфостойка</span>
+          <span>🕙 10:00 – 22:00</span>
+          <span>💰 Бесплатно</span>
+        </div>
+      </div>
+      <div class="other-card">
+        <div class="oc-icon">☕</div>
+        <div class="oc-title">Scenture Coffee</div>
+        <div class="oc-body">Specialty кофейня на 3-м этаже. Пауза между примерками и выбором образа. Lounge-кресла, естественный свет.</div>
+        <div class="oc-detail">
+          <span>📍 3 этаж · Lounge-зона</span>
+          <span>🕙 10:00 – 22:00 ежедневно</span>
+          <span>💰 от 280 ₽</span>
+        </div>
+      </div>
+      <div class="other-card">
+        <div class="oc-icon">🅿</div>
+        <div class="oc-title">Зарядка EV</div>
+        <div class="oc-body">8 зарядных точек на уровнях −1 и −2. Type 2, CCS, CHAdeMO. Мощность до 22 кВт. Оплата через приложение.</div>
+        <div class="oc-detail">
+          <span>📍 −1 и −2 этаж · Зоны A и D</span>
+          <span>🕙 Круглосуточно</span>
+          <span>💰 По тарифу оператора</span>
+        </div>
+      </div>
+      <div class="other-card">
+        <div class="oc-icon">🌸</div>
+        <div class="oc-title">Цветочный бутик</div>
+        <div class="oc-body">Авторские флористические композиции и букеты. Доставка по Москве в день заказа. Идеально как дополнение к подарку.</div>
+        <div class="oc-detail">
+          <span>📍 1 этаж · У главного входа</span>
+          <span>🕙 09:00 – 22:00 ежедневно</span>
+          <span>💰 от 1 500 ₽</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL -->
+<section class="social">
+  <div class="ctr">
+    <div class="soc-in">
+      <div>
+        <div class="soc-ey">Оставайтесь в курсе</div>
+        <div class="soc-tit">Новые сервисы и спецпредложения —<br><em>первыми в Telegram</em></div>
+      </div>
+      <div class="soc-btns">
+        <a href="#" class="sb">Telegram</a>
+        <a href="#" class="sb sb-pri">Подписаться →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="ctr">
+    <div class="ft-in">
+      <div><div class="ft-logo">ВЕНЕЦИЯ</div><div class="ft-desc">МФК на Краснопресненской набережной. 10:00 – 22:00 ежедневно.</div></div>
+      <div class="ft-col"><h4>Сервисы</h4><ul>
+        <li><a href="#stylist">Персональный стилист</a></li>
+        <li><a href="#fitting">Примерочные Premium</a></li>
+        <li><a href="#valet">Valet Parking</a></li>
+        <li><a href="#giftwrap">Упаковка и доставка</a></li>
+        <li><a href="#other">Другие сервисы</a></li>
+      </ul></div>
+      <div class="ft-col"><h4>МФК «Венеция»</h4><ul>
+        <li><a href="venecia_universam.html">Универмаг</a></li>
+        <li><a href="venecia_restaurants.html">Рестораны</a></li>
+        <li><a href="venecia_howtoget.html">Как добраться</a></li>
+        <li><a href="venecia_floormap.html">Схема центра</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-bot"><p>© 2026 МФК «Венеция». Все права защищены.</p></div>
+  </div>
+</footer>
+
+<script>
+// Anchor scroll
+function scrollTo(id, btn) {
+  document.querySelector(id)?.scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.anchor-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Form submit
+function submitForm(formId, successId, nameField, phoneField) {
+  const name = document.getElementById(nameField)?.value?.trim();
+  const phone = phoneField ? document.getElementById(phoneField)?.value?.trim() : 'ok';
+  if(!name) {
+    const el = document.getElementById(nameField);
+    if(el){el.style.borderColor='#c0392b';setTimeout(()=>el.style.borderColor='',2000);}
+    return;
+  }
+  document.getElementById(formId).querySelectorAll('input,select,button').forEach(el=>el.disabled=true);
+  document.getElementById(successId).style.display='block';
+}
+
+// Set default date/time
+document.getElementById('stDate').valueAsDate = new Date(Date.now()+86400000*2);
+document.getElementById('ftDate').valueAsDate = new Date(Date.now()+86400000);
+const dt = new Date(Date.now()+86400000*2);
+dt.setHours(12,0,0,0);
+document.getElementById('vlTime').value = dt.toISOString().slice(0,16);
+
+// Burger
+const bb=document.getElementById('bb'),ov=document.getElementById('ov'),sd=document.getElementById('side'),sc=document.getElementById('sc');
+bb.addEventListener('click',()=>{sd.classList.add('open');ov.classList.add('open');document.body.style.overflow='hidden';});
+[sc,ov].forEach(el=>el.addEventListener('click',()=>{sd.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}));
+document.querySelectorAll('.side a').forEach(a=>a.addEventListener('click',()=>{sd.classList.remove('open');ov.classList.remove('open');document.body.style.overflow='';}));
+</script>
+</body>
+</html>

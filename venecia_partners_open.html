@@ -312,6 +312,22 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
 .gated-content{display:none;}
 .gated-content.visible{display:block;}
 
+
+/* ── NAV PILLS ── */
+.nav-pill{display:inline-flex;align-items:center;padding:7px 16px;font-size:12px;font-weight:600;letter-spacing:.06em;text-decoration:none;transition:.2s;white-space:nowrap;border:1px solid rgba(74,11,24,.18);background:rgba(74,11,24,.07);color:var(--bordo,#4A0B18);}
+.nav-pill:hover{background:var(--bordo,#4A0B18);color:#fff;border-color:var(--bordo,#4A0B18);}
+.nav-pill-wellness{background:rgba(15,78,64,.07);color:#0f4e40;border-color:rgba(15,78,64,.2);}
+.nav-pill-wellness:hover{background:#0f4e40;color:#fff;border-color:#0f4e40;}
+.press-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--rule);margin-bottom:36px;}
+.press-card{background:#fff;padding:32px 28px;}
+.press-icon{font-size:32px;margin-bottom:16px;}
+.press-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--bordo);margin-bottom:10px;}
+.press-desc{font-size:13px;color:var(--muted);font-weight:300;line-height:1.75;margin-bottom:18px;}
+.press-action{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--bordo);text-decoration:none;border-bottom:1px solid rgba(74,11,24,.2);padding-bottom:2px;}
+.press-contacts{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--rule);}
+.press-contacts{grid-template-columns:1fr;}
+.press-grid{grid-template-columns:1fr;}
+.press-contacts{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:var(--rule);}
 </style>
 </head>
 <body>
@@ -323,8 +339,8 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
       <div class="nav-l"><a href="/">← Для посетителей</a></div>
       <a href="/" class="logo">В Е Н Е Ц И Я</a>
       <div class="nav-r">
-        <div class="nav-r-l"><a href="venecia_howtoget.html" style="display:none;">Как добраться</a></div>
-        <a href="#form" class="nav-cta">Оставить заявку</a>
+        <a href="venecia_universam.html" class="nav-pill">Универмаг</a>
+        <a href="#" class="nav-pill nav-pill-wellness">Клуб Велнес и СПА</a>
         <button class="burger" id="bb"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -837,6 +853,52 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
 
 
 </div>
+
+<!-- PRESS CENTER -->
+<section style="padding:72px 0;background:var(--cream,#faf8f3);" id="press">
+  <div class="ctr">
+    <div style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d,#a47c3e);margin-bottom:12px;">Медиа и пресс-служба</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3.5vw,44px);font-weight:600;color:var(--bordo,#4A0B18);line-height:1;margin-bottom:36px;">Пресс-центр</h2>
+    <div class="press-grid">
+      <div class="press-card"><div class="press-icon">📦</div><div class="press-title">Медиакит</div><div class="press-desc">Полное описание проекта, концепция, форматы, аудитория и визуальные материалы.</div><a href="#" class="press-action">Скачать PDF (2.4 МБ) ↓</a></div>
+      <div class="press-card"><div class="press-icon">🖼</div><div class="press-title">Фотобанк</div><div class="press-desc">Архитектура, интерьеры, рестораны, велнес в высоком разрешении. Доступны для публикации в СМИ.</div><a href="#" class="press-action">Открыть фотобанк →</a></div>
+      <div class="press-card"><div class="press-icon">🎨</div><div class="press-title">Брендбук и логотипы</div><div class="press-desc">Логотипы в SVG и PNG на светлом и тёмном фоне, фирменные цвета, шрифты.</div><a href="#" class="press-action">Скачать архив ZIP ↓</a></div>
+      <div class="press-card"><div class="press-icon">📋</div><div class="press-title">Аккредитация</div><div class="press-desc">Заявка на посещение и съёмку. Для изданий и блогеров.</div><a href="#" class="press-action">Подать заявку →</a></div>
+    </div>
+    <div style="margin-top:40px;">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d,#a47c3e);margin-bottom:16px;">Пресс-релизы</div>
+      <div class="release-list">
+        <div class="release-item"><span class="ri-date">28 апр 2026</span><span class="ri-title">МФК «Венеция» объявляет состав ресторанных групп панорамного 4-го этажа</span><a href="#" class="ri-dl">PDF ↓</a></div>
+        <div class="release-item"><span class="ri-date">15 апр 2026</span><span class="ri-title">Brunello Cucinelli открывает первый бутик в районе Москва-Сити</span><a href="#" class="ri-dl">PDF ↓</a></div>
+        <div class="release-item"><span class="ri-date">2 апр 2026</span><span class="ri-title">МФК «Венеция»: открытие велнес-клуба с приватным бассейном для женщин</span><a href="#" class="ri-dl">PDF ↓</a></div>
+      </div>
+    </div>
+    <div style="margin-top:40px;">
+      <div style="font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d,#a47c3e);margin-bottom:16px;">Контакты для прессы</div>
+      <div class="press-contacts">
+        <div class="pc-contact-card">
+          <div class="pc-contact-eyebrow">PR и медиа</div>
+          <div class="pc-contact-name">Анна Соколова</div>
+          <div class="pc-contact-role">Директор по коммуникациям · Ответ до 2 ч</div>
+          <div class="pc-contact-links">
+            <a href="mailto:pr@venecia-mfc.ru" class="pc-contact-link"><span>✉</span> pr@venecia-mfc.ru</a>
+            <a href="tel:+74951000200" class="pc-contact-link"><span>📞</span> +7 (495) 100-02-00</a>
+          </div>
+        </div>
+        <div style="background:rgba(31,62,72,.05);padding:32px;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--deep,#1f3e48);margin-bottom:12px;">Запрос на интервью или съёмку</div>
+          <div class="pcr-form">
+            <input class="pcr-input" type="text" placeholder="Ваше имя и издание">
+            <input class="pcr-input" type="email" placeholder="Email">
+            <textarea class="pcr-input pcr-textarea" placeholder="Тема материала и желаемые даты"></textarea>
+            <button class="pcr-btn">Отправить запрос</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer class="footer">
   <div class="ctr">

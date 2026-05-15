@@ -225,6 +225,12 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
 
 @media(max-width:1024px){.map-inner{grid-template-columns:1fr;}.addr-panel{border-left:none;border-top:1px solid var(--rule);}.transport-grid{grid-template-columns:1fr;}.park-layout{grid-template-columns:1fr;gap:40px;}.faq-layout{grid-template-columns:1fr;}}
 @media(max-width:768px){.route-panel.active{grid-template-columns:1fr;}.access-grid{grid-template-columns:1fr;}.status-inner{grid-template-columns:1fr;}.status-right{border-left:none;padding-left:0;border-top:1px solid rgba(255,255,255,.1);padding-top:20px;}.soc-inner{flex-direction:column;}}
+
+/* ── NAV PILLS ── */
+.nav-pill{display:inline-flex;align-items:center;padding:7px 16px;font-size:12px;font-weight:600;letter-spacing:.06em;text-decoration:none;transition:.2s;white-space:nowrap;border:1px solid rgba(74,11,24,.18);background:rgba(74,11,24,.07);color:var(--bordo,#4A0B18);}
+.nav-pill:hover{background:var(--bordo,#4A0B18);color:#fff;border-color:var(--bordo,#4A0B18);}
+.nav-pill-wellness{background:rgba(15,78,64,.07);color:#0f4e40;border-color:rgba(15,78,64,.2);}
+.nav-pill-wellness:hover{background:#0f4e40;color:#fff;border-color:#0f4e40;}
 </style>
 </head>
 <body>
@@ -236,7 +242,8 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
       <div class="nav-l"><a href="venecia_shops_v3.html">Универмаг</a></div>
       <a href="/" class="logo">В Е Н Е Ц И Я</a>
       <div class="nav-r">
-        <div class="nav-r-l"><a href="#">Велнес и СПА</a></div>
+        <a href="venecia_universam.html" class="nav-pill">Универмаг</a>
+        <a href="#" class="nav-pill nav-pill-wellness">Клуб Велнес и СПА</a>
         <button class="burger" id="bb"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -432,8 +439,8 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
   <div class="ctr">
     <div class="park-layout">
       <div>
-        <div class="section-eyebrow" style="color:rgba(198,161,91,.65);">Подземная парковка</div>
-        <div class="park-title">300 мест<br><em>под землёй</em></div>
+        <div class="section-eyebrow" style="color:rgba(198,161,91,.65);">Подземная парковка · Valet Parking</div>
+        <div class="park-title">300 мест<br>+ <em>Valet</em></div>
         <p class="park-desc">Два уровня подземного паркинга с прямым лифтом на все этажи центра. Первые 30 минут бесплатно для всех гостей.</p>
         <div class="park-meta">
           <div class="pm-row"><span class="pm-label">Первые 30 минут</span><span class="pm-val">Бесплатно</span></div>
@@ -460,6 +467,16 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
           <div class="park-card-title">Электрозарядка EV</div>
           <div class="park-card-body">8 точек зарядки на уровнях −1 и −2. Поддержка Type 2, CCS, CHAdeMO. Мощность до 22 кВт. Оплата через мобильное приложение.</div>
         </div>
+        
+        <div class="park-card" style="border-left:2px solid var(--gold);background:rgba(198,161,91,.06);">
+          <div class="park-card-title" style="color:var(--gold-d,#A47C3E);font-size:14px;">⭐ Valet Parking</div>
+          <div class="park-card-body">Передайте автомобиль у главного входа — мы припаркуем сами. Оставьте ключи на ресепшн при выезде из центра.<br><br>
+          <strong style="color:rgba(255,255,255,.75);">Стоимость:</strong> 500 ₽ (включая парковку)<br>
+          <strong style="color:rgba(255,255,255,.75);">Время ожидания:</strong> до 5 минут<br>
+          <strong style="color:rgba(255,255,255,.75);">Часы работы:</strong> 10:00 – 22:00
+          </div>
+        </div>
+
         <div class="park-card">
           <div class="park-card-title">Автомойка</div>
           <div class="park-card-body">Ручная мойка на уровне −1, зона D. Комплексная от 1 500 ₽. Химчистка по предварительной записи: +7 (495) 100-03-01.</div>

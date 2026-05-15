@@ -262,6 +262,12 @@ body{font-family:'Raleway',sans-serif;background:var(--cream);color:var(--ink);l
 .hb-item-val{font-size:13px;font-weight:500;color:var(--ink);}
 @media(max-width:768px){.hb-status{min-width:unset;width:100%;}.hb-item{padding:12px 16px;}.hb-item-icon{display:none;}}
 
+
+/* ── NAV PILLS ── */
+.nav-pill{display:inline-flex;align-items:center;padding:7px 16px;font-size:12px;font-weight:600;letter-spacing:.06em;text-decoration:none;transition:.2s;white-space:nowrap;border:1px solid rgba(74,11,24,.18);background:rgba(74,11,24,.07);color:var(--bordo,#4A0B18);}
+.nav-pill:hover{background:var(--bordo,#4A0B18);color:#fff;border-color:var(--bordo,#4A0B18);}
+.nav-pill-wellness{background:rgba(15,78,64,.07);color:#0f4e40;border-color:rgba(15,78,64,.2);}
+.nav-pill-wellness:hover{background:#0f4e40;color:#fff;border-color:#0f4e40;}
 </style>
 </head>
 <body>
@@ -520,7 +526,6 @@ const DATA={
     meta:[
       ['Кухня','Авторская европейская'],
       ['Часы','12:00–23:00 ежедневно'],
-      ['Средний чек','от 2 500 руб./чел.'],
       ['Этаж','4 этаж · Вид на реку'],
       ['Телефон','+7 (495) 100-02-01'],
     ],
@@ -604,8 +609,7 @@ function init(){
     <span class="hm-item">4 этаж · Панорамный уровень</span>
     <span class="hm-dot"></span>
     <span class="hm-item">${d.meta.find(m=>m[0]==='Часы')?.[1]||''}</span>
-    <span class="hm-dot"></span>
-    <span class="hm-item">${d.meta.find(m=>m[0]==='Средний чек')?.[1]||''}</span>`;
+    <span class="hm-dot"></span>`;
 
   const now=new Date().getHours();
   const isOpen=now>=12&&now<23;
@@ -716,7 +720,6 @@ function initHoursBar(){
   const items = [
     {icon:'📍', label:'Этаж', val: getM('Этаж') || '4 этаж'},
     {icon:'📞', label:'Телефон', val: getM('Телефон') || '+7 (495) 100-02-01'},
-    {icon:'💰', label:'Средний чек', val: getM('Средний чек') || 'от 2 000 ₽/чел.'},
   ];
   const itemsEl = document.getElementById('hbItems');
   if(itemsEl) itemsEl.innerHTML = items.map(it =>
